@@ -1,0 +1,293 @@
+\contentsline {chapter}{Declaration}{1}{chapter*.1}%
+\contentsline {chapter}{Abstract}{2}{chapter*.2}%
+\contentsline {chapter}{Acknowledgments}{3}{chapter*.3}%
+\contentsline {part}{I\hspace {1em}Hardware Architecture}{20}{part.1}%
+\contentsline {chapter}{\numberline {1}Introduction to A1M Architecture}{21}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Overview}{21}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Design Philosophy}{21}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Key Features}{21}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}RISC vs. CISC}{22}{subsection.1.1.3}%
+\contentsline {section}{\numberline {1.2}System Architecture}{22}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Thesis Organization}{23}{section.1.3}%
+\contentsline {chapter}{\numberline {2}Register Architecture}{25}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Register File Organization}{25}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Register Naming Convention}{25}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Special Registers}{25}{subsection.2.1.2}%
+\contentsline {section}{\numberline {2.2}Verilog Implementation}{26}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Register Usage Convention}{27}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Caller-Saved vs. Callee-Saved}{27}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}Function Call Example}{27}{subsection.2.3.2}%
+\contentsline {chapter}{\numberline {3}Instruction Set Architecture}{29}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Instruction Formats}{29}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}R-Type (Register)}{29}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}I-Type (Immediate)}{29}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}J-Type (Jump)}{30}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}M-Type (Memory)}{30}{subsection.3.1.4}%
+\contentsline {section}{\numberline {3.2}Opcode Assignments}{30}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Instruction Encoding Examples}{32}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Example 1: ADD R1, R2, R3}{32}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Example 2: ADDI R4, R5, 100}{32}{subsection.3.3.2}%
+\contentsline {chapter}{\numberline {4}Arithmetic Logic Unit (ALU)}{33}{chapter.4}%
+\contentsline {section}{\numberline {4.1}ALU Overview}{33}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Supported Operations}{33}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}ALU Control Signals}{33}{subsection.4.1.2}%
+\contentsline {section}{\numberline {4.2}Verilog Implementation}{34}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Flag Register}{36}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Control Unit}{38}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Control Unit Architecture}{38}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Control Signals}{38}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Verilog Implementation}{38}{section.5.3}%
+\contentsline {chapter}{\numberline {6}Memory Subsystem}{43}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Memory Architecture}{43}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Memory Organization}{43}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Memory Map}{43}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}Verilog Implementation}{44}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Cache Design (Future Enhancement)}{45}{section.6.3}%
+\contentsline {chapter}{\numberline {7}Pipeline Architecture}{46}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Five-Stage Pipeline}{46}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Pipeline Diagram}{46}{subsection.7.1.1}%
+\contentsline {section}{\numberline {7.2}Pipeline Hazards}{46}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Data Hazards}{46}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Control Hazards}{47}{subsection.7.2.2}%
+\contentsline {section}{\numberline {7.3}Forwarding Unit}{47}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Hazard Detection Unit}{48}{section.7.4}%
+\contentsline {part}{II\hspace {1em}Assembly Language Programming}{50}{part.2}%
+\contentsline {chapter}{\numberline {8}Assembly Language Fundamentals}{51}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Introduction to A1M Assembly}{51}{section.8.1}%
+\contentsline {subsection}{\numberline {8.1.1}Assembly Syntax}{51}{subsection.8.1.1}%
+\contentsline {section}{\numberline {8.2}Directives}{52}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Labels and Symbols}{52}{section.8.3}%
+\contentsline {chapter}{\numberline {9}Data Movement Instructions}{53}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Register Operations}{53}{section.9.1}%
+\contentsline {subsection}{\numberline {9.1.1}MOV - Move Register}{53}{subsection.9.1.1}%
+\contentsline {subsection}{\numberline {9.1.2}MOVI - Move Immediate}{53}{subsection.9.1.2}%
+\contentsline {section}{\numberline {9.2}Memory Operations}{53}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}LOAD - Load from Memory}{53}{subsection.9.2.1}%
+\contentsline {subsection}{\numberline {9.2.2}STORE - Store to Memory}{54}{subsection.9.2.2}%
+\contentsline {subsection}{\numberline {9.2.3}LOADB/STOREB - Byte Operations}{54}{subsection.9.2.3}%
+\contentsline {section}{\numberline {9.3}Stack Operations}{54}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}PUSH - Push to Stack}{54}{subsection.9.3.1}%
+\contentsline {subsection}{\numberline {9.3.2}POP - Pop from Stack}{54}{subsection.9.3.2}%
+\contentsline {section}{\numberline {9.4}Example: Array Access}{54}{section.9.4}%
+\contentsline {chapter}{\numberline {10}Arithmetic Operations}{56}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Basic Arithmetic}{56}{section.10.1}%
+\contentsline {subsection}{\numberline {10.1.1}Addition}{56}{subsection.10.1.1}%
+\contentsline {subsection}{\numberline {10.1.2}Subtraction}{56}{subsection.10.1.2}%
+\contentsline {subsection}{\numberline {10.1.3}Multiplication}{56}{subsection.10.1.3}%
+\contentsline {subsection}{\numberline {10.1.4}Division and Modulo}{56}{subsection.10.1.4}%
+\contentsline {section}{\numberline {10.2}Logical Operations}{57}{section.10.2}%
+\contentsline {subsection}{\numberline {10.2.1}Bitwise AND, OR, XOR}{57}{subsection.10.2.1}%
+\contentsline {subsection}{\numberline {10.2.2}Shift Operations}{57}{subsection.10.2.2}%
+\contentsline {section}{\numberline {10.3}Example: Calculate Expression}{57}{section.10.3}%
+\contentsline {chapter}{\numberline {11}Control Flow Instructions}{59}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Unconditional Jumps}{59}{section.11.1}%
+\contentsline {subsection}{\numberline {11.1.1}JMP - Jump}{59}{subsection.11.1.1}%
+\contentsline {subsection}{\numberline {11.1.2}CALL - Function Call}{59}{subsection.11.1.2}%
+\contentsline {subsection}{\numberline {11.1.3}RET - Return}{59}{subsection.11.1.3}%
+\contentsline {section}{\numberline {11.2}Conditional Branches}{59}{section.11.2}%
+\contentsline {subsection}{\numberline {11.2.1}Comparison}{59}{subsection.11.2.1}%
+\contentsline {subsection}{\numberline {11.2.2}Conditional Jumps}{60}{subsection.11.2.2}%
+\contentsline {section}{\numberline {11.3}Control Flow Examples}{60}{section.11.3}%
+\contentsline {subsection}{\numberline {11.3.1}If-Then-Else}{60}{subsection.11.3.1}%
+\contentsline {subsection}{\numberline {11.3.2}While Loop}{60}{subsection.11.3.2}%
+\contentsline {subsection}{\numberline {11.3.3}For Loop}{61}{subsection.11.3.3}%
+\contentsline {chapter}{\numberline {12}System Calls}{63}{chapter.12}%
+\contentsline {section}{\numberline {12.1}System Call Interface}{63}{section.12.1}%
+\contentsline {subsection}{\numberline {12.1.1}System Call Convention}{63}{subsection.12.1.1}%
+\contentsline {section}{\numberline {12.2}Standard System Calls}{63}{section.12.2}%
+\contentsline {section}{\numberline {12.3}System Call Examples}{64}{section.12.3}%
+\contentsline {subsection}{\numberline {12.3.1}Print String}{64}{subsection.12.3.1}%
+\contentsline {subsection}{\numberline {12.3.2}Read Integer}{64}{subsection.12.3.2}%
+\contentsline {subsection}{\numberline {12.3.3}File I/O}{65}{subsection.12.3.3}%
+\contentsline {chapter}{\numberline {13}Assembler Implementation}{66}{chapter.13}%
+\contentsline {section}{\numberline {13.1}Two-Pass Assembly}{66}{section.13.1}%
+\contentsline {subsection}{\numberline {13.1.1}Pass 1: Symbol Table Construction}{66}{subsection.13.1.1}%
+\contentsline {subsection}{\numberline {13.1.2}Pass 2: Code Generation}{66}{subsection.13.1.2}%
+\contentsline {section}{\numberline {13.2}Assembler Architecture}{66}{section.13.2}%
+\contentsline {section}{\numberline {13.3}Instruction Encoding}{68}{section.13.3}%
+\contentsline {section}{\numberline {13.4}Example: Complete Assembler Usage}{68}{section.13.4}%
+\contentsline {part}{III\hspace {1em}Emulator Implementation}{71}{part.3}%
+\contentsline {chapter}{\numberline {14}Emulator Architecture}{72}{chapter.14}%
+\contentsline {section}{\numberline {14.1}Emulator Overview}{72}{section.14.1}%
+\contentsline {subsection}{\numberline {14.1.1}Features}{72}{subsection.14.1.1}%
+\contentsline {section}{\numberline {14.2}Emulator Core Structure}{72}{section.14.2}%
+\contentsline {chapter}{\numberline {15}System Call Implementation}{75}{chapter.15}%
+\contentsline {section}{\numberline {15.1}System Call Handler}{75}{section.15.1}%
+\contentsline {part}{IV\hspace {1em}Algo Programming Language}{77}{part.4}%
+\contentsline {chapter}{\numberline {16}Introduction to Algo Language}{78}{chapter.16}%
+\contentsline {section}{\numberline {16.1}Language Overview}{78}{section.16.1}%
+\contentsline {subsection}{\numberline {16.1.1}Design Goals}{78}{subsection.16.1.1}%
+\contentsline {subsection}{\numberline {16.1.2}Hello World}{78}{subsection.16.1.2}%
+\contentsline {section}{\numberline {16.2}Lexical Structure}{79}{section.16.2}%
+\contentsline {subsection}{\numberline {16.2.1}Comments}{79}{subsection.16.2.1}%
+\contentsline {subsection}{\numberline {16.2.2}Identifiers}{79}{subsection.16.2.2}%
+\contentsline {subsection}{\numberline {16.2.3}Keywords}{79}{subsection.16.2.3}%
+\contentsline {section}{\numberline {16.3}Data Types}{80}{section.16.3}%
+\contentsline {subsection}{\numberline {16.3.1}Primitive Types}{80}{subsection.16.3.1}%
+\contentsline {subsection}{\numberline {16.3.2}Variable Declarations}{80}{subsection.16.3.2}%
+\contentsline {subsection}{\numberline {16.3.3}Constants and Enumerations}{80}{subsection.16.3.3}%
+\contentsline {subsection}{\numberline {16.3.4}Literals}{81}{subsection.16.3.4}%
+\contentsline {section}{\numberline {16.4}Type Conversion}{81}{section.16.4}%
+\contentsline {subsection}{\numberline {16.4.1}Implicit Conversion}{81}{subsection.16.4.1}%
+\contentsline {subsection}{\numberline {16.4.2}Explicit Casting}{82}{subsection.16.4.2}%
+\contentsline {section}{\numberline {16.5}Program Structure}{82}{section.16.5}%
+\contentsline {subsection}{\numberline {16.5.1}Minimal Program}{82}{subsection.16.5.1}%
+\contentsline {subsection}{\numberline {16.5.2}Complete Program with Functions}{82}{subsection.16.5.2}%
+\contentsline {chapter}{\numberline {17}Expressions and Operators}{84}{chapter.17}%
+\contentsline {section}{\numberline {17.1}Arithmetic Operators}{84}{section.17.1}%
+\contentsline {subsection}{\numberline {17.1.1}Basic Arithmetic}{84}{subsection.17.1.1}%
+\contentsline {subsection}{\numberline {17.1.2}Increment and Decrement Operators}{85}{subsection.17.1.2}%
+\contentsline {subsection}{\numberline {17.1.3}Compound Assignment Operators}{85}{subsection.17.1.3}%
+\contentsline {subsection}{\numberline {17.1.4}Operator Precedence}{86}{subsection.17.1.4}%
+\contentsline {section}{\numberline {17.2}Comparison Operators}{87}{section.17.2}%
+\contentsline {section}{\numberline {17.3}Logical Operators}{87}{section.17.3}%
+\contentsline {section}{\numberline {17.4}Bitwise Operators}{88}{section.17.4}%
+\contentsline {section}{\numberline {17.5}Ternary Conditional Operator}{89}{section.17.5}%
+\contentsline {section}{\numberline {17.6}sizeof Operator}{90}{section.17.6}%
+\contentsline {section}{\numberline {17.7}Expression Examples}{90}{section.17.7}%
+\contentsline {subsection}{\numberline {17.7.1}Complex Mathematical Expressions}{90}{subsection.17.7.1}%
+\contentsline {chapter}{\numberline {18}Control Structures}{92}{chapter.18}%
+\contentsline {section}{\numberline {18.1}If Statement}{92}{section.18.1}%
+\contentsline {subsection}{\numberline {18.1.1}Basic If}{92}{subsection.18.1.1}%
+\contentsline {subsection}{\numberline {18.1.2}If-Else}{92}{subsection.18.1.2}%
+\contentsline {subsection}{\numberline {18.1.3}If-Else-If Chains}{93}{subsection.18.1.3}%
+\contentsline {subsection}{\numberline {18.1.4}Nested If Statements}{93}{subsection.18.1.4}%
+\contentsline {section}{\numberline {18.2}While Loop}{94}{section.18.2}%
+\contentsline {subsection}{\numberline {18.2.1}Basic While Loop}{94}{subsection.18.2.1}%
+\contentsline {subsection}{\numberline {18.2.2}While with Complex Conditions}{94}{subsection.18.2.2}%
+\contentsline {section}{\numberline {18.3}Do-While Loop}{94}{section.18.3}%
+\contentsline {section}{\numberline {18.4}For Loop}{95}{section.18.4}%
+\contentsline {subsection}{\numberline {18.4.1}Basic For Loop}{95}{subsection.18.4.1}%
+\contentsline {subsection}{\numberline {18.4.2}For Loop Variations}{96}{subsection.18.4.2}%
+\contentsline {section}{\numberline {18.5}Switch-Case Statement}{97}{section.18.5}%
+\contentsline {subsection}{\numberline {18.5.1}Switch with Fall-Through}{97}{subsection.18.5.1}%
+\contentsline {section}{\numberline {18.6}Break and Continue}{99}{section.18.6}%
+\contentsline {subsection}{\numberline {18.6.1}Break Statement}{99}{subsection.18.6.1}%
+\contentsline {subsection}{\numberline {18.6.2}Continue Statement}{99}{subsection.18.6.2}%
+\contentsline {section}{\numberline {18.7}Goto Statement and Labels}{100}{section.18.7}%
+\contentsline {subsection}{\numberline {18.7.1}Nested Loop Break with Goto}{101}{subsection.18.7.1}%
+\contentsline {section}{\numberline {18.8}Comprehensive Control Flow Example}{102}{section.18.8}%
+\contentsline {chapter}{\numberline {19}Functions and Procedures}{104}{chapter.19}%
+\contentsline {section}{\numberline {19.1}Function Basics}{104}{section.19.1}%
+\contentsline {subsection}{\numberline {19.1.1}Function Declaration Syntax}{104}{subsection.19.1.1}%
+\contentsline {subsection}{\numberline {19.1.2}Function Calls}{105}{subsection.19.1.2}%
+\contentsline {section}{\numberline {19.2}Recursion}{105}{section.19.2}%
+\contentsline {subsection}{\numberline {19.2.1}Factorial}{105}{subsection.19.2.1}%
+\contentsline {subsection}{\numberline {19.2.2}Fibonacci Sequence}{106}{subsection.19.2.2}%
+\contentsline {subsection}{\numberline {19.2.3}Greatest Common Divisor (GCD)}{107}{subsection.19.2.3}%
+\contentsline {section}{\numberline {19.3}Advanced Function Examples}{107}{section.19.3}%
+\contentsline {subsection}{\numberline {19.3.1}Prime Number Checker}{107}{subsection.19.3.1}%
+\contentsline {subsection}{\numberline {19.3.2}Power Function}{108}{subsection.19.3.2}%
+\contentsline {section}{\numberline {19.4}Function Composition and Higher-Order Patterns}{109}{section.19.4}%
+\contentsline {chapter}{\numberline {20}Arrays and Data Structures}{111}{chapter.20}%
+\contentsline {section}{\numberline {20.1}Array Basics}{111}{section.20.1}%
+\contentsline {subsection}{\numberline {20.1.1}Simulated Array Operations}{111}{subsection.20.1.1}%
+\contentsline {subsection}{\numberline {20.1.2}Array-Like Processing with Loops}{112}{subsection.20.1.2}%
+\contentsline {section}{\numberline {20.2}Searching and Sorting Concepts}{112}{section.20.2}%
+\contentsline {subsection}{\numberline {20.2.1}Linear Search Simulation}{112}{subsection.20.2.1}%
+\contentsline {subsection}{\numberline {20.2.2}Sorting Algorithms (Conceptual)}{113}{subsection.20.2.2}%
+\contentsline {section}{\numberline {20.3}Matrix Operations (Simulated)}{115}{section.20.3}%
+\contentsline {chapter}{\numberline {21}Enumerations and Named Constants}{116}{chapter.21}%
+\contentsline {section}{\numberline {21.1}Enum Declaration}{116}{section.21.1}%
+\contentsline {section}{\numberline {21.2}Using Enums}{116}{section.21.2}%
+\contentsline {subsection}{\numberline {21.2.1}Enum Flags (Bit Flags)}{117}{subsection.21.2.1}%
+\contentsline {section}{\numberline {21.3}State Machines with Enums}{118}{section.21.3}%
+\contentsline {chapter}{\numberline {22}Complete Algo Programs}{121}{chapter.22}%
+\contentsline {section}{\numberline {22.1}Calculator Program}{121}{section.22.1}%
+\contentsline {section}{\numberline {22.2}Number Guessing Game}{122}{section.22.2}%
+\contentsline {section}{\numberline {22.3}Prime Factorization}{125}{section.22.3}%
+\contentsline {section}{\numberline {22.4}Tower of Hanoi}{126}{section.22.4}%
+\contentsline {section}{\numberline {22.5}Collatz Conjecture}{126}{section.22.5}%
+\contentsline {chapter}{\numberline {23}Advanced Algorithms}{128}{chapter.23}%
+\contentsline {section}{\numberline {23.1}Binary Search}{128}{section.23.1}%
+\contentsline {section}{\numberline {23.2}Sieve of Eratosthenes}{129}{section.23.2}%
+\contentsline {section}{\numberline {23.3}Dynamic Programming: Fibonacci}{130}{section.23.3}%
+\contentsline {section}{\numberline {23.4}Greatest Common Divisor Variants}{131}{section.23.4}%
+\contentsline {chapter}{\numberline {24}Bitwise Algorithms and Tricks}{133}{chapter.24}%
+\contentsline {section}{\numberline {24.1}Bit Manipulation Fundamentals}{133}{section.24.1}%
+\contentsline {section}{\numberline {24.2}Count Set Bits}{134}{section.24.2}%
+\contentsline {section}{\numberline {24.3}Power of Two Check}{135}{section.24.3}%
+\contentsline {section}{\numberline {24.4}Swap Without Temporary Variable}{136}{section.24.4}%
+\contentsline {section}{\numberline {24.5}Find Missing Number}{137}{section.24.5}%
+\contentsline {chapter}{\numberline {25}Optimization and Best Practices}{139}{chapter.25}%
+\contentsline {section}{\numberline {25.1}Loop Optimization}{139}{section.25.1}%
+\contentsline {section}{\numberline {25.2}Strength Reduction}{140}{section.25.2}%
+\contentsline {section}{\numberline {25.3}Short-Circuit Evaluation}{140}{section.25.3}%
+\contentsline {section}{\numberline {25.4}Table Lookup}{141}{section.25.4}%
+\contentsline {section}{\numberline {25.5}Early Exit Patterns}{142}{section.25.5}%
+\contentsline {section}{\numberline {25.6}Tail Recursion}{143}{section.25.6}%
+\contentsline {section}{\numberline {25.7}Code Size vs Speed Tradeoffs}{144}{section.25.7}%
+\contentsline {chapter}{\numberline {26}Standard Library and System Functions}{145}{chapter.26}%
+\contentsline {section}{\numberline {26.1}Overview}{145}{section.26.1}%
+\contentsline {section}{\numberline {26.2}I/O Functions}{145}{section.26.2}%
+\contentsline {subsection}{\numberline {26.2.1}Console Output}{145}{subsection.26.2.1}%
+\contentsline {subsection}{\numberline {26.2.2}Formatted Output Examples}{145}{subsection.26.2.2}%
+\contentsline {section}{\numberline {26.3}String Operations}{146}{section.26.3}%
+\contentsline {subsection}{\numberline {26.3.1}Character and String Simulation}{146}{subsection.26.3.1}%
+\contentsline {section}{\numberline {26.4}Mathematical Utilities}{147}{section.26.4}%
+\contentsline {section}{\numberline {26.5}Array Utilities}{148}{section.26.5}%
+\contentsline {section}{\numberline {26.6}Bit Manipulation Utilities}{149}{section.26.6}%
+\contentsline {section}{\numberline {26.7}Timing and Performance}{150}{section.26.7}%
+\contentsline {section}{\numberline {26.8}Validation and Error Checking}{151}{section.26.8}%
+\contentsline {section}{\numberline {26.9}Random Number Generation}{152}{section.26.9}%
+\contentsline {chapter}{\numberline {27}Complete Algo Programs}{154}{chapter.27}%
+\contentsline {section}{\numberline {27.1}Classic Algorithms}{154}{section.27.1}%
+\contentsline {subsection}{\numberline {27.1.1}Fibonacci Sequence}{154}{subsection.27.1.1}%
+\contentsline {subsection}{\numberline {27.1.2}Fibonacci - Recursive}{155}{subsection.27.1.2}%
+\contentsline {subsection}{\numberline {27.1.3}Factorial}{155}{subsection.27.1.3}%
+\contentsline {section}{\numberline {27.2}Sorting Algorithms}{156}{section.27.2}%
+\contentsline {subsection}{\numberline {27.2.1}Bubble Sort}{156}{subsection.27.2.1}%
+\contentsline {subsection}{\numberline {27.2.2}Selection Sort}{157}{subsection.27.2.2}%
+\contentsline {section}{\numberline {27.3}Search Algorithms}{159}{section.27.3}%
+\contentsline {subsection}{\numberline {27.3.1}Linear Search}{159}{subsection.27.3.1}%
+\contentsline {subsection}{\numberline {27.3.2}Binary Search}{159}{subsection.27.3.2}%
+\contentsline {section}{\numberline {27.4}Number Theory}{160}{section.27.4}%
+\contentsline {subsection}{\numberline {27.4.1}Prime Number Checker}{160}{subsection.27.4.1}%
+\contentsline {subsection}{\numberline {27.4.2}GCD and LCM}{161}{subsection.27.4.2}%
+\contentsline {section}{\numberline {27.5}Recursion Examples}{162}{section.27.5}%
+\contentsline {subsection}{\numberline {27.5.1}Power Function}{162}{subsection.27.5.1}%
+\contentsline {subsection}{\numberline {27.5.2}Tower of Hanoi}{163}{subsection.27.5.2}%
+\contentsline {section}{\numberline {27.6}Dynamic Programming}{164}{section.27.6}%
+\contentsline {subsection}{\numberline {27.6.1}Fibonacci with Memoization}{164}{subsection.27.6.1}%
+\contentsline {section}{\numberline {27.7}Bit Manipulation Showcase}{165}{section.27.7}%
+\contentsline {subsection}{\numberline {27.7.1}Complete Bit Operations Demo}{165}{subsection.27.7.1}%
+\contentsline {section}{\numberline {27.8}Complete Program: Calculator}{166}{section.27.8}%
+\contentsline {section}{\numberline {27.9}Complete Program: Number Guessing Game}{167}{section.27.9}%
+\contentsline {section}{\numberline {27.10}Summary}{168}{section.27.10}%
+\contentsline {chapter}{\numberline {28}Complete Instruction Reference}{169}{chapter.28}%
+\contentsline {section}{\numberline {28.1}Instruction Summary}{170}{section.28.1}%
+\contentsline {chapter}{\numberline {29}Register Usage Conventions}{171}{chapter.29}%
+\contentsline {chapter}{\numberline {30}System Call Reference}{172}{chapter.30}%
+\contentsline {chapter}{\numberline {31}Algo Language Grammar}{173}{chapter.31}%
+\contentsline {section}{\numberline {31.1}EBNF Grammar}{173}{section.31.1}%
+\contentsline {chapter}{\numberline {A}Complete Instruction Reference}{175}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Instruction Set Summary}{175}{section.A.1}%
+\contentsline {subsection}{\numberline {A.1.1}Instruction Format Legend}{175}{subsection.A.1.1}%
+\contentsline {section}{\numberline {A.2}Complete Instruction List}{176}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Instruction Encoding Details}{176}{section.A.3}%
+\contentsline {subsection}{\numberline {A.3.1}R-Type Format}{176}{subsection.A.3.1}%
+\contentsline {subsection}{\numberline {A.3.2}I-Type Format}{177}{subsection.A.3.2}%
+\contentsline {chapter}{\numberline {B}Register Usage Conventions}{178}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Register Assignment}{179}{section.B.1}%
+\contentsline {section}{\numberline {B.2}Calling Convention}{180}{section.B.2}%
+\contentsline {subsection}{\numberline {B.2.1}Function Prologue}{180}{subsection.B.2.1}%
+\contentsline {subsection}{\numberline {B.2.2}Function Epilogue}{180}{subsection.B.2.2}%
+\contentsline {subsection}{\numberline {B.2.3}Argument Passing}{180}{subsection.B.2.3}%
+\contentsline {chapter}{\numberline {C}System Call Reference}{181}{appendix.C}%
+\contentsline {section}{\numberline {C.1}System Call Interface}{181}{section.C.1}%
+\contentsline {section}{\numberline {C.2}System Call Table}{181}{section.C.2}%
+\contentsline {section}{\numberline {C.3}System Call Examples}{182}{section.C.3}%
+\contentsline {subsection}{\numberline {C.3.1}Exit Program}{182}{subsection.C.3.1}%
+\contentsline {subsection}{\numberline {C.3.2}Print Integer}{182}{subsection.C.3.2}%
+\contentsline {subsection}{\numberline {C.3.3}Read and Write File}{182}{subsection.C.3.3}%
+\contentsline {chapter}{\numberline {D}Algo Language Complete Grammar}{184}{appendix.D}%
+\contentsline {section}{\numberline {D.1}EBNF Notation}{184}{section.D.1}%
+\contentsline {section}{\numberline {D.2}Complete Grammar}{184}{section.D.2}%
+\contentsline {section}{\numberline {D.3}Operator Precedence}{186}{section.D.3}%
+\contentsline {section}{\numberline {D.4}Type System}{187}{section.D.4}%
+\contentsline {subsection}{\numberline {D.4.1}Primitive Types}{187}{subsection.D.4.1}%
+\contentsline {subsection}{\numberline {D.4.2}Array Types}{187}{subsection.D.4.2}%
+\contentsline {chapter}{\numberline {E}Compiler Error Messages}{188}{appendix.E}%
+\contentsline {section}{\numberline {E.1}Lexical Errors}{188}{section.E.1}%
+\contentsline {section}{\numberline {E.2}Syntax Errors}{188}{section.E.2}%
+\contentsline {section}{\numberline {E.3}Semantic Errors}{189}{section.E.3}%

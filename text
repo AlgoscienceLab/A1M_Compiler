@@ -6,3 +6,5 @@
 ./compiler/algo-compiler examples/algo/52_rpg_game.algo -o examples/algo/52_rpg_game.asm
  && ./assembler/a1m-asm examples/algo/52_rpg_game.asm a.out && 
  ./emulator/a1m-emu a.out
+
+ pdflatex -interaction=nonstopmode A1M_THESIS.tex 2>&1 | tail -30

@@ -1,0 +1,63 @@
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {1.1}{\ignorespaces RISC vs. CISC Comparison}}{22}{table.caption.4}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {2.1}{\ignorespaces A1M Register Set}}{25}{table.caption.6}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces A1M Opcode Assignment}}{31}{table.caption.7}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces ALU Operation Codes}}{34}{table.caption.8}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Control Signals}}{38}{table.caption.9}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {6.1}{\ignorespaces A1M Memory Map}}{43}{table.caption.10}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {8.1}{\ignorespaces Assembly Directives}}{52}{table.caption.11}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {12.1}{\ignorespaces A1M System Calls}}{64}{table.caption.12}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {16.1}{\ignorespaces Algo Reserved Keywords}}{79}{table.caption.13}%
+\contentsline {table}{\numberline {16.2}{\ignorespaces Algo Data Types (64-bit Architecture)}}{80}{table.caption.14}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {17.1}{\ignorespaces Arithmetic Operators (All Implemented)}}{84}{table.caption.15}%
+\contentsline {table}{\numberline {17.2}{\ignorespaces Compound Assignment Operators (All 10 Implemented)}}{85}{table.caption.16}%
+\contentsline {table}{\numberline {17.3}{\ignorespaces Operator Precedence (Highest to Lowest)}}{86}{table.caption.17}%
+\contentsline {table}{\numberline {17.4}{\ignorespaces Comparison Operators (All Implemented)}}{87}{table.caption.18}%
+\contentsline {table}{\numberline {17.5}{\ignorespaces Logical Operators (Short-Circuit Evaluation)}}{87}{table.caption.19}%
+\contentsline {table}{\numberline {17.6}{\ignorespaces Bitwise Operators (All Implemented)}}{88}{table.caption.20}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {28.1}{\ignorespaces Complete A1M Instruction Set}}{170}{table.caption.21}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {29.1}{\ignorespaces A1M Calling Convention}}{171}{table.caption.22}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {30.1}{\ignorespaces System Call Numbers and Arguments}}{172}{table.caption.23}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {A.1}{\ignorespaces A1M Complete Instruction Set}}{176}{table.caption.24}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {B.1}{\ignorespaces A1M Register Assignment and Usage}}{179}{table.caption.25}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {C.1}{\ignorespaces A1M System Call Numbers and Signatures}}{181}{table.caption.26}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {D.1}{\ignorespaces Algo Operator Precedence (Highest to Lowest)}}{186}{table.caption.27}%
+\contentsline {table}{\numberline {D.2}{\ignorespaces Algo Primitive Types}}{187}{table.caption.28}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {E.1}{\ignorespaces Lexer Error Messages}}{188}{table.caption.29}%
+\contentsline {table}{\numberline {E.2}{\ignorespaces Parser Error Messages}}{188}{table.caption.30}%
+\contentsline {table}{\numberline {E.3}{\ignorespaces Semantic Error Messages}}{189}{table.caption.31}%
