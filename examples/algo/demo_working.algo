@@ -1,0 +1,20 @@
+// Working Example - No Division or Comparisons Yet
+// Demonstrates: variables, arithmetic (+, -, *), print
+
+func main() -> int {
+    // Addition
+    let a: int = 5;
+    let b: int = 3;
+    let sum: int = a + b;
+    print(sum);
+    
+    // Subtraction  
+    let diff: int = a - b;
+    print(diff);
+    
+    // Multiplication
+    let product: int = a * b;
+    print(product);
+    
+    return 0;
+}

@@ -1,0 +1,66 @@
+// Simple include example demonstrating code reuse
+#include "status.algo"
+
+func check_http_status(code: int) -> void {
+    print("HTTP Status: ");
+    print(code);
+    print(" - ");
+    
+    if (code == OK) {
+        print("OK");
+    } else {
+        if (code == NOT_FOUND) {
+            print("Not Found");
+        } else {
+            if (code == SERVER_ERROR) {
+                print("Server Error");
+            } else {
+                print("Other");
+            }
+        }
+    }
+    print("\n");
+    return;
+}
+
+func main() -> void {
+    print("=== Simple Include Example ===\n\n");
+    
+    // Use HTTP status codes from status.algo
+    print("Testing HTTP status codes:\n");
+    check_http_status(OK);
+    check_http_status(NOT_FOUND);
+    check_http_status(SERVER_ERROR);
+    print("\n");
+    
+    // Use game states from status.algo
+    print("Game State Machine:\n");
+    let state = MENU;
+    
+    print("Current state: ");
+    print(state);
+    print(" (MENU)\n");
+    
+    state = PLAYING;
+    print("State changed to: ");
+    print(state);
+    print(" (PLAYING)\n");
+    
+    state = PAUSED;
+    print("State changed to: ");
+    print(state);
+    print(" (PAUSED)\n");
+    
+    state = GAME_OVER;
+    print("State changed to: ");
+    print(state);
+    print(" (GAME_OVER)\n\n");
+    
+    print("=== Test Complete ===\n");
+    print("Successfully included status.algo\n");
+    print("Defined constants:\n");
+    print("  - HttpStatus enum (8 codes)\n");
+    print("  - GameState enum (4 states)\n");
+    
+    return 0;
+}

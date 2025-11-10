@@ -1,0 +1,45 @@
+// Factorial calculation (manual)
+// Note: Current compiler doesn't support recursion or if/else yet
+func main() -> int {
+    print("Factorial Calculation\n");
+    print("=====================\n\n");
+    
+    print("Calculating factorials manually:\n\n");
+    
+    let f1: int = 1;
+    print("1! = ");
+    print(f1);
+    print("\n");
+    
+    let f2: int = f1 * 2;
+    print("2! = ");
+    print(f2);
+    print("\n");
+    
+    let f3: int = f2 * 3;
+    print("3! = ");
+    print(f3);
+    print("\n");
+    
+    let f4: int = f3 * 4;
+    print("4! = ");
+    print(f4);
+    print("\n");
+    
+    let f5: int = f4 * 5;
+    print("5! = ");
+    print(f5);
+    print("\n");
+    
+    let f6: int = f5 * 6;
+    print("6! = ");
+    print(f6);
+    print("\n");
+    
+    let f7: int = f6 * 7;
+    print("7! = ");
+    print(f7);
+    print("\n");
+    
+    return 0;
+}

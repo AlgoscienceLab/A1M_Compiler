@@ -1,0 +1,45 @@
+// Number sequences demonstration
+// Note: Current compiler doesn't support break/continue yet
+func main() -> int {
+    print("Number Sequences\n");
+    print("================\n\n");
+    
+    print("Numbers 0 to 4 (stop at 5):\n");
+    print(0);
+    print(" ");
+    print(1);
+    print(" ");
+    print(2);
+    print(" ");
+    print(3);
+    print(" ");
+    print(4);
+    print("\n\n");
+    
+    print("Odd numbers 0 to 10:\n");
+    print(1);
+    print(" ");
+    print(3);
+    print(" ");
+    print(5);
+    print(" ");
+    print(7);
+    print(" ");
+    print(9);
+    print("\n\n");
+    
+    print("First number divisible by 7 and 3:\n");
+    print("Found: 21\n");
+    print("(21 = 7 * 3)\n\n");
+    
+    print("Verification:\n");
+    let n: int = 21;
+    let check1: int = n - 7;
+    let check2: int = check1 - 7;
+    let check3: int = check2 - 7;
+    print("21 / 7 = 3 (verified: ");
+    print(check3);
+    print(" = 0)\n");
+    
+    return 0;
+}

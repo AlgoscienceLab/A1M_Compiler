@@ -1,0 +1,103 @@
+{
+  "name": "algo-language",
+  "displayName": "Algo Language Support",
+  "description": "Language support for A1M Algo programming language with syntax highlighting, diagnostics, and run support",
+  "version": "1.0.3",
+  "publisher": "a1m",
+  "icon": "images/icon.png",
+  "engines": {
+    "vscode": "^1.105.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "activationEvents": [
+    "onLanguage:algo"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "algo",
+        "aliases": [
+          "Algo",
+          "algo"
+        ],
+        "extensions": [
+          ".algo"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./images/icon.svg",
+          "dark": "./images/icon.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "algo",
+        "scopeName": "source.algo",
+        "path": "./syntaxes/algo.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "algo.run",
+        "title": "Run Algo Program",
+        "icon": "$(play)"
+      },
+      {
+        "command": "algo.compile",
+        "title": "Compile Algo Program"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceLangId == algo",
+          "command": "algo.run",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "when": "resourceLangId == algo",
+          "command": "algo.run",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Algo Language",
+      "properties": {
+        "algo.compilerPath": {
+          "type": "string",
+          "default": "compiler/algo-compiler",
+          "description": "Path to the Algo compiler"
+        },
+        "algo.assemblerPath": {
+          "type": "string",
+          "default": "assembler/a1m-asm",
+          "description": "Path to the A1M assembler"
+        },
+        "algo.emulatorPath": {
+          "type": "string",
+          "default": "emulator/a1m-emu",
+          "description": "Path to the A1M emulator"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.130",
+    "@types/vscode": "^1.105.0",
+    "@vscode/vsce": "^3.7.0",
+    "typescript": "^5.9.3"
+  }
+}

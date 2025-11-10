@@ -1,0 +1,66 @@
+// Test various C operators and features
+
+func main() -> void {
+    print("=== Additional C Features Test ===\n\n");
+    
+    // 1. Comma operator (actually multiple statements)
+    print("1. Sequential operations:\n");
+    let a = 1;
+    let b = 2;
+    let c = 3;
+    a = a + 1;
+    b = b * 2;
+    c = c - 1;
+    print("a=");
+    print(a);
+    print(", b=");
+    print(b);
+    print(", c=");
+    print(c);
+    print("\n\n");
+    
+    // 2. Conditional expressions in various contexts
+    print("2. Ternary operator chains:\n");
+    let x = 15;
+    let result = (x > 20) ? 1 : (x > 10) ? 2 : 3;
+    print("Result = ");
+    print(result);
+    print(" (should be 2)\n\n");
+    
+    // 3. Bitwise left/right shifts
+    print("3. Bitwise shifts:\n");
+    let val = 5;
+    let left_shifted = val << 2;   // 5 * 4 = 20
+    let right_shifted = val >> 1;  // 5 / 2 = 2
+    print("5 << 2 = ");
+    print(left_shifted);
+    print(" (should be 20)\n");
+    print("5 >> 1 = ");
+    print(right_shifted);
+    print(" (should be 2)\n\n");
+    
+    // 4. Combined bitwise operations
+    print("4. Combined bitwise:\n");
+    let mask = 15;      // 0x0F
+    let data = 255;     // 0xFF
+    let masked = data & mask;
+    print("255 & 15 = ");
+    print(masked);
+    print(" (should be 15)\n\n");
+    
+    // 5. Short-circuit evaluation
+    print("5. Logical AND/OR:\n");
+    let flag1 = 1;
+    let flag2 = 0;
+    let and_result = flag1 && flag2;
+    let or_result = flag1 || flag2;
+    print("true && false = ");
+    print(and_result);
+    print(" (should be 0)\n");
+    print("true || false = ");
+    print(or_result);
+    print(" (should be 1)\n\n");
+    
+    print("=== Test Complete ===\n");
+    return 0;
+}

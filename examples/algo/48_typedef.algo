@@ -1,0 +1,23 @@
+// Test typedef (using #define-like approach)
+
+func main() -> void {
+    print("=== Typedef Test ===\n\n");
+    
+    // In real C: typedef int MyInt;
+    // We'll simulate with regular variables
+    print("1. Using type aliases (simulated):\n");
+    let my_number = 42;  // Would be: MyInt my_number = 42;
+    print("my_number = ");
+    print(my_number);
+    print("\n\n");
+    
+    // In real C: typedef unsigned long size_t;
+    print("2. Simulating size_t:\n");
+    let size = 1024;  // Would be: size_t size = 1024;
+    print("size = ");
+    print(size);
+    print("\n\n");
+    
+    print("=== Test Complete ===\n");
+    return 0;
+}

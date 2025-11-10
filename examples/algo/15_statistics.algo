@@ -1,0 +1,48 @@
+// Basic statistics calculations
+func main() -> int {
+    let a: int = 10;
+    let b: int = 25;
+    let c: int = 15;
+    let d: int = 30;
+    let e: int = 20;
+    let sum: int;
+    let average: int;
+    let max: int;
+    let min: int;
+    
+    print("Statistics Calculator\n");
+    print("=====================\n");
+    print("Data: ");
+    print(a);
+    print(", ");
+    print(b);
+    print(", ");
+    print(c);
+    print(", ");
+    print(d);
+    print(", ");
+    print(e);
+    print("\n\n");
+    
+    sum = a + b + c + d + e;
+    print("Sum: ");
+    print(sum);
+    print("\n");
+    
+    average = sum / 5;
+    print("Average: ");
+    print(average);
+    print("\n");
+    
+    max = 30;
+    print("Maximum: ");
+    print(max);
+    print("\n");
+    
+    min = 10;
+    print("Minimum: ");
+    print(min);
+    print("\n");
+    
+    return 0;
+}

@@ -1,0 +1,19 @@
+// Test newline escape sequences
+func main() -> int {
+    print("Hello\nWorld");
+    print("\n");
+    print("Line 1\nLine 2\nLine 3");
+    print("\n");
+    print("Tab test:\tafter tab");
+    print("\n");
+    print("Numbers with newlines:");
+    print("\n");
+    let a: int = 42;
+    print(a);
+    print("\n");
+    let b: int = 100;
+    print(b);
+    print("\n");
+    print("Done!\n");
+    return 0;
+}

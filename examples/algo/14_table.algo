@@ -1,0 +1,27 @@
+// Table formatting with tabs
+func main() -> int {
+    let val1: int = 100;
+    let val2: int = 200;
+    let val3: int = 300;
+    let val4: int = 400;
+    
+    print("Data Table:\n");
+    print("================================\n");
+    print("ID\tName\tValue\n");
+    print("================================\n");
+    print("1\tAlpha\t");
+    print(val1);
+    print("\n");
+    print("2\tBeta\t");
+    print(val2);
+    print("\n");
+    print("3\tGamma\t");
+    print(val3);
+    print("\n");
+    print("4\tDelta\t");
+    print(val4);
+    print("\n");
+    print("================================\n");
+    
+    return 0;
+}

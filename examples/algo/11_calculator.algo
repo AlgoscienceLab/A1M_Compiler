@@ -1,0 +1,45 @@
+// Simple calculator operations
+func main() -> int {
+    let num1: int = 42;
+    let num2: int = 7;
+    let add_result: int;
+    let sub_result: int;
+    let mul_result: int;
+    
+    print("===== Calculator =====\n");
+    print("Number 1: ");
+    print(num1);
+    print("\n");
+    print("Number 2: ");
+    print(num2);
+    print("\n\n");
+    
+    add_result = num1 + num2;
+    print("Addition: ");
+    print(num1);
+    print(" + ");
+    print(num2);
+    print(" = ");
+    print(add_result);
+    print("\n");
+    
+    sub_result = num1 - num2;
+    print("Subtraction: ");
+    print(num1);
+    print(" - ");
+    print(num2);
+    print(" = ");
+    print(sub_result);
+    print("\n");
+    
+    mul_result = num1 * num2;
+    print("Multiplication: ");
+    print(num1);
+    print(" * ");
+    print(num2);
+    print(" = ");
+    print(mul_result);
+    print("\n");
+    
+    return 0;
+}

@@ -1,0 +1,64 @@
+// Number patterns
+func main() -> int {
+    let n1: int;
+    let n2: int;
+    let n3: int;
+    let n4: int;
+    let n5: int;
+    
+    print("Number Patterns\n");
+    print("===============\n\n");
+    
+    print("Pattern 1 - Sequential:\n");
+    n1 = 1;
+    n2 = 2;
+    n3 = 3;
+    n4 = 4;
+    n5 = 5;
+    print(n1);
+    print(" ");
+    print(n2);
+    print(" ");
+    print(n3);
+    print(" ");
+    print(n4);
+    print(" ");
+    print(n5);
+    print("\n\n");
+    
+    print("Pattern 2 - Multiples of 5:\n");
+    n1 = 5;
+    n2 = 10;
+    n3 = 15;
+    n4 = 20;
+    n5 = 25;
+    print(n1);
+    print(" ");
+    print(n2);
+    print(" ");
+    print(n3);
+    print(" ");
+    print(n4);
+    print(" ");
+    print(n5);
+    print("\n\n");
+    
+    print("Pattern 3 - Multiples of 10:\n");
+    n1 = 10;
+    n2 = 20;
+    n3 = 30;
+    n4 = 40;
+    n5 = 50;
+    print(n1);
+    print(" ");
+    print(n2);
+    print(" ");
+    print(n3);
+    print(" ");
+    print(n4);
+    print(" ");
+    print(n5);
+    print("\n");
+    
+    return 0;
+}

@@ -1,0 +1,5 @@
+// Simple Hello World program
+func main() -> int {
+    print("Hello, World!\n");
+    return 0;
+}

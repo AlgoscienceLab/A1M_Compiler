@@ -1,0 +1,14 @@
+// math.algo - Math constants and helpers
+// This file can be included in other programs
+
+enum MathConstants {
+    PI_TIMES_100 = 314,
+    E_TIMES_100 = 271,
+    GOLDEN_RATIO_TIMES_100 = 161
+}
+
+enum Powers {
+    TWO_POW_8 = 256,
+    TWO_POW_10 = 1024,
+    TWO_POW_16 = 65536
+}

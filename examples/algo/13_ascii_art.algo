@@ -1,0 +1,26 @@
+// ASCII art demonstration
+func main() -> int {
+    print("ASCII Art Gallery\n\n");
+    
+    print("Box:\n");
+    print("+-------+\n");
+    print("|       |\n");
+    print("|  A1M  |\n");
+    print("|  CPU  |\n");
+    print("|       |\n");
+    print("+-------+\n\n");
+    
+    print("Triangle:\n");
+    print("    *\n");
+    print("   ***\n");
+    print("  *****\n");
+    print(" *******\n");
+    print("*********\n\n");
+    
+    print("Banner:\n");
+    print("========================\n");
+    print("  Welcome to A1M CPU!\n");
+    print("========================\n");
+    
+    return 0;
+}

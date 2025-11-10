@@ -1,0 +1,38 @@
+// Factorial calculation (manual unrolling)
+func main() -> int {
+    let n: int = 5;
+    let f1: int;
+    let f2: int;
+    let f3: int;
+    let f4: int;
+    let f5: int;
+    
+    print("Factorial Calculations:\n\n");
+    
+    f1 = 1;
+    print("1! = ");
+    print(f1);
+    print("\n");
+    
+    f2 = f1 * 2;
+    print("2! = ");
+    print(f2);
+    print("\n");
+    
+    f3 = f2 * 3;
+    print("3! = ");
+    print(f3);
+    print("\n");
+    
+    f4 = f3 * 4;
+    print("4! = ");
+    print(f4);
+    print("\n");
+    
+    f5 = f4 * 5;
+    print("5! = ");
+    print(f5);
+    print("\n");
+    
+    return 0;
+}

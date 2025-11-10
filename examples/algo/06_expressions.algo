@@ -1,0 +1,41 @@
+// Complex expressions
+func main() -> int {
+    let a: int = 5;
+    let b: int = 10;
+    let c: int = 15;
+    let result1: int;
+    let result2: int;
+    let result3: int;
+    let result4: int;
+    
+    print("Expression Evaluation\n");
+    print("a = ");
+    print(a);
+    print(", b = ");
+    print(b);
+    print(", c = ");
+    print(c);
+    print("\n\n");
+    
+    result1 = a + b * c;
+    print("a + b * c = ");
+    print(result1);
+    print("\n");
+    
+    result2 = a * b + c;
+    print("a * b + c = ");
+    print(result2);
+    print("\n");
+    
+    result3 = a * b * c;
+    print("a * b * c = ");
+    print(result3);
+    print("\n");
+    
+    result4 = a + b + c;
+    print("a + b + c = ");
+    print(result4);
+    print("\n");
+    
+    return 0;
+}

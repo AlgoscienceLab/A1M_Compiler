@@ -1,0 +1,27 @@
+// Prime Number Demo (Simplified)
+// Works with current compiler features
+// Note: Full prime checker requires if/while/modulo which aren't implemented yet
+
+func main() -> int {
+    print("Prime numbers demo");
+    
+    // First few prime numbers
+    let prime1: int = 2;
+    let prime2: int = 3;
+    let prime3: int = 5;
+    let prime4: int = 7;
+    let prime5: int = 11;
+    
+    
+    
+    // Sum of first 5 primes
+    let sum1: int = prime1 + prime2;
+    let sum2: int = sum1 + prime3;
+    let sum3: int = sum2 + prime4;
+    let total: int = sum3 + prime5;
+    
+    print("Sum:");
+    print(total);
+    
+    return 0;
+}

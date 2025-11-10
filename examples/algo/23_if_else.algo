@@ -1,0 +1,46 @@
+// Number classification demonstration
+// Note: Current compiler doesn't support if/else yet
+func main() -> int {
+    print("Number Classification\n");
+    print("=====================\n\n");
+    
+    let num: int = 42;
+    print("Testing number: ");
+    print(num);
+    print("\n");
+    print("Note: 42 is positive and even\n\n");
+    
+    let val1: int = 15;
+    print("Testing: ");
+    print(val1);
+    print("\n");
+    print("Note: 15 is greater than 10\n\n");
+    
+    let val2: int = 5;
+    print("Testing: ");
+    print(val2);
+    print("\n");
+    print("Note: 5 is not greater than 10\n\n");
+    
+    print("Demonstrating arithmetic instead:\n");
+    let a: int = 10;
+    let b: int = 20;
+    let sum: int = a + b;
+    let diff: int = b - a;
+    let prod: int = a * b;
+    
+    print("a = ");
+    print(a);
+    print(", b = ");
+    print(b);
+    print("\n");
+    print("sum = ");
+    print(sum);
+    print(", diff = ");
+    print(diff);
+    print(", prod = ");
+    print(prod);
+    print("\n");
+    
+    return 0;
+}

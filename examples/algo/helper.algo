@@ -1,0 +1,14 @@
+// helper.algo - Simple helper functions
+
+func add_numbers(a: int, b: int) -> int {
+    return a + b;
+}
+
+func multiply_numbers(a: int, b: int) -> int {
+    return a * b;
+}
+
+func greet() -> void {
+    print("Hello from included function!\n");
+    return;
+}

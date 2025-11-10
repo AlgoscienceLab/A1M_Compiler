@@ -1,0 +1,42 @@
+// Test do-while loop
+func main() -> void {
+    print("=== Do-While Loop Test ===\n\n");
+    
+    // Basic do-while - executes at least once
+    print("1. Basic do-while (1-5):\n");
+    let i: int = 1;
+    do {
+        print(i);
+        print(" ");
+        i = i + 1;
+    } while (i <= 5);
+    print("\n\n");
+    
+    // Do-while that executes only once
+    print("2. Do-while with false condition:\n");
+    let x: int = 10;
+    do {
+        print("Executed once even though x > 5\n");
+        x = x + 1;
+    } while (x < 5);
+    print("x = ");
+    print(x);
+    print("\n\n");
+    
+    // Menu simulation with do-while
+    print("3. Menu simulation:\n");
+    let choice: int = 0;
+    let count: int = 0;
+    do {
+        count = count + 1;
+        print("Menu iteration ");
+        print(count);
+        print("\n");
+        choice = count;
+    } while (choice < 3);
+    print("Exited after ");
+    print(count);
+    print(" iterations\n\n");
+    
+    print("=== Test Complete ===\n");
+}

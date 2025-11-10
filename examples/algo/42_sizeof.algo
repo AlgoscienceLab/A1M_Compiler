@@ -1,0 +1,56 @@
+// Test sizeof operator
+func main() -> void {
+    print("=== Sizeof Operator Test ===\n\n");
+    
+    // Test 1: sizeof basic types
+    print("1. sizeof basic types:\n");
+    print("sizeof(int) = ");
+    print(sizeof(int));
+    print("\n");
+    
+    print("sizeof(bool) = ");
+    print(sizeof(bool));
+    print("\n");
+    
+    print("sizeof(char) = ");
+    print(sizeof(char));
+    print("\n");
+    
+    print("sizeof(long) = ");
+    print(sizeof(long));
+    print("\n");
+    
+    // Test 2: sizeof variables
+    print("\n2. sizeof variables:\n");
+    let x: int = 42;
+    print("sizeof(x) = ");
+    print(sizeof(x));
+    print("\n");
+    
+    let flag: bool = true;
+    print("sizeof(flag) = ");
+    print(sizeof(flag));
+    print("\n");
+    
+    // Test 3: sizeof expressions
+    print("\n3. sizeof expressions:\n");
+    print("sizeof(10 + 20) = ");
+    print(sizeof(10 + 20));
+    print("\n");
+    
+    print("sizeof(x * 2) = ");
+    print(sizeof(x * 2));
+    print("\n");
+    
+    // Test 4: Use in calculations
+    print("\n4. Using sizeof in calculations:\n");
+    let bytes: int = 1024;
+    let count: int = bytes / sizeof(int);
+    print("Can fit ");
+    print(count);
+    print(" integers in ");
+    print(bytes);
+    print(" bytes\n");
+    
+    print("\n=== Test Complete ===\n");
+}

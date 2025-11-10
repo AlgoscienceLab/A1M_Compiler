@@ -1,0 +1,45 @@
+// Multiplication table
+func main() -> int {
+    let num: int = 7;
+    let i1: int;
+    let i2: int;
+    let i3: int;
+    let i4: int;
+    let i5: int;
+    
+    print("Multiplication Table for ");
+    print(num);
+    print("\n");
+    
+    i1 = num * 1;
+    print(num);
+    print(" x 1 = ");
+    print(i1);
+    print("\n");
+    
+    i2 = num * 2;
+    print(num);
+    print(" x 2 = ");
+    print(i2);
+    print("\n");
+    
+    i3 = num * 3;
+    print(num);
+    print(" x 3 = ");
+    print(i3);
+    print("\n");
+    
+    i4 = num * 4;
+    print(num);
+    print(" x 4 = ");
+    print(i4);
+    print("\n");
+    
+    i5 = num * 5;
+    print(num);
+    print(" x 5 = ");
+    print(i5);
+    print("\n");
+    
+    return 0;
+}

@@ -1,0 +1,53 @@
+// Prime numbers (listed)
+// Note: Current compiler doesn't support if/else or loops yet
+func main() -> int {
+    print("Prime Numbers\n");
+    print("=============\n\n");
+    
+    print("First 20 prime numbers:\n");
+    print(2);
+    print(" ");
+    print(3);
+    print(" ");
+    print(5);
+    print(" ");
+    print(7);
+    print(" ");
+    print(11);
+    print(" ");
+    print(13);
+    print(" ");
+    print(17);
+    print(" ");
+    print(19);
+    print(" ");
+    print(23);
+    print(" ");
+    print(29);
+    print(" ");
+    print(31);
+    print(" ");
+    print(37);
+    print(" ");
+    print(41);
+    print(" ");
+    print(43);
+    print(" ");
+    print(47);
+    print(" ");
+    print(53);
+    print(" ");
+    print(59);
+    print(" ");
+    print(61);
+    print(" ");
+    print(67);
+    print(" ");
+    print(71);
+    print("\n\n");
+    
+    print("Note: 17 is prime\n");
+    print("Note: 20 is not prime (20 = 2 * 10)\n");
+    
+    return 0;
+}

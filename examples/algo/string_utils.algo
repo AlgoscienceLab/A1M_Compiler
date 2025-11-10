@@ -1,0 +1,38 @@
+// string_utils.algo - String/Print utility functions
+
+func print_line() -> void {
+    print("----------------------------------------\n");
+    return;
+}
+
+func print_number_line(label: int, value: int) -> void {
+    print(label);
+    print(": ");
+    print(value);
+    print("\n");
+    return;
+}
+
+func print_separator() -> void {
+    print("\n");
+    return;
+}
+
+func print_header(title: int) -> void {
+    print("\n=== ");
+    print(title);
+    print(" ===\n");
+    return;
+}
+
+func print_result(a: int, op: int, b: int, result: int) -> void {
+    print(a);
+    print(" ");
+    print(op);
+    print(" ");
+    print(b);
+    print(" = ");
+    print(result);
+    print("\n");
+    return;
+}

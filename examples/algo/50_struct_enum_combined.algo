@@ -1,0 +1,225 @@
+// Example using both struct and enum keywords together
+// Note: struct is simulated (fields as separate variables)
+// enum works as true compile-time constants
+
+func main() -> void {
+    print("=== Combined Struct and Enum Example ===\n\n");
+    
+    // Define color enum
+    enum Color {
+        RED,      // 0
+        GREEN,    // 1
+        BLUE,     // 2
+        YELLOW,   // 3
+        BLACK     // 4
+    }
+    
+    // Define status enum with explicit values
+    enum Status {
+        INACTIVE = 0,
+        ACTIVE = 1,
+        PENDING = 2,
+        ERROR = 99
+    }
+    
+    // Simulate a Car struct with separate variables
+    // In real C: struct Car { int color; int status; int speed; };
+    print("Creating a car...\n");
+    let car_color = RED;        // Use enum value
+    let car_status = INACTIVE;  // Use enum value
+    let car_speed = 0;
+    
+    print("Car created:\n");
+    print("  Color: ");
+    print(car_color);
+    print(" (RED=");
+    print(RED);
+    print(")\n");
+    print("  Status: ");
+    print(car_status);
+    print(" (INACTIVE=");
+    print(INACTIVE);
+    print(")\n");
+    print("  Speed: ");
+    print(car_speed);
+    print("\n\n");
+    
+    // Activate the car
+    print("Activating car...\n");
+    car_status = ACTIVE;
+    car_speed = 60;
+    
+    print("Car updated:\n");
+    print("  Status: ");
+    print(car_status);
+    print(" (ACTIVE=");
+    print(ACTIVE);
+    print(")\n");
+    print("  Speed: ");
+    print(car_speed);
+    print("\n\n");
+    
+    // Change color
+    print("Painting car...\n");
+    car_color = BLUE;
+    
+    print("Car color changed to: ");
+    print(car_color);
+    print(" (BLUE=");
+    print(BLUE);
+    print(")\n\n");
+    
+    // Use enum in conditional
+    print("Checking car status...\n");
+    if (car_status == ACTIVE) {
+        print("Car is ACTIVE and ready to drive!\n");
+    } else {
+        print("Car is not active.\n");
+    }
+    print("\n");
+    
+    // Simulate a Person struct
+    print("Creating a person...\n");
+    
+    enum Gender {
+        MALE = 1,
+        FEMALE = 2,
+        OTHER = 3
+    }
+    
+    let person_name_id = 12345;  // Simulate name as ID
+    let person_age = 25;
+    let person_gender = MALE;
+    let person_status = ACTIVE;  // Reusing Status enum
+    
+    print("Person created:\n");
+    print("  ID: ");
+    print(person_name_id);
+    print("\n");
+    print("  Age: ");
+    print(person_age);
+    print("\n");
+    print("  Gender: ");
+    print(person_gender);
+    print(" (MALE=");
+    print(MALE);
+    print(")\n");
+    print("  Status: ");
+    print(person_status);
+    print(" (ACTIVE=");
+    print(ACTIVE);
+    print(")\n\n");
+    
+    // Use switch with enum
+    print("Checking person gender...\n");
+    switch (person_gender) {
+        case 1:  // MALE
+            print("Gender: Male\n");
+            break;
+        case 2:  // FEMALE
+            print("Gender: Female\n");
+            break;
+        case 3:  // OTHER
+            print("Gender: Other\n");
+            break;
+        default:
+            print("Gender: Unknown\n");
+            break;
+    }
+    print("\n");
+    
+    // Array simulation with struct-like pattern
+    print("Creating multiple cars (array simulation)...\n");
+    
+    enum CarType {
+        SEDAN = 100,
+        SUV = 200,
+        TRUCK = 300,
+        SPORTS = 400
+    }
+    
+    // Car 1
+    let car1_type = SEDAN;
+    let car1_color = RED;
+    let car1_speed = 50;
+    
+    // Car 2
+    let car2_type = SPORTS;
+    let car2_color = YELLOW;
+    let car2_speed = 120;
+    
+    // Car 3
+    let car3_type = TRUCK;
+    let car3_color = BLACK;
+    let car3_speed = 80;
+    
+    print("Car 1: Type=");
+    print(car1_type);
+    print(", Color=");
+    print(car1_color);
+    print(", Speed=");
+    print(car1_speed);
+    print("\n");
+    
+    print("Car 2: Type=");
+    print(car2_type);
+    print(", Color=");
+    print(car2_color);
+    print(", Speed=");
+    print(car2_speed);
+    print("\n");
+    
+    print("Car 3: Type=");
+    print(car3_type);
+    print(", Color=");
+    print(car3_color);
+    print(", Speed=");
+    print(car3_speed);
+    print("\n\n");
+    
+    // Find fastest car
+    print("Finding fastest car...\n");
+    let fastest_speed = car1_speed;
+    let fastest_id = 1;
+    
+    if (car2_speed > fastest_speed) {
+        fastest_speed = car2_speed;
+        fastest_id = 2;
+    }
+    
+    if (car3_speed > fastest_speed) {
+        fastest_speed = car3_speed;
+        fastest_id = 3;
+    }
+    
+    print("Fastest car is Car ");
+    print(fastest_id);
+    print(" with speed ");
+    print(fastest_speed);
+    print("\n\n");
+    
+    // Demonstrate enum immutability
+    print("Testing enum immutability...\n");
+    let my_color = GREEN;
+    print("my_color = ");
+    print(my_color);
+    print(" (GREEN)\n");
+    
+    // This is allowed - variable can be changed
+    my_color = BLUE;
+    print("my_color changed to ");
+    print(my_color);
+    print(" (BLUE)\n\n");
+    
+    // But enum constants themselves cannot be changed
+    // Uncommenting this would cause a compile error:
+    // RED = 5;  // Error: Cannot assign to constant 'RED'
+    
+    print("=== Test Complete ===\n");
+    print("Summary:\n");
+    print("- Enums work as compile-time constants\n");
+    print("- Structs simulated with separate variables\n");
+    print("- Both can be used together in programs\n");
+    
+    return 0;
+}

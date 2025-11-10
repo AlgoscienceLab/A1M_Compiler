@@ -1,0 +1,18 @@
+// Simple Math Example
+// Demonstrates basic arithmetic operations
+
+func main() -> int {
+    let x: int = 10;
+    let y: int = 5;
+    let sum: int = x + y;
+    let diff: int = x - y;
+    let prod: int = x * y;
+    let quot: int = x / y;
+    
+    print(sum);
+    print(diff);
+    print(prod);
+    print(quot);
+    
+    return 0;
+}

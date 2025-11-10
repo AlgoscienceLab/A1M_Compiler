@@ -1,0 +1,193 @@
+// Practical example: Simple RPG character system using struct and enum
+
+func main() -> void {
+    print("=== RPG Character System ===\n\n");
+    
+    // Define character classes
+    enum CharClass {
+        WARRIOR = 1,
+        MAGE = 2,
+        ARCHER = 3,
+        THIEF = 4
+    }
+    
+    // Define character states
+    enum State {
+        IDLE = 0,
+        ATTACKING = 1,
+        DEFENDING = 2,
+        DEAD = 99
+    }
+    
+    // Create Player Character (simulated struct)
+    // struct Character { int class; int health; int mana; int attack; int defense; int state; }
+    print("Creating player character...\n");
+    let player_class = WARRIOR;
+    let player_health = 100;
+    let player_mana = 50;
+    let player_attack = 25;
+    let player_defense = 20;
+    let player_state = IDLE;
+    
+    print("Player Character:\n");
+    print("  Class: ");
+    print(player_class);
+    print(" (WARRIOR)\n");
+    print("  Health: ");
+    print(player_health);
+    print("\n");
+    print("  Mana: ");
+    print(player_mana);
+    print("\n");
+    print("  Attack: ");
+    print(player_attack);
+    print("\n");
+    print("  Defense: ");
+    print(player_defense);
+    print("\n\n");
+    
+    // Create Enemy Character
+    print("An enemy appears!\n");
+    let enemy_class = MAGE;
+    let enemy_health = 80;
+    let enemy_mana = 100;
+    let enemy_attack = 30;
+    let enemy_defense = 10;
+    let enemy_state = IDLE;
+    
+    print("Enemy Character:\n");
+    print("  Class: ");
+    print(enemy_class);
+    print(" (MAGE)\n");
+    print("  Health: ");
+    print(enemy_health);
+    print("\n");
+    print("  Attack: ");
+    print(enemy_attack);
+    print("\n\n");
+    
+    // Battle simulation
+    print("=== Battle Start ===\n\n");
+    
+    // Round 1: Player attacks
+    print("Round 1: Player attacks!\n");
+    player_state = ATTACKING;
+    let damage = player_attack - enemy_defense;
+    enemy_health = enemy_health - damage;
+    
+    print("Player deals ");
+    print(damage);
+    print(" damage!\n");
+    print("Enemy health: ");
+    print(enemy_health);
+    print("\n\n");
+    
+    player_state = IDLE;
+    
+    // Round 2: Enemy attacks
+    print("Round 2: Enemy attacks!\n");
+    enemy_state = ATTACKING;
+    let counter_damage = enemy_attack - player_defense;
+    player_health = player_health - counter_damage;
+    
+    print("Enemy deals ");
+    print(counter_damage);
+    print(" damage!\n");
+    print("Player health: ");
+    print(player_health);
+    print("\n\n");
+    
+    enemy_state = IDLE;
+    
+    // Round 3: Player uses special attack
+    print("Round 3: Player uses Power Strike!\n");
+    player_state = ATTACKING;
+    
+    // Check if player has enough mana
+    let mana_cost = 20;
+    if (player_mana >= mana_cost) {
+        player_mana = player_mana - mana_cost;
+        let special_damage = player_attack + 15;
+        special_damage = special_damage - enemy_defense;
+        enemy_health = enemy_health - special_damage;
+        
+        print("Power Strike hits for ");
+        print(special_damage);
+        print(" damage!\n");
+        print("Mana used: ");
+        print(mana_cost);
+        print("\n");
+        print("Player mana remaining: ");
+        print(player_mana);
+        print("\n");
+        print("Enemy health: ");
+        print(enemy_health);
+        print("\n\n");
+    } else {
+        print("Not enough mana!\n\n");
+    }
+    
+    player_state = IDLE;
+    
+    // Check battle result
+    print("=== Battle Result ===\n");
+    
+    if (enemy_health <= 0) {
+        enemy_state = DEAD;
+        print("Victory! Enemy defeated!\n");
+    } else {
+        if (player_health <= 0) {
+            player_state = DEAD;
+            print("Defeat! Player has fallen!\n");
+        } else {
+            print("Battle continues...\n");
+        }
+    }
+    
+    print("\nFinal Stats:\n");
+    print("Player: HP=");
+    print(player_health);
+    print(", MP=");
+    print(player_mana);
+    print(", State=");
+    print(player_state);
+    print("\n");
+    print("Enemy: HP=");
+    print(enemy_health);
+    print(", State=");
+    print(enemy_state);
+    print("\n\n");
+    
+    // Level up system
+    if (enemy_state == DEAD) {
+        print("=== Level Up ===\n");
+        let exp_gained = 50;
+        print("Experience gained: ");
+        print(exp_gained);
+        print("\n");
+        
+        // Increase stats
+        player_health = player_health + 10;
+        player_attack = player_attack + 5;
+        player_defense = player_defense + 3;
+        player_mana = player_mana + 20;
+        
+        print("Stats increased!\n");
+        print("New stats:\n");
+        print("  Health: ");
+        print(player_health);
+        print("\n");
+        print("  Attack: ");
+        print(player_attack);
+        print("\n");
+        print("  Defense: ");
+        print(player_defense);
+        print("\n");
+        print("  Mana: ");
+        print(player_mana);
+        print("\n\n");
+    }
+    
+    print("=== Game Over ===\n");
+    return 0;
+}

@@ -1,0 +1,28 @@
+// Simple example: calling functions from included file
+#include "helper.algo"
+
+func main() -> void {
+    print("=== Simple Function Include Example ===\n\n");
+    
+    // Call function from helper.algo
+    greet();
+    
+    print("\nTesting math functions:\n");
+    let x = 10;
+    let y = 5;
+    
+    let sum = add_numbers(x, y);
+    print("add_numbers(10, 5) = ");
+    print(sum);
+    print("\n");
+    
+    let product = multiply_numbers(x, y);
+    print("multiply_numbers(10, 5) = ");
+    print(product);
+    print("\n");
+    
+    print("\n=== Test Complete ===\n");
+    print("Successfully called 3 functions from helper.algo\n");
+    
+    return 0;
+}

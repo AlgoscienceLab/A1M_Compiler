@@ -1,0 +1,36 @@
+// Greatest Common Divisor (GCD) and LCM
+// Demonstrates Euclidean algorithm
+
+func gcd(a: int, b: int) -> int {
+    while (b != 0) {
+        let temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+func lcm(a: int, b: int) -> int {
+    return (a * b) / gcd(a, b);
+}
+
+func main() -> int {
+    print("GCD and LCM Calculator");
+    print("======================");
+    
+    let num1 = 48;
+    let num2 = 18;
+    
+    print("\nNumbers: ");
+    print(num1);
+    print(" and ");
+    print(num2);
+    
+    print("\nGCD: ");
+    print(gcd(num1, num2));
+    
+    print("\nLCM: ");
+    print(lcm(num1, num2));
+    
+    return 0;
+}

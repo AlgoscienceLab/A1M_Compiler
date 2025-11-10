@@ -1,0 +1,38 @@
+// Comprehensive Demo
+// Shows all currently working features of the Algo compiler
+
+func main() -> int {
+    // String printing with newlines
+    print("=== Algo Compiler Demo ===\n");
+    
+    // Integer printing
+    print("Number: ");
+    print(42);
+    print("\n");
+    
+    // Variables
+    let num1: int = 100;
+    let num2: int = 25;
+    
+    // Arithmetic operations
+    let sum: int = num1 + num2;
+    let difference: int = num1 - num2;
+    let product: int = num1 * num2;
+    
+    // Print results with labels
+    print("Sum (100 + 25): ");
+    print(sum);        // 125
+    print("\n");
+    
+    print("Difference (100 - 25): ");
+    print(difference);  // 75
+    print("\n");
+    
+    print("Product (100 * 25): ");
+    print(product);     // 2500
+    print("\n");
+    
+    print("=== Demo Complete ===\n");
+    
+    return 0;
+}

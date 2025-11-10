@@ -1,0 +1,17 @@
+
+enum Color {
+    RED,
+    GREEN,
+    BLUE,
+    YELLOW,
+    BLACK,
+    WHITE,
+    ORANGE,
+    PURPLE
+}
+
+enum RGB {
+    R_MASK = 255,
+    G_MASK = 65280,
+    B_MASK = 16711680
+}

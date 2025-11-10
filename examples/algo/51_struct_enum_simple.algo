@@ -1,0 +1,151 @@
+// Clean example demonstrating struct and enum keywords together
+// Struct: Simulated with separate variables (struct.field -> struct_field)
+// Enum: True compile-time constants
+
+func main() -> void {
+    print("=== Struct and Enum Example ===\n\n");
+    
+    // 1. Define enums for car properties
+    enum Color {
+        RED,
+        GREEN,
+        BLUE,
+        BLACK,
+        WHITE
+    }
+    
+    enum Status {
+        OFF = 0,
+        ON = 1,
+        MAINTENANCE = 2
+    }
+    
+    // 2. Create a "car" struct (simulated with separate variables)
+    // In real C: struct Car { int color; int status; int speed; };
+    print("=== Creating Car 1 ===\n");
+    let car1_color = RED;
+    let car1_status = OFF;
+    let car1_speed = 0;
+    
+    print("Car 1:\n");
+    print("  Color: ");
+    print(car1_color);
+    print(" (RED)\n");
+    print("  Status: ");
+    print(car1_status);
+    print(" (OFF)\n");
+    print("  Speed: ");
+    print(car1_speed);
+    print(" km/h\n\n");
+    
+    // 3. Turn on the car and set speed
+    print("=== Starting Car 1 ===\n");
+    car1_status = ON;
+    car1_speed = 80;
+    
+    print("Car 1 is now running:\n");
+    print("  Status: ");
+    print(car1_status);
+    print(" (ON)\n");
+    print("  Speed: ");
+    print(car1_speed);
+    print(" km/h\n\n");
+    
+    // 4. Create another car
+    print("=== Creating Car 2 ===\n");
+    let car2_color = BLUE;
+    let car2_status = ON;
+    let car2_speed = 120;
+    
+    print("Car 2:\n");
+    print("  Color: ");
+    print(car2_color);
+    print(" (BLUE)\n");
+    print("  Status: ");
+    print(car2_status);
+    print(" (ON)\n");
+    print("  Speed: ");
+    print(car2_speed);
+    print(" km/h\n\n");
+    
+    // 5. Compare cars
+    print("=== Comparing Cars ===\n");
+    if (car1_speed > car2_speed) {
+        print("Car 1 is faster\n");
+    } else {
+        if (car2_speed > car1_speed) {
+            print("Car 2 is faster\n");
+        } else {
+            print("Both cars have same speed\n");
+        }
+    }
+    print("\n");
+    
+    // 6. Use enum in conditional
+    print("=== Status Check ===\n");
+    if (car1_status == ON) {
+        print("Car 1: Engine is running\n");
+    } else {
+        print("Car 1: Engine is off\n");
+    }
+    
+    if (car2_status == ON) {
+        print("Car 2: Engine is running\n");
+    } else {
+        print("Car 2: Engine is off\n");
+    }
+    print("\n");
+    
+    // 7. Put car in maintenance
+    print("=== Maintenance Mode ===\n");
+    car1_status = MAINTENANCE;
+    car1_speed = 0;
+    
+    print("Car 1 status changed to: ");
+    print(car1_status);
+    print(" (MAINTENANCE)\n");
+    print("Speed reduced to: ");
+    print(car1_speed);
+    print("\n\n");
+    
+    // 8. Demonstrate enum values
+    print("=== Enum Values ===\n");
+    print("Colors:\n");
+    print("  RED = ");
+    print(RED);
+    print("\n");
+    print("  GREEN = ");
+    print(GREEN);
+    print("\n");
+    print("  BLUE = ");
+    print(BLUE);
+    print("\n");
+    print("  BLACK = ");
+    print(BLACK);
+    print("\n");
+    print("  WHITE = ");
+    print(WHITE);
+    print("\n\n");
+    
+    print("Status:\n");
+    print("  OFF = ");
+    print(OFF);
+    print("\n");
+    print("  ON = ");
+    print(ON);
+    print("\n");
+    print("  MAINTENANCE = ");
+    print(MAINTENANCE);
+    print("\n\n");
+    
+    // 9. Summary
+    print("=== Summary ===\n");
+    print("- Enum constants are compile-time values\n");
+    print("- They cannot be modified (immutable)\n");
+    print("- Structs are simulated with separate variables\n");
+    print("- Each struct field becomes fieldname_variable\n");
+    print("- Both features work together seamlessly\n\n");
+    
+    print("=== Test Complete ===\n");
+    return 0;
+}

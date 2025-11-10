@@ -1,0 +1,43 @@
+// Test ternary operator and sizeof
+func main() -> void {
+    print("=== Ternary Operator Test ===\n\n");
+    
+    // Basic ternary
+    let a: int = 10;
+    let b: int = 20;
+    let max: int = (a > b) ? a : b;
+    print("max(");
+    print(a);
+    print(", ");
+    print(b);
+    print(") = ");
+    print(max);
+    print("\n\n");
+    
+    // Nested ternary
+    let x: int = 15;
+    let category: int = (x < 10) ? 1 : (x < 20) ? 2 : 3;
+    print("x = ");
+    print(x);
+    print(", category = ");
+    print(category);
+    print("\n\n");
+    
+    // Ternary in expression
+    let y: int = 5;
+    let result: int = (y > 0) ? y * 2 : y * -1;
+    print("result = ");
+    print(result);
+    print("\n\n");
+    
+    // Absolute value using ternary
+    let num: int = -42;
+    let abs_val: int = (num < 0) ? -num : num;
+    print("abs(");
+    print(num);
+    print(") = ");
+    print(abs_val);
+    print("\n\n");
+    
+    print("=== Test Complete ===\n");
+}

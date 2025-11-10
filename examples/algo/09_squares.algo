@@ -1,0 +1,43 @@
+// Calculate squares of numbers
+func main() -> int {
+    let n1: int = 1;
+    let n2: int = 2;
+    let n3: int = 3;
+    let n4: int = 4;
+    let n5: int = 5;
+    let sq1: int;
+    let sq2: int;
+    let sq3: int;
+    let sq4: int;
+    let sq5: int;
+    
+    sq1 = n1 * n1;
+    sq2 = n2 * n2;
+    sq3 = n3 * n3;
+    sq4 = n4 * n4;
+    sq5 = n5 * n5;
+    
+    print("Square Numbers:\n");
+    print(n1);
+    print("^2 = ");
+    print(sq1);
+    print("\n");
+    print(n2);
+    print("^2 = ");
+    print(sq2);
+    print("\n");
+    print(n3);
+    print("^2 = ");
+    print(sq3);
+    print("\n");
+    print(n4);
+    print("^2 = ");
+    print(sq4);
+    print("\n");
+    print(n5);
+    print("^2 = ");
+    print(sq5);
+    print("\n");
+    
+    return 0;
+}

@@ -1,0 +1,24 @@
+// Escape sequences demonstration
+func main() -> int {
+    print("=== Escape Sequences Test ===\n\n");
+    
+    print("1. Newline test:\n");
+    print("Line 1\nLine 2\nLine 3\n\n");
+    
+    print("2. Tab test:\n");
+    print("Col1\tCol2\tCol3\n");
+    print("A\tB\tC\n\n");
+    
+    print("3. Quote test:\n");
+    print("He said \"Hello!\"\n\n");
+    
+    print("4. Backslash test:\n");
+    print("Path: C:\\Users\\Files\\\n\n");
+    
+    print("5. Carriage return test:\n");
+    print("Before\rAfter\n\n");
+    
+    print("Test complete!\n");
+    
+    return 0;
+}

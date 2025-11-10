@@ -1,0 +1,13 @@
+// Algo Language - Addition Example
+// Demonstrates basic arithmetic operations
+
+func main() -> int {
+    let a = 10;
+    let b = 20;
+    let sum = a + b;
+    
+    print("Addition Result:");
+    print(sum);
+    
+    return 0;
+}

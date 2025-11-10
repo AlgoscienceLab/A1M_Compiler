@@ -1,0 +1,51 @@
+// Benchmark and stress test
+func main() -> int {
+    let a: int = 100;
+    let b: int = 200;
+    let c: int = 300;
+    let d: int = 400;
+    let e: int = 500;
+    let result1: int;
+    let result2: int;
+    let result3: int;
+    let result4: int;
+    let result5: int;
+    let final_result: int;
+    
+    print("A1M CPU Benchmark\n");
+    print("=================\n\n");
+    
+    print("Running calculations...\n\n");
+    
+    result1 = a * b;
+    result2 = c + d;
+    result3 = e - a;
+    result4 = result1 + result2;
+    result5 = result3 * 2;
+    
+    print("Intermediate Results:\n");
+    print("Step 1: ");
+    print(result1);
+    print("\n");
+    print("Step 2: ");
+    print(result2);
+    print("\n");
+    print("Step 3: ");
+    print(result3);
+    print("\n");
+    print("Step 4: ");
+    print(result4);
+    print("\n");
+    print("Step 5: ");
+    print(result5);
+    print("\n\n");
+    
+    final_result = result4 + result5;
+    print("Final Result: ");
+    print(final_result);
+    print("\n\n");
+    
+    print("Benchmark Complete!\n");
+    
+    return 0;
+}

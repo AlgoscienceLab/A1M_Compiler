@@ -1,0 +1,25 @@
+// Variable manipulation and assignment
+func main() -> int {
+    let x: int = 10;
+    let y: int = 20;
+    let z: int = 30;
+    let result: int = 0;
+    
+    print("Variables Test\n");
+    print("x = ");
+    print(x);
+    print("\n");
+    print("y = ");
+    print(y);
+    print("\n");
+    print("z = ");
+    print(z);
+    print("\n");
+    
+    result = x + y + z;
+    print("x + y + z = ");
+    print(result);
+    print("\n");
+    
+    return 0;
+}

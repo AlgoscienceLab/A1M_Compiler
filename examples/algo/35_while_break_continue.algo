@@ -1,0 +1,74 @@
+// While loop with break and continue demonstration
+func main() -> void {
+    print("=== While Loop with Break/Continue ===\n\n");
+    
+    // Basic while loop
+    print("Count to 10 with while:\n");
+    let i: int = 1;
+    while (i <= 10) {
+        print(i);
+        print(" ");
+        i = i + 1;
+    }
+    print("\n\n");
+    
+    // While with break
+    print("While with break (stop at 5):\n");
+    i = 1;
+    while (i <= 10) {
+        if (i == 5) {
+            break;
+        }
+        print(i);
+        print(" ");
+        i = i + 1;
+    }
+    print("\n\n");
+    
+    // While with continue (skip even numbers)
+    print("While with continue (skip evens):\n");
+    i = 1;
+    while (i <= 10) {
+        if (i / 2 * 2 == i) {  // Check if even (i % 2 == 0)
+            i = i + 1;
+            continue;
+        }
+        print(i);
+        print(" ");
+        i = i + 1;
+    }
+    print("\n\n");
+    
+    // Find first power of 2 greater than 1000
+    print("First power of 2 > 1000:\n");
+    let power: int = 1;
+    while (power <= 1000) {
+        power = power * 2;
+    }
+    print(power);
+    print("\n\n");
+    
+    // Collatz sequence starting from 17
+    print("Collatz sequence (17):\n");
+    let n: int = 17;
+    let count: int = 0;
+    while (n != 1) {
+        print(n);
+        print(" ");
+        if (n / 2 * 2 == n) {  // Even
+            n = n / 2;
+        } else {  // Odd
+            n = 3 * n + 1;
+        }
+        count = count + 1;
+        if (count > 20) {  // Safety limit
+            break;
+        }
+    }
+    print("1\n");
+    print("Steps: ");
+    print(count);
+    print("\n\n");
+    
+    print("=== Test Complete ===\n");
+}

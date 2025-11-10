@@ -1,0 +1,19 @@
+// status.algo - Status code definitions
+
+enum HttpStatus {
+    OK = 200,
+    CREATED = 201,
+    NO_CONTENT = 204,
+    BAD_REQUEST = 400,
+    UNAUTHORIZED = 401,
+    FORBIDDEN = 403,
+    NOT_FOUND = 404,
+    SERVER_ERROR = 500
+}
+
+enum GameState {
+    MENU = 0,
+    PLAYING = 1,
+    PAUSED = 2,
+    GAME_OVER = 3
+}

@@ -1,0 +1,89 @@
+// Test switch/case statement
+func main() -> void {
+    print("=== Switch/Case Test ===\n\n");
+    
+    // Basic switch
+    print("1. Basic switch (days of week):\n");
+    let day: int = 3;
+    switch (day) {
+        case 1:
+            print("Monday\n");
+            break;
+        case 2:
+            print("Tuesday\n");
+            break;
+        case 3:
+            print("Wednesday\n");
+            break;
+        case 4:
+            print("Thursday\n");
+            break;
+        case 5:
+            print("Friday\n");
+            break;
+        default:
+            print("Weekend!\n");
+            break;
+    }
+    
+    // Switch with fall-through
+    print("\n2. Switch with fall-through (grade):\n");
+    let grade: int = 85;
+    print("Grade ");
+    print(grade);
+    print(": ");
+    switch (grade / 10) {
+        case 10:
+        case 9:
+            print("A\n");
+            break;
+        case 8:
+            print("B\n");
+            break;
+        case 7:
+            print("C\n");
+            break;
+        case 6:
+            print("D\n");
+            break;
+        default:
+            print("F\n");
+            break;
+    }
+    
+    // Switch without default
+    print("\n3. Calculator simulation:\n");
+    let op: int = 2;
+    let a: int = 15;
+    let b: int = 7;
+    print(a);
+    switch (op) {
+        case 1:
+            print(" + ");
+            print(b);
+            print(" = ");
+            print(a + b);
+            break;
+        case 2:
+            print(" - ");
+            print(b);
+            print(" = ");
+            print(a - b);
+            break;
+        case 3:
+            print(" * ");
+            print(b);
+            print(" = ");
+            print(a * b);
+            break;
+        case 4:
+            print(" / ");
+            print(b);
+            print(" = ");
+            print(a / b);
+            break;
+    }
+    print("\n\n");
+    
+    print("=== Test Complete ===\n");
+}

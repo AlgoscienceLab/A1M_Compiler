@@ -1,0 +1,160 @@
+// Comprehensive test demonstrating all implemented C features
+func main() -> void {
+    print("╔══════════════════════════════════════╗\n");
+    print("║  A1M Algo Compiler - Full C Demo    ║\n");
+    print("║  Control Flow & Operators Test      ║\n");
+    print("╚══════════════════════════════════════╝\n\n");
+    
+    // 1. Fibonacci with for loop
+    print("1. Fibonacci Sequence (first 15):\n");
+    let fib_a: int = 0;
+    let fib_b: int = 1;
+    print(fib_a);
+    print(" ");
+    print(fib_b);
+    print(" ");
+    for (let i: int = 2; i < 15; i = i + 1) {
+        let fib_c: int = fib_a + fib_b;
+        print(fib_c);
+        print(" ");
+        fib_a = fib_b;
+        fib_b = fib_c;
+    }
+    print("\n\n");
+    
+    // 2. Prime numbers using while and break
+    print("2. Prime Numbers (up to 50):\n");
+    let num: int = 2;
+    while (num <= 50) {
+        let is_prime: int = 1;
+        let divisor: int = 2;
+        while (divisor < num) {
+            if (num / divisor * divisor == num) {
+                is_prime = 0;
+                break;
+            }
+            divisor = divisor + 1;
+        }
+        if (is_prime == 1) {
+            print(num);
+            print(" ");
+        }
+        num = num + 1;
+    }
+    print("\n\n");
+    
+    // 3. Bitwise operations showcase
+    print("3. Bitwise Magic:\n");
+    let x: int = 42;
+    print("x = ");
+    print(x);
+    print("\n");
+    print("x << 1 = ");
+    print(x << 1);
+    print(" (multiply by 2)\n");
+    print("x >> 1 = ");
+    print(x >> 1);
+    print(" (divide by 2)\n");
+    print("x & 15 = ");
+    print(x & 15);
+    print(" (extract low 4 bits)\n");
+    print("x | 128 = ");
+    print(x | 128);
+    print(" (set bit 7)\n");
+    print("~x = ");
+    print(~x);
+    print(" (bitwise complement)\n\n");
+    
+    // 4. Logical operators with short-circuit
+    print("4. Logical Operations:\n");
+    let a: int = 1;
+    let b: int = 0;
+    if (a == 1 && b == 0) {
+        print("✓ a is true AND b is false\n");
+    }
+    if (a == 1 || b == 1) {
+        print("✓ a is true OR b is true\n");
+    }
+    if (!(a == 0)) {
+        print("✓ NOT (a is false)\n");
+    }
+    print("\n");
+    
+    // 5. Nested loops - multiplication table
+    print("5. Multiplication Table (1-5):\n");
+    print("   ");
+    for (let col: int = 1; col <= 5; col = col + 1) {
+        print(col);
+        print("   ");
+    }
+    print("\n");
+    for (let row: int = 1; row <= 5; row = row + 1) {
+        print(row);
+        print("  ");
+        for (let col: int = 1; col <= 5; col = col + 1) {
+            let product: int = row * col;
+            if (product < 10) {
+                print(" ");
+            }
+            print(product);
+            print("  ");
+        }
+        print("\n");
+    }
+    print("\n");
+    
+    // 6. Complex condition - leap year checker
+    print("6. Leap Year Test:\n");
+    for (let year: int = 2020; year <= 2028; year = year + 1) {
+        let is_leap: int = 0;
+        if (year / 4 * 4 == year) {
+            if (year / 100 * 100 == year) {
+                if (year / 400 * 400 == year) {
+                    is_leap = 1;
+                }
+            } else {
+                is_leap = 1;
+            }
+        }
+        print(year);
+        print(": ");
+        if (is_leap == 1) {
+            print("LEAP\n");
+        } else {
+            print("COMMON\n");
+        }
+    }
+    print("\n");
+    
+    // 7. Binary representation (rightmost 8 bits)
+    print("7. Binary of 42 (rightmost 8 bits):\n");
+    let value: int = 42;
+    for (let bit: int = 7; bit >= 0; bit = bit - 1) {
+        let mask: int = 1 << bit;
+        if ((value & mask) != 0) {
+            print("1");
+        } else {
+            print("0");
+        }
+    }
+    print(" = ");
+    print(value);
+    print("\n\n");
+    
+    // 8. GCD using Euclidean algorithm
+    print("8. GCD(48, 18):\n");
+    let gcd_a: int = 48;
+    let gcd_b: int = 18;
+    while (gcd_b != 0) {
+        let temp: int = gcd_b;
+        gcd_b = gcd_a - (gcd_a / gcd_b * gcd_b);  // gcd_a % gcd_b
+        gcd_a = temp;
+    }
+    print("GCD = ");
+    print(gcd_a);
+    print("\n\n");
+    
+    print("╔══════════════════════════════════════╗\n");
+    print("║  All Tests Passed Successfully! ✓   ║\n");
+    print("╚══════════════════════════════════════╝\n");
+}

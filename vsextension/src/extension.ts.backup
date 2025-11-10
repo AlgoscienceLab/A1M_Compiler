@@ -1,0 +1,398 @@
+import * as vscode from 'vscode';
+import * as path from 'path';
+import * as fs from 'fs';
+import { spawn } from 'child_process';
+
+let diagnosticCollection: vscode.DiagnosticCollection;
+let outputChannel: vscode.OutputChannel;
+
+export function activate(context: vscode.ExtensionContext) {
+    console.log('Algo language extension is now active');
+
+    // Create diagnostic collection for error reporting
+    diagnosticCollection = vscode.languages.createDiagnosticCollection('algo');
+    context.subscriptions.push(diagnosticCollection);
+
+    // Create output channel
+    outputChannel = vscode.window.createOutputChannel('Algo');
+    context.subscriptions.push(outputChannel);
+
+    // Register commands
+    context.subscriptions.push(
+        vscode.commands.registerCommand('algo.run', () => runAlgoProgram())
+    );
+
+    context.subscriptions.push(
+        vscode.commands.registerCommand('algo.compile', () => compileAlgoProgram())
+    );
+
+    // Register code lens provider for run buttons
+    context.subscriptions.push(
+        vscode.languages.registerCodeLensProvider('algo', new AlgoCodeLensProvider())
+    );
+
+    // Register completion provider for code suggestions
+    context.subscriptions.push(
+        vscode.languages.registerCompletionItemProvider('algo', new AlgoCompletionProvider(), '.', '>')
+    );
+
+    // Register hover provider for documentation
+    context.subscriptions.push(
+        vscode.languages.registerHoverProvider('algo', new AlgoHoverProvider())
+    );
+
+    // Compile on save for real-time error detection
+    context.subscriptions.push(
+        vscode.workspace.onDidSaveTextDocument((document) => {
+            if (document.languageId === 'algo') {
+                validateAlgoDocument(document);
+            }
+        })
+    );
+
+    // Compile on change for real-time diagnostics
+    context.subscriptions.push(
+        vscode.workspace.onDidChangeTextDocument((event) => {
+            if (event.document.languageId === 'algo') {
+                // Debounce validation
+                setTimeout(() => {
+                    validateAlgoDocument(event.document);
+                }, 500);
+            }
+        })
+    );
+
+    // Validate all open algo files
+    vscode.workspace.textDocuments.forEach(doc => {
+        if (doc.languageId === 'algo') {
+            validateAlgoDocument(doc);
+        }
+    });
+}
+
+export function deactivate() {
+    if (diagnosticCollection) {
+        diagnosticCollection.dispose();
+    }
+    if (outputChannel) {
+        outputChannel.dispose();
+    }
+}
+
+// Code Lens Provider - adds run button above main()
+class AlgoCodeLensProvider implements vscode.CodeLensProvider {
+    provideCodeLenses(document: vscode.TextDocument): vscode.CodeLens[] {
+        const codeLenses: vscode.CodeLens[] = [];
+        const text = document.getText();
+        const regex = /func\s+main\s*\(\s*\)\s*->\s*void/g;
+        let match;
+
+        while ((match = regex.exec(text)) !== null) {
+            const position = document.positionAt(match.index);
+            const range = new vscode.Range(position, position);
+            
+            codeLenses.push(new vscode.CodeLens(range, {
+                title: '▶ Run',
+                command: 'algo.run',
+                tooltip: 'Run this Algo program'
+            }));
+        }
+
+        return codeLenses;
+    }
+}
+
+// Completion Provider - code suggestions
+class AlgoCompletionProvider implements vscode.CompletionItemProvider {
+    provideCompletionItems(document: vscode.TextDocument, position: vscode.Position): vscode.CompletionItem[] {
+        const items: vscode.CompletionItem[] = [];
+
+        // Keywords
+        const keywords = ['func', 'let', 'if', 'else', 'while', 'for', 'return', 'break', 'continue', 
+                         'switch', 'case', 'default', 'goto', 'enum', 'struct', 'typedef', 'sizeof'];
+        keywords.forEach(kw => {
+            const item = new vscode.CompletionItem(kw, vscode.CompletionItemKind.Keyword);
+            item.detail = 'Algo keyword';
+            items.push(item);
+        });
+
+        // Types
+        const types = ['void', 'int', 'char', 'bool', 'i64', 'u64'];
+        types.forEach(type => {
+            const item = new vscode.CompletionItem(type, vscode.CompletionItemKind.TypeParameter);
+            item.detail = 'Algo type';
+            items.push(item);
+        });
+
+        // Built-in functions
+        const builtins = [
+            { name: 'print', detail: 'print(string) - Print string to output', snippet: 'print($1)' },
+            { name: 'printInt', detail: 'printInt(int) - Print integer to output', snippet: 'printInt($1)' },
+            { name: 'exit', detail: 'exit(code) - Exit program', snippet: 'exit($1)' }
+        ];
+        builtins.forEach(fn => {
+            const item = new vscode.CompletionItem(fn.name, vscode.CompletionItemKind.Function);
+            item.detail = fn.detail;
+            item.insertText = new vscode.SnippetString(fn.snippet);
+            items.push(item);
+        });
+
+        // Function template
+        const funcSnippet = new vscode.CompletionItem('func', vscode.CompletionItemKind.Snippet);
+        funcSnippet.insertText = new vscode.SnippetString('func ${1:name}($2) -> ${3:void} {\n\t$0\n}');
+        funcSnippet.detail = 'Function template';
+        funcSnippet.documentation = 'Create a new function';
+        items.push(funcSnippet);
+
+        // Main function template
+        const mainSnippet = new vscode.CompletionItem('main', vscode.CompletionItemKind.Snippet);
+        mainSnippet.insertText = new vscode.SnippetString('func main() -> void {\n\t$0\n}');
+        mainSnippet.detail = 'Main function template';
+        items.push(mainSnippet);
+
+        return items;
+    }
+}
+
+// Hover Provider - documentation on hover
+class AlgoHoverProvider implements vscode.HoverProvider {
+    provideHover(document: vscode.TextDocument, position: vscode.Position): vscode.Hover | undefined {
+        const range = document.getWordRangeAtPosition(position);
+        const word = document.getText(range);
+
+        const docs: { [key: string]: string } = {
+            'func': 'Define a function\n\nSyntax: `func name(params) -> type { ... }`',
+            'let': 'Declare a variable\n\nSyntax: `let name = value;`',
+            'print': 'Print a string to output\n\nSyntax: `print("text");`',
+            'if': 'Conditional statement\n\nSyntax: `if (condition) { ... }`',
+            'while': 'While loop\n\nSyntax: `while (condition) { ... }`',
+            'for': 'For loop\n\nSyntax: `for (init; condition; increment) { ... }`',
+            'return': 'Return from function\n\nSyntax: `return value;`',
+            'enum': 'Enumerate constants\n\nSyntax: `enum Name { VALUE1 = 1, VALUE2 = 2 }`',
+            'struct': 'Define a structure\n\nSyntax: `struct Name { field1, field2 }`',
+            'sizeof': 'Get size of type or variable\n\nSyntax: `sizeof(type)`'
+        };
+
+        if (word in docs) {
+            return new vscode.Hover(docs[word]);
+        }
+
+        return undefined;
+    }
+}
+
+// Validate Algo document - compile and report errors
+async function validateAlgoDocument(document: vscode.TextDocument) {
+    const filePath = document.uri.fsPath;
+    const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
+    
+    if (!workspaceFolder) {
+        return;
+    }
+
+    const config = vscode.workspace.getConfiguration('algo');
+    const compilerPath = path.join(workspaceFolder.uri.fsPath, config.get('compilerPath', 'compiler/algo-compiler'));
+    
+    // Check if compiler exists
+    if (!fs.existsSync(compilerPath)) {
+        return;
+    }
+
+    const diagnostics: vscode.Diagnostic[] = [];
+    const tempOutput = path.join(workspaceFolder.uri.fsPath, '.vscode', 'temp.asm');
+
+    // Ensure .vscode directory exists
+    const vscodeDir = path.dirname(tempOutput);
+    if (!fs.existsSync(vscodeDir)) {
+        fs.mkdirSync(vscodeDir, { recursive: true });
+    }
+
+    const compiler = spawn(compilerPath, [filePath, '-o', tempOutput]);
+    let stderr = '';
+
+    compiler.stderr.on('data', (data) => {
+        stderr += data.toString();
+    });
+
+    compiler.on('close', (code) => {
+        if (code !== 0) {
+            // Parse error messages
+            const errorRegex = /Error: (.+)/g;
+            const lineRegex = /line (\d+)/i;
+            let match;
+
+            while ((match = errorRegex.exec(stderr)) !== null) {
+                const errorMsg = match[1];
+                const lineMatch = lineRegex.exec(errorMsg);
+                const line = lineMatch ? parseInt(lineMatch[1]) - 1 : 0;
+
+                const diagnostic = new vscode.Diagnostic(
+                    new vscode.Range(line, 0, line, 1000),
+                    errorMsg,
+                    vscode.DiagnosticSeverity.Error
+                );
+                diagnostics.push(diagnostic);
+            }
+
+            // Generic error if no specific line found
+            if (diagnostics.length === 0 && stderr.trim()) {
+                const diagnostic = new vscode.Diagnostic(
+                    new vscode.Range(0, 0, 0, 1000),
+                    stderr.trim(),
+                    vscode.DiagnosticSeverity.Error
+                );
+                diagnostics.push(diagnostic);
+            }
+        }
+
+        diagnosticCollection.set(document.uri, diagnostics);
+
+        // Clean up temp file
+        if (fs.existsSync(tempOutput)) {
+            fs.unlinkSync(tempOutput);
+        }
+    });
+}
+
+// Compile Algo program
+async function compileAlgoProgram(): Promise<boolean> {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor || editor.document.languageId !== 'algo') {
+        vscode.window.showErrorMessage('No Algo file is currently open');
+        return false;
+    }
+
+    // Save the file first
+    await editor.document.save();
+
+    const filePath = editor.document.uri.fsPath;
+    const workspaceFolder = vscode.workspace.getWorkspaceFolder(editor.document.uri);
+    
+    if (!workspaceFolder) {
+        vscode.window.showErrorMessage('File must be in a workspace');
+        return false;
+    }
+
+    const config = vscode.workspace.getConfiguration('algo');
+    const compilerPath = path.join(workspaceFolder.uri.fsPath, config.get('compilerPath', 'compiler/algo-compiler'));
+    const assemblerPath = path.join(workspaceFolder.uri.fsPath, config.get('assemblerPath', 'assembler/a1m-asm'));
+    
+    const buildDir = path.join(workspaceFolder.uri.fsPath, 'build');
+    if (!fs.existsSync(buildDir)) {
+        fs.mkdirSync(buildDir, { recursive: true });
+    }
+
+    const baseName = path.basename(filePath, '.algo');
+    const asmOutput = path.join(buildDir, `${baseName}.asm`);
+    const binOutput = path.join(workspaceFolder.uri.fsPath, 'a.out');
+
+    outputChannel.clear();
+    outputChannel.show(true);
+    outputChannel.appendLine('=== Compiling Algo Program ===');
+    outputChannel.appendLine(`File: ${filePath}`);
+    outputChannel.appendLine('');
+
+    return new Promise((resolve) => {
+        // Step 1: Compile
+        outputChannel.appendLine('[1/2] Compiling to assembly...');
+        const compiler = spawn(compilerPath, [filePath, '-o', asmOutput]);
+        
+        let compileOutput = '';
+        compiler.stdout.on('data', (data) => {
+            compileOutput += data.toString();
+            outputChannel.append(data.toString());
+        });
+
+        compiler.stderr.on('data', (data) => {
+            outputChannel.append(data.toString());
+        });
+
+        compiler.on('close', (code) => {
+            if (code !== 0) {
+                outputChannel.appendLine('');
+                outputChannel.appendLine('❌ Compilation failed!');
+                vscode.window.showErrorMessage('Compilation failed. See output for details.');
+                resolve(false);
+                return;
+            }
+
+            outputChannel.appendLine('✓ Compilation successful');
+            outputChannel.appendLine('');
+
+            // Step 2: Assemble
+            outputChannel.appendLine('[2/2] Assembling to binary...');
+            const assembler = spawn(assemblerPath, [asmOutput, '-o', binOutput]);
+
+            assembler.stdout.on('data', (data) => {
+                outputChannel.append(data.toString());
+            });
+
+            assembler.stderr.on('data', (data) => {
+                outputChannel.append(data.toString());
+            });
+
+            assembler.on('close', (asmCode) => {
+                if (asmCode !== 0) {
+                    outputChannel.appendLine('');
+                    outputChannel.appendLine('❌ Assembly failed!');
+                    vscode.window.showErrorMessage('Assembly failed. See output for details.');
+                    resolve(false);
+                    return;
+                }
+
+                outputChannel.appendLine('✓ Assembly successful');
+                outputChannel.appendLine('');
+                outputChannel.appendLine(`✓ Build complete: ${binOutput}`);
+                resolve(true);
+            });
+        });
+    });
+}
+
+// Run Algo program - compile, assemble, and execute
+async function runAlgoProgram() {
+    const editor = vscode.window.activeTextEditor;
+    if (!editor || editor.document.languageId !== 'algo') {
+        vscode.window.showErrorMessage('No Algo file is currently open');
+        return;
+    }
+
+    const workspaceFolder = vscode.workspace.getWorkspaceFolder(editor.document.uri);
+    if (!workspaceFolder) {
+        vscode.window.showErrorMessage('File must be in a workspace');
+        return;
+    }
+
+    // Compile first
+    const compiled = await compileAlgoProgram();
+    if (!compiled) {
+        return;
+    }
+
+    const config = vscode.workspace.getConfiguration('algo');
+    const emulatorPath = path.join(workspaceFolder.uri.fsPath, config.get('emulatorPath', 'emulator/a1m-emu'));
+    const binOutput = path.join(workspaceFolder.uri.fsPath, 'a.out');
+
+    outputChannel.appendLine('');
+    outputChannel.appendLine('=== Running Program ===');
+    outputChannel.appendLine('');
+
+    const emulator = spawn(emulatorPath, [binOutput]);
+
+    emulator.stdout.on('data', (data) => {
+        outputChannel.append(data.toString());
+    });
+
+    emulator.stderr.on('data', (data) => {
+        outputChannel.append(data.toString());
+    });
+
+    emulator.on('close', (code) => {
+        outputChannel.appendLine('');
+        if (code === 0) {
+            outputChannel.appendLine('✓ Program completed successfully');
+        } else {
+            outputChannel.appendLine(`Program exited with code ${code}`);
+        }
+    });
+}

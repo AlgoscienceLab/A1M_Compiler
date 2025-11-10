@@ -1,0 +1,101 @@
+// Test file inclusion with #include directive
+#include "colors.algo"
+#include "math.algo"
+
+func main() -> void {
+    print("=== File Inclusion Test ===\n\n");
+    
+    // Use enums from colors.algo
+    print("=== Colors (from colors.algo) ===\n");
+    let my_color = BLUE;
+    print("Selected color: ");
+    print(my_color);
+    print(" (BLUE)\n\n");
+    
+    print("Available colors:\n");
+    print("  RED = ");
+    print(RED);
+    print("\n");
+    print("  GREEN = ");
+    print(GREEN);
+    print("\n");
+    print("  BLUE = ");
+    print(BLUE);
+    print("\n");
+    print("  YELLOW = ");
+    print(YELLOW);
+    print("\n");
+    print("  ORANGE = ");
+    print(ORANGE);
+    print("\n");
+    print("  PURPLE = ");
+    print(PURPLE);
+    print("\n\n");
+    
+    // Use RGB masks
+    print("RGB Masks:\n");
+    print("  R_MASK = ");
+    print(R_MASK);
+    print("\n");
+    print("  G_MASK = ");
+    print(G_MASK);
+    print("\n");
+    print("  B_MASK = ");
+    print(B_MASK);
+    print("\n\n");
+    
+    // Use enums from math.algo
+    print("=== Math Constants (from math.algo) ===\n");
+    print("  PI * 100 = ");
+    print(PI_TIMES_100);
+    print("\n");
+    print("  E * 100 = ");
+    print(E_TIMES_100);
+    print("\n");
+    print("  Golden Ratio * 100 = ");
+    print(GOLDEN_RATIO_TIMES_100);
+    print("\n\n");
+    
+    print("Powers of 2:\n");
+    print("  2^8 = ");
+    print(TWO_POW_8);
+    print("\n");
+    print("  2^10 = ");
+    print(TWO_POW_10);
+    print("\n");
+    print("  2^16 = ");
+    print(TWO_POW_16);
+    print("\n\n");
+    
+    // Use values in calculations
+    print("=== Using Included Values ===\n");
+    let circle_area = PI_TIMES_100 * 10 * 10;  // Pi * r^2 (r=10, scaled)
+    print("Circle area (r=10, scaled): ");
+    print(circle_area);
+    print("\n");
+    
+    let kb_size = TWO_POW_10;
+    let mb_size = kb_size * kb_size;
+    print("1 KB = ");
+    print(kb_size);
+    print(" bytes\n");
+    print("1 MB = ");
+    print(mb_size);
+    print(" bytes\n\n");
+    
+    // Color mixing simulation
+    print("=== Color Mixing ===\n");
+    let color1 = RED;
+    let color2 = BLUE;
+    let mixed = color1 + color2;  // Simple addition
+    print("RED + BLUE = ");
+    print(mixed);
+    print("\n\n");
+    
+    print("=== Test Complete ===\n");
+    print("Successfully included and used:\n");
+    print("  - colors.algo (8 colors + RGB masks)\n");
+    print("  - math.algo (math constants + powers)\n");
+    
+    return 0;
+}

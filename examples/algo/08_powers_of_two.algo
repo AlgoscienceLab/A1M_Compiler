@@ -1,0 +1,51 @@
+// Powers of 2 using multiplication
+func main() -> int {
+    let p0: int = 1;
+    let p1: int;
+    let p2: int;
+    let p3: int;
+    let p4: int;
+    let p5: int;
+    let p6: int;
+    let p7: int;
+    let p8: int;
+    p1 = p0 * 2;
+    p2 = p1 * 2;
+    p3 = p2 * 2;
+    p4 = p3 * 2;
+    p5 = p4 * 2;
+    p6 = p5 * 2;
+    p7 = p6 * 2;
+    p8 = p7 * 2;
+    
+    print("Powers of 2:\n");
+    print("2^0 = ");
+    print(p0);
+    print("\n");
+    print("2^1 = ");
+    print(p1);
+    print("\n");
+    print("2^2 = ");
+    print(p2);
+    print("\n");
+    print("2^3 = ");
+    print(p3);
+    print("\n");
+    print("2^4 = ");
+    print(p4);
+    print("\n");
+    print("2^5 = ");
+    print(p5);
+    print("\n");
+    print("2^6 = ");
+    print(p6);
+    print("\n");
+    print("2^7 = ");
+    print(p7);
+    print("\n");
+    print("2^8 = ");
+    print(p8);
+    print("\n");
+    
+    return 0;
+}

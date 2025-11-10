@@ -1,0 +1,51 @@
+// Multiplication patterns (manual)
+// Note: Current compiler doesn't support loops yet
+func main() -> int {
+    print("Multiplication Patterns\n");
+    print("=======================\n\n");
+    
+    print("Multiples of 2:\n");
+    let m2_1: int = 2 * 1;
+    let m2_2: int = 2 * 2;
+    let m2_3: int = 2 * 3;
+    let m2_4: int = 2 * 4;
+    let m2_5: int = 2 * 5;
+    
+    print(m2_1);
+    print(" ");
+    print(m2_2);
+    print(" ");
+    print(m2_3);
+    print(" ");
+    print(m2_4);
+    print(" ");
+    print(m2_5);
+    print("\n\n");
+    
+    print("Multiples of 3:\n");
+    let m3_1: int = 3 * 1;
+    let m3_2: int = 3 * 2;
+    let m3_3: int = 3 * 3;
+    let m3_4: int = 3 * 4;
+    let m3_5: int = 3 * 5;
+    
+    print(m3_1);
+    print(" ");
+    print(m3_2);
+    print(" ");
+    print(m3_3);
+    print(" ");
+    print(m3_4);
+    print(" ");
+    print(m3_5);
+    print("\n\n");
+    
+    print("Pattern:\n");
+    print("*\n");
+    print("* *\n");
+    print("* * *\n");
+    print("* * * *\n");
+    print("* * * * *\n");
+    
+    return 0;
+}

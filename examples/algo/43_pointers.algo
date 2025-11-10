@@ -1,0 +1,50 @@
+// Test pointers (basic support)
+func main() -> void {
+    print("=== Pointer Test ===\n\n");
+    
+    // Test 1: Address-of operator
+    print("1. Address-of operator:\n");
+    let x: int = 42;
+    let px: int = &x;  // For now, store address as int
+    print("x = ");
+    print(x);
+    print("\n");
+    print("Address of x = ");
+    print(px);
+    print("\n");
+    
+    // Test 2: Dereference operator  
+    print("\n2. Dereference operator:\n");
+    let value: int = *px;  // Dereference to get value
+    print("*px = ");
+    print(value);
+    print(" (should be 42)\n");
+    
+    // Test 3: Direct modification (pointer assignment not fully supported yet)
+    print("\n3. Direct variable modification:\n");
+    x = 100;  // Modify x directly
+    print("After x = 100:\n");
+    print("x = ");
+    print(x);
+    print(" (should be 100)\n");
+    
+    // Test 4: Pointer arithmetic
+    print("\n4. Pointer arithmetic:\n");
+    let arr_base: int = 1000;  // Simulated array base address
+    let p: int = arr_base;
+    print("Base pointer = ");
+    print(p);
+    print("\n");
+    
+    p = p + 8;  // Move to next int (8 bytes)
+    print("After p = p + 8: ");
+    print(p);
+    print("\n");
+    
+    p = p - 8;  // Move back
+    print("After p = p - 8: ");
+    print(p);
+    print("\n");
+    
+    print("\n=== Test Complete ===\n");
+}

@@ -1,0 +1,52 @@
+// Inventory management simulation
+func main() -> int {
+    let apples: int = 50;
+    let oranges: int = 30;
+    let bananas: int = 40;
+    let total_fruit: int;
+    let price_apples: int;
+    let price_oranges: int;
+    let price_bananas: int;
+    let total_value: int;
+    
+    print("Fruit Inventory System\n");
+    print("======================\n\n");
+    
+    print("Stock Levels:\n");
+    print("Apples: ");
+    print(apples);
+    print("\n");
+    print("Oranges: ");
+    print(oranges);
+    print("\n");
+    print("Bananas: ");
+    print(bananas);
+    print("\n\n");
+    
+    total_fruit = apples + oranges + bananas;
+    print("Total Items: ");
+    print(total_fruit);
+    print("\n\n");
+    
+    price_apples = apples * 2;
+    price_oranges = oranges * 3;
+    price_bananas = bananas * 1;
+    
+    print("Value (price per unit):\n");
+    print("Apples ($2): $");
+    print(price_apples);
+    print("\n");
+    print("Oranges ($3): $");
+    print(price_oranges);
+    print("\n");
+    print("Bananas ($1): $");
+    print(price_bananas);
+    print("\n\n");
+    
+    total_value = price_apples + price_oranges + price_bananas;
+    print("Total Value: $");
+    print(total_value);
+    print("\n");
+    
+    return 0;
+}

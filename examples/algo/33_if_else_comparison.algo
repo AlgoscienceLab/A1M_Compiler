@@ -1,0 +1,99 @@
+// C-style if/else and comparison operators demonstration
+func main() -> void {
+    print("=== If/Else and Comparison Operators ===\n");
+    
+    let a: int = 10;
+    let b: int = 20;
+    
+    print("a = ");
+    print(a);
+    print(", b = ");
+    print(b);
+    print("\n\n");
+    
+    // Test ==
+    print("Testing a == b: ");
+    if (a == b) {
+        print("EQUAL\n");
+    } else {
+        print("NOT EQUAL\n");
+    }
+    
+    // Test !=
+    print("Testing a != b: ");
+    if (a != b) {
+        print("NOT EQUAL\n");
+    } else {
+        print("EQUAL\n");
+    }
+    
+    // Test <
+    print("Testing a < b: ");
+    if (a < b) {
+        print("TRUE\n");
+    } else {
+        print("FALSE\n");
+    }
+    
+    // Test <=
+    print("Testing a <= b: ");
+    if (a <= b) {
+        print("TRUE\n");
+    } else {
+        print("FALSE\n");
+    }
+    
+    // Test >
+    print("Testing a > b: ");
+    if (a > b) {
+        print("TRUE\n");
+    } else {
+        print("FALSE\n");
+    }
+    
+    // Test >=
+    print("Testing a >= b: ");
+    if (a >= b) {
+        print("TRUE\n");
+    } else {
+        print("FALSE\n");
+    }
+    
+    // Test && (logical AND)
+    print("\nTesting logical AND (a < 15 && b > 15): ");
+    if (a < 15 && b > 15) {
+        print("TRUE\n");
+    } else {
+        print("FALSE\n");
+    }
+    
+    // Test || (logical OR)
+    print("Testing logical OR (a == 5 || b == 20): ");
+    if (a == 5 || b == 20) {
+        print("TRUE\n");
+    } else {
+        print("FALSE\n");
+    }
+    
+    // Test ! (logical NOT)
+    print("Testing logical NOT !(a == b): ");
+    if (!(a == b)) {
+        print("TRUE\n");
+    } else {
+        print("FALSE\n");
+    }
+    
+    // Nested if/else
+    print("\nNested if/else test:\n");
+    if (a < b) {
+        if (a < 5) {
+            print("a is very small\n");
+        } else {
+            print("a is small but not very small\n");
+        }
+    } else {
+        print("a is not small\n");
+    }
+    
+    print("\n=== Test Complete ===\n");
+}

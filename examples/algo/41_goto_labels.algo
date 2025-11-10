@@ -1,0 +1,100 @@
+// Test goto and labels
+func main() -> void {
+    print("=== Goto and Labels Test ===\n\n");
+    
+    // Test 1: Simple goto
+    print("1. Simple goto:\n");
+    let x: int = 0;
+    goto skip;
+    x = 100;  // This should be skipped
+skip:
+    print("x = ");
+    print(x);
+    print(" (should be 0)\n");
+    
+    // Test 2: Forward jump
+    print("\n2. Forward jump:\n");
+    let i: int = 0;
+    i = i + 1;
+    if (i < 3) {
+        print("i = ");
+        print(i);
+        print("\n");
+        goto loop_start;
+    }
+    goto end_loop;
+loop_start:
+    i = i + 1;
+    print("i = ");
+    print(i);
+    print("\n");
+    if (i < 3) {
+        goto loop_start;
+    }
+end_loop:
+    print("Loop done\n");
+    
+    // Test 3: Error handling pattern
+    print("\n3. Error handling with goto:\n");
+    let value: int = 42;
+    let error: int = 0;
+    
+    if (value < 0) {
+        error = 1;
+        goto handle_error;
+    }
+    
+    if (value > 100) {
+        error = 2;
+        goto handle_error;
+    }
+    
+    print("Value is valid: ");
+    print(value);
+    print("\n");
+    goto cleanup;
+    
+handle_error:
+    print("Error code: ");
+    print(error);
+    print("\n");
+    
+cleanup:
+    print("Cleanup complete\n");
+    
+    // Test 4: Multi-level break simulation
+    print("\n4. Multi-level break with goto:\n");
+    let outer: int = 0;
+    let inner: int = 0;
+    
+outer_loop:
+    if (outer >= 3) {
+        goto done;
+    }
+    inner = 0;
+    
+inner_loop:
+    if (inner >= 3) {
+        outer = outer + 1;
+        goto outer_loop;
+    }
+    
+    if (outer == 1 && inner == 1) {
+        print("Breaking out at (1,1)\n");
+        goto done;
+    }
+    
+    print("(");
+    print(outer);
+    print(",");
+    print(inner);
+    print(") ");
+    
+    inner = inner + 1;
+    goto inner_loop;
+    
+done:
+    print("\nDone!\n");
+    
+    print("\n=== Test Complete ===\n");
+}

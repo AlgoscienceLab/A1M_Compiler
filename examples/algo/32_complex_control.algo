@@ -1,0 +1,59 @@
+// Mathematical operations demonstration
+// Note: Current compiler doesn't support if/else yet
+func compute(n: int) -> int {
+    let squared: int = n * n;
+    let tripled: int = n * 3;
+    let result: int = squared - tripled;
+    let final: int = result + 5;
+    return final;
+}
+
+func main() -> int {
+    print("Mathematical Operations\n");
+    print("=======================\n\n");
+    
+    let a: int = 15;
+    let b: int = 7;
+    
+    print("a = ");
+    print(a);
+    print(", b = ");
+    print(b);
+    print("\n\n");
+    
+    print("max(a, b) = 15 (a > b)\n");
+    print("min(a, b) = 7 (b < a)\n\n");
+    
+    print("Absolute values:\n");
+    print("abs(15) = 15\n");
+    print("abs(-7) = 7\n\n");
+    
+    print("Computing f(x) = x^2 - 3x + 5:\n");
+    
+    let f1: int = compute(1);
+    print("f(1) = ");
+    print(f1);
+    print("\n");
+    
+    let f2: int = compute(2);
+    print("f(2) = ");
+    print(f2);
+    print("\n");
+    
+    let f3: int = compute(3);
+    print("f(3) = ");
+    print(f3);
+    print("\n");
+    
+    let f4: int = compute(4);
+    print("f(4) = ");
+    print(f4);
+    print("\n");
+    
+    let f5: int = compute(5);
+    print("f(5) = ");
+    print(f5);
+    print("\n");
+    
+    return 0;
+}

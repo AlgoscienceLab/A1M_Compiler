@@ -1,0 +1,98 @@
+// Test enum types
+func main() -> void {
+    print("=== Enum Test ===\n\n");
+    
+    // Test 1: Basic enum
+    print("1. Basic enum (days of week):\n");
+    enum Day {
+        MONDAY,     // 0
+        TUESDAY,    // 1
+        WEDNESDAY,  // 2
+        THURSDAY,   // 3
+        FRIDAY,     // 4
+        SATURDAY,   // 5
+        SUNDAY      // 6
+    }
+    
+    let today: int = WEDNESDAY;
+    print("Today is day ");
+    print(today);
+    print(" (should be 2)\n");
+    
+    // Test 2: Enum with explicit values
+    print("\n2. Enum with explicit values:\n");
+    enum Status {
+        OK = 200,
+        NOT_FOUND = 404,
+        SERVER_ERROR = 500
+    }
+    
+    let code: int = NOT_FOUND;
+    print("Status code: ");
+    print(code);
+    print(" (should be 404)\n");
+    
+    // Test 3: Enum with mixed values
+    print("\n3. Enum with mixed values:\n");
+    enum Priority {
+        LOW = 1,
+        MEDIUM,     // 2 (auto-increments)
+        HIGH,       // 3
+        CRITICAL = 10
+    }
+    
+    let p1: int = LOW;
+    let p2: int = MEDIUM;
+    let p3: int = CRITICAL;
+    print("LOW=");
+    print(p1);
+    print(", MEDIUM=");
+    print(p2);
+    print(", CRITICAL=");
+    print(p3);
+    print("\n");
+    
+    // Test 4: Using enums in conditions
+    print("\n4. Using enums in conditions:\n");
+    enum Color {
+        RED,
+        GREEN,
+        BLUE
+    }
+    
+    let color: int = GREEN;
+    if (color == RED) {
+        print("Color is red\n");
+    } else if (color == GREEN) {
+        print("Color is green\n");
+    } else {
+        print("Color is blue\n");
+    }
+    
+    // Test 5: Switch with enum
+    print("\n5. Switch with enum:\n");
+    enum Direction {
+        NORTH,
+        SOUTH,
+        EAST,
+        WEST
+    }
+    
+    let dir: int = EAST;
+    switch (dir) {
+        case 0:  // NORTH
+            print("Going North\n");
+            break;
+        case 1:  // SOUTH
+            print("Going South\n");
+            break;
+        case 2:  // EAST
+            print("Going East\n");
+            break;
+        case 3:  // WEST
+            print("Going West\n");
+            break;
+    }
+    
+    print("\n=== Test Complete ===\n");
+}

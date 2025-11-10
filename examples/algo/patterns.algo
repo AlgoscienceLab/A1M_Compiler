@@ -1,0 +1,53 @@
+// Number Pattern Generator
+// Demonstrates nested loops and pattern printing
+
+func printTriangle(height: int) -> void {
+    for (let i = 1; i <= height; i = i + 1) {
+        for (let j = 1; j <= i; j = j + 1) {
+            print("* ");
+        }
+        print("\n");
+    }
+}
+
+func printPyramid(height: int) -> void {
+    for (let i = 1; i <= height; i = i + 1) {
+        // Print spaces
+        for (let j = 0; j < height - i; j = j + 1) {
+            print(" ");
+        }
+        
+        // Print stars
+        for (let k = 0; k < 2 * i - 1; k = k + 1) {
+            print("*");
+        }
+        
+        print("\n");
+    }
+}
+
+func printNumberTriangle(height: int) -> void {
+    for (let i = 1; i <= height; i = i + 1) {
+        for (let j = 1; j <= i; j = j + 1) {
+            print(j);
+            print(" ");
+        }
+        print("\n");
+    }
+}
+
+func main() -> int {
+    print("Pattern Generator");
+    print("=================");
+    
+    print("\n1. Right Triangle:");
+    printTriangle(5);
+    
+    print("\n2. Number Triangle:");
+    printNumberTriangle(5);
+    
+    print("\n3. Pyramid:");
+    printPyramid(5);
+    
+    return 0;
+}

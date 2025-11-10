@@ -1,0 +1,19 @@
+// Factorial calculator in Algo
+
+func factorial(n: int) -> int {
+    if (n <= 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+
+func main() -> int {
+    for (let i = 1; i <= 10; i = i + 1) {
+        let result = factorial(i);
+        print(i);
+        print(" ! = ");
+        print(result);
+        print("\n");
+    }
+    return 0;
+}

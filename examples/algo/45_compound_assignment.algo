@@ -1,0 +1,146 @@
+// Test compound assignment operators
+func main() -> void {
+    print("=== Compound Assignment Operators Test ===\n\n");
+    
+    // Test 1: Addition assignment (+=)
+    print("1. Addition assignment (+=):\n");
+    let x: int = 10;
+    print("x = ");
+    print(x);
+    print("\n");
+    x += 5;
+    print("After x += 5: x = ");
+    print(x);
+    print(" (should be 15)\n");
+    
+    // Test 2: Subtraction assignment (-=)
+    print("\n2. Subtraction assignment (-=):\n");
+    x = 20;
+    print("x = ");
+    print(x);
+    print("\n");
+    x -= 7;
+    print("After x -= 7: x = ");
+    print(x);
+    print(" (should be 13)\n");
+    
+    // Test 3: Multiplication assignment (*=)
+    print("\n3. Multiplication assignment (*=):\n");
+    x = 6;
+    print("x = ");
+    print(x);
+    print("\n");
+    x *= 4;
+    print("After x *= 4: x = ");
+    print(x);
+    print(" (should be 24)\n");
+    
+    // Test 4: Division assignment (/=)
+    print("\n4. Division assignment (/=):\n");
+    x = 100;
+    print("x = ");
+    print(x);
+    print("\n");
+    x /= 5;
+    print("After x /= 5: x = ");
+    print(x);
+    print(" (should be 20)\n");
+    
+    // Test 5: Modulo assignment (%=)
+    print("\n5. Modulo assignment (%=):\n");
+    x = 17;
+    print("x = ");
+    print(x);
+    print("\n");
+    x %= 5;
+    print("After x %= 5: x = ");
+    print(x);
+    print(" (should be 2)\n");
+    
+    // Test 6: Bitwise AND assignment (&=)
+    print("\n6. Bitwise AND assignment (&=):\n");
+    x = 12;  // 1100 in binary
+    print("x = ");
+    print(x);
+    print("\n");
+    x &= 10;  // 1010 in binary, result = 1000 = 8
+    print("After x &= 10: x = ");
+    print(x);
+    print(" (should be 8)\n");
+    
+    // Test 7: Bitwise OR assignment (|=)
+    print("\n7. Bitwise OR assignment (|=):\n");
+    x = 12;  // 1100 in binary
+    print("x = ");
+    print(x);
+    print("\n");
+    x |= 3;  // 0011 in binary, result = 1111 = 15
+    print("After x |= 3: x = ");
+    print(x);
+    print(" (should be 15)\n");
+    
+    // Test 8: Bitwise XOR assignment (^=)
+    print("\n8. Bitwise XOR assignment (^=):\n");
+    x = 12;  // 1100 in binary
+    print("x = ");
+    print(x);
+    print("\n");
+    x ^= 7;  // 0111 in binary, result = 1011 = 11
+    print("After x ^= 7: x = ");
+    print(x);
+    print(" (should be 11)\n");
+    
+    // Test 9: Left shift assignment (<<=)
+    print("\n9. Left shift assignment (<<=):\n");
+    x = 5;
+    print("x = ");
+    print(x);
+    print("\n");
+    x <<= 2;  // 5 << 2 = 20
+    print("After x <<= 2: x = ");
+    print(x);
+    print(" (should be 20)\n");
+    
+    // Test 10: Right shift assignment (>>=)
+    print("\n10. Right shift assignment (>>=):\n");
+    x = 40;
+    print("x = ");
+    print(x);
+    print("\n");
+    x >>= 3;  // 40 >> 3 = 5
+    print("After x >>= 3: x = ");
+    print(x);
+    print(" (should be 5)\n");
+    
+    // Test 11: Chained operations
+    print("\n11. Chained operations:\n");
+    let a: int = 10;
+    let b: int = 5;
+    print("a = ");
+    print(a);
+    print(", b = ");
+    print(b);
+    print("\n");
+    a += b;
+    b *= 2;
+    print("After a += b and b *= 2:\n");
+    print("a = ");
+    print(a);
+    print(" (should be 15), b = ");
+    print(b);
+    print(" (should be 10)\n");
+    
+    // Test 12: Use in accumulation
+    print("\n12. Accumulation pattern:\n");
+    let sum: int = 0;
+    let i: int = 1;
+    while (i <= 5) {
+        sum += i;
+        i++;
+    }
+    print("Sum of 1 to 5 = ");
+    print(sum);
+    print(" (should be 15)\n");
+    
+    print("\n=== Test Complete ===\n");
+}

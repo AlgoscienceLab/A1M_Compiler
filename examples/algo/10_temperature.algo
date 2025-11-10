@@ -1,0 +1,37 @@
+// Temperature conversion calculations
+func main() -> int {
+    let celsius1: int = 0;
+    let celsius2: int = 25;
+    let celsius3: int = 100;
+    let fahrenheit1: int;
+    let fahrenheit2: int;
+    let fahrenheit3: int;
+    let temp: int;
+    
+    print("Temperature Conversions\n");
+    print("(Celsius to Fahrenheit approximation)\n\n");
+    
+    // F = C * 9/5 + 32, approximating as C * 2 + 30
+    temp = celsius1 * 2;
+    fahrenheit1 = temp + 30;
+    print(celsius1);
+    print("C = ~");
+    print(fahrenheit1);
+    print("F\n");
+    
+    temp = celsius2 * 2;
+    fahrenheit2 = temp + 30;
+    print(celsius2);
+    print("C = ~");
+    print(fahrenheit2);
+    print("F\n");
+    
+    temp = celsius3 * 2;
+    fahrenheit3 = temp + 30;
+    print(celsius3);
+    print("C = ~");
+    print(fahrenheit3);
+    print("F\n");
+    
+    return 0;
+}

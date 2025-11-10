@@ -1,0 +1,97 @@
+// Test increment and decrement operators
+func main() -> void {
+    print("=== Increment/Decrement Operators Test ===\n\n");
+    
+    // Test 1: Prefix increment
+    print("1. Prefix increment (++x):\n");
+    let x: int = 5;
+    print("x = ");
+    print(x);
+    print("\n");
+    
+    let y: int = ++x;
+    print("After y = ++x:\n");
+    print("x = ");
+    print(x);
+    print(", y = ");
+    print(y);
+    print(" (both should be 6)\n");
+    
+    // Test 2: Postfix increment
+    print("\n2. Postfix increment (x++):\n");
+    x = 10;
+    print("x = ");
+    print(x);
+    print("\n");
+    
+    y = x++;
+    print("After y = x++:\n");
+    print("x = ");
+    print(x);
+    print(" (should be 11), y = ");
+    print(y);
+    print(" (should be 10)\n");
+    
+    // Test 3: Prefix decrement
+    print("\n3. Prefix decrement (--x):\n");
+    x = 20;
+    print("x = ");
+    print(x);
+    print("\n");
+    
+    y = --x;
+    print("After y = --x:\n");
+    print("x = ");
+    print(x);
+    print(", y = ");
+    print(y);
+    print(" (both should be 19)\n");
+    
+    // Test 4: Postfix decrement
+    print("\n4. Postfix decrement (x--):\n");
+    x = 15;
+    print("x = ");
+    print(x);
+    print("\n");
+    
+    y = x--;
+    print("After y = x--:\n");
+    print("x = ");
+    print(x);
+    print(" (should be 14), y = ");
+    print(y);
+    print(" (should be 15)\n");
+    
+    // Test 5: In loops
+    print("\n5. Using in loops:\n");
+    let i: int = 0;
+    while (i < 5) {
+        print("i = ");
+        print(i);
+        print("\n");
+        i++;
+    }
+    
+    // Test 6: Multiple operations
+    print("\n6. Multiple operations:\n");
+    let a: int = 10;
+    let b: int = ++a + a++;  // (11) + (11), then a becomes 12
+    print("a = ");
+    print(a);
+    print(" (should be 12), b = ");
+    print(b);
+    print(" (should be 22)\n");
+    
+    // Test 7: Decrement in condition
+    print("\n7. Countdown:\n");
+    let count: int = 3;
+    while (count > 0) {
+        print("count = ");
+        print(count);
+        print("\n");
+        count--;
+    }
+    print("Blast off!\n");
+    
+    print("\n=== Test Complete ===\n");
+}

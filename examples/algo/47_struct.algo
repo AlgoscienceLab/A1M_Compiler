@@ -1,0 +1,61 @@
+// Test struct types (simplified - each field is a separate variable)
+
+func main() -> void {
+    print("=== Struct Test ===\n\n");
+    
+    // 1. Basic struct simulation
+    print("1. Point (using separate variables):\n");
+    let p_x:int = 0;  // simulating p.x
+    let p_y:int = 0;  // simulating p.y
+    
+    p_x = 10;
+    p_y = 20;
+    print("Point: (");
+    print(p_x);
+    print(", ");
+    print(p_y);
+    print(")\n\n");
+    
+    // 2. Struct with more fields
+    print("2. Person (using separate variables):\n");
+    let person_age:int = 0;
+    let person_height:int = 0;
+    let person_weight:int = 0;
+    
+    person_age = 25;
+    person_height = 180;
+    person_weight = 75;
+    print("Age: ");
+    print(person_age);
+    print(", Height: ");
+    print(person_height);
+    print(", Weight: ");
+    print(person_weight);
+    print("\n\n");
+    
+    // 3. Calculations
+    print("3. Rectangle calculations:\n");
+    let rect_width = 0;
+    let rect_height = 0;
+    
+    rect_width = 15;
+    rect_height = 10;
+    let area = 0;
+    area = rect_width * rect_height;
+    print("Rectangle area: ");
+    print(area);
+    print(" (should be 150)\n\n");
+    
+    // 4. Modifying fields
+    print("4. Modifying dimensions:\n");
+    rect_width = rect_width + 5;
+    rect_height = rect_height - 3;
+    print("New dimensions: ");
+    print(rect_width);
+    print(" x ");
+    print(rect_height);
+    print("\n\n");
+    
+    print("=== Test Complete ===\n");
+    return 0;
+}

@@ -1,0 +1,42 @@
+// Geometry calculations
+func main() -> int {
+    let length: int = 10;
+    let width: int = 5;
+    let height: int = 3;
+    let area: int;
+    let perimeter: int;
+    let volume: int;
+    
+    print("Geometry Calculator\n");
+    print("===================\n\n");
+    
+    print("Rectangle:\n");
+    print("Length = ");
+    print(length);
+    print("\n");
+    print("Width = ");
+    print(width);
+    print("\n");
+    
+    area = length * width;
+    print("Area = ");
+    print(area);
+    print("\n");
+    
+    perimeter = length + length + width + width;
+    print("Perimeter = ");
+    print(perimeter);
+    print("\n\n");
+    
+    print("Box:\n");
+    print("Height = ");
+    print(height);
+    print("\n");
+    
+    volume = area * height;
+    print("Volume = ");
+    print(volume);
+    print("\n");
+    
+    return 0;
+}

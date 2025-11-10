@@ -1,0 +1,46 @@
+// GCD demonstration (manual calculation)
+// Note: Current compiler doesn't support loops or modulo yet
+func main() -> int {
+    print("GCD Demonstration\n");
+    print("=================\n\n");
+    
+    let num1: int = 48;
+    let num2: int = 18;
+    
+    print("Numbers: ");
+    print(num1);
+    print(" and ");
+    print(num2);
+    print("\n\n");
+    
+    print("GCD(48, 18) = 6\n");
+    print("Because: 48 = 6 * 8, 18 = 6 * 3\n\n");
+    
+    print("More examples:\n");
+    let a: int = 12;
+    let b: int = 8;
+    print("GCD(");
+    print(a);
+    print(", ");
+    print(b);
+    print(") = 4\n");
+    
+    let c: int = 100;
+    let d: int = 50;
+    print("GCD(");
+    print(c);
+    print(", ");
+    print(d);
+    print(") = 50\n\n");
+    
+    print("Calculations:\n");
+    let prod: int = a * b;
+    print(a);
+    print(" * ");
+    print(b);
+    print(" = ");
+    print(prod);
+    print("\n");
+    
+    return 0;
+}

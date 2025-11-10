@@ -1,0 +1,88 @@
+# Build directories
+build/
+obj/
+out/
+
+# Compiled binaries
+algo-compiler
+a1m-asm
+a1m-emu
+*.out
+a.out
+
+# Generated assembly and binary files
+*.asm
+*.bin
+
+# VS Code extension build artifacts
+vsextension/out/
+vsextension/*.vsix
+vsextension/node_modules/
+
+# Temporary files
+*.tmp
+*.temp
+.vscode/temp.asm
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Editor backups
+*~
+*.swp
+*.swo
+*.bak
+
+# Logs
+*.log
+
+# Node.js (for VS Code extension)
+node_modules/
+package-lock.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python (if any)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+
+# Test outputs
+test_*.asm
+test_*.bin
+test_*.algo
+
+# Backup files from install script
+*.old
+
+# IDE specific
+.idea/
+*.iml
+.vscode/settings.json
+.vscode/launch.json
+
+# Documentation build artifacts
+*.pdf
+*.aux
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+
+# Verilog simulation files
+verilog/*.vcd
+verilog/*.out
+verilog/tb_*
+
+# GUI console build
+gui-console/*.o
+gui-console/gui-console
+
+# Keep example outputs for reference (optional - uncomment if you want to track them)
+# !examples/**/*.asm
+# !examples/**/*.bin

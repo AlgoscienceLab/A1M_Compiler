@@ -1,0 +1,10 @@
+// Algo Language - Hello World Example
+// This is a simple program that demonstrates basic Algo syntax
+
+func main() -> int {
+    // Print hello message
+    print("Hello from A1M CPU!");
+    
+    // Return success
+    return 0;
+}

@@ -1,0 +1,37 @@
+// Grade and age demonstration
+// Note: Current compiler doesn't support if/else yet
+func main() -> int {
+    print("Grade and Age Demo\n");
+    print("==================\n\n");
+    
+    let score: int = 85;
+    print("Score: ");
+    print(score);
+    print("\nGrade: B - Good!\n");
+    print("(85 is between 80-89)\n\n");
+    
+    let age: int = 25;
+    print("Age: ");
+    print(age);
+    print("\nCategory: Adult\n");
+    print("(25 is between 20-59)\n\n");
+    
+    print("Calculation examples:\n");
+    let a: int = 90;
+    let b: int = 80;
+    let c: int = 70;
+    
+    let avg: int = a + b + c;
+    print("Scores: ");
+    print(a);
+    print(", ");
+    print(b);
+    print(", ");
+    print(c);
+    print("\n");
+    print("Total: ");
+    print(avg);
+    print("\n");
+    
+    return 0;
+}

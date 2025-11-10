@@ -1,0 +1,123 @@
+// Example of calling functions from included header files
+// Optimized to use fewer registers by reusing variables
+#include "utils.algo"
+#include "string_utils.algo"
+
+func main() -> void {
+    print("=== Function Include Example ===\n");
+    print("Demonstrating function calls from included files\n\n");
+    
+    // Test 1: Basic math functions from utils.algo
+    print("=== Test 1: Math Functions (utils.algo) ===\n");
+    let a = 15;
+    let b = 7;
+    let result = 0;  // Reuse this variable for all results
+    
+    print("a = ");
+    print(a);
+    print(", b = ");
+    print(b);
+    print("\n\n");
+    
+    result = add(a, b);
+    print("add(a, b) = ");
+    print(result);
+    print("\n");
+    
+    result = subtract(a, b);
+    print("subtract(a, b) = ");
+    print(result);
+    print("\n");
+    
+    result = multiply(a, b);
+    print("multiply(a, b) = ");
+    print(result);
+    print("\n");
+    
+    result = divide(a, b);
+    print("divide(a, b) = ");
+    print(result);
+    print("\n");
+    
+    result = max(a, b);
+    print("max(a, b) = ");
+    print(result);
+    print("\n");
+    
+    result = min(a, b);
+    print("min(a, b) = ");
+    print(result);
+    print("\n");
+    
+    result = abs(0 - 10);
+    print("abs(-10) = ");
+    print(result);
+    print("\n");
+    
+    print_separator();
+    
+    // Test 2: String utilities from string_utils.algo
+    print("=== Test 2: Print Utilities ===\n");
+    print_line();
+    print("Using utility print functions:\n");
+    print_line();
+    
+    print_number_line(100, 42);
+    print_number_line(200, 99);
+    print_number_line(300, 777);
+    
+    print_line();
+    print_separator();
+    
+    // Test 3: Complex Operations
+    print("=== Test 3: Complex Operations ===\n");
+    
+    a = 12;
+    b = 5;
+    
+    print("a = ");
+    print(a);
+    print(", b = ");
+    print(b);
+    print("\n\n");
+    
+    // Calculate: max(a*b, a+b)
+    let temp1 = multiply(a, b);
+    let temp2 = add(a, b);
+    result = max(temp1, temp2);
+    
+    print("multiply(a, b) = ");
+    print(temp1);
+    print("\n");
+    print("add(a, b) = ");
+    print(temp2);
+    print("\n");
+    print("max of both = ");
+    print(result);
+    print("\n\n");
+    
+    // Calculate: square(max(a, b))
+    result = max(a, b);
+    print("max(a, b) = ");
+    print(result);
+    print("\n");
+    
+    temp1 = result * result;  // square
+    print("square(max) = ");
+    print(temp1);
+    print("\n");
+    
+    print_separator();
+    
+    // Summary
+    print("=== Summary ===\n");
+    print_line();
+    print("Successfully included and called functions from:\n");
+    print("  1. utils.algo - 7 math utility functions\n");
+    print("  2. string_utils.algo - 5 print utilities\n");
+    print_line();
+    
+    print("\nAll function calls executed successfully!\n");
+    print("\n=== Test Complete ===\n");
+    return 0;
+}

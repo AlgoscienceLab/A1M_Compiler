@@ -1,0 +1,69 @@
+// Bitwise operators demonstration
+func main() -> void {
+    print("=== Bitwise Operators ===\n\n");
+    
+    let a: int = 12;   // 1100 in binary
+    let b: int = 10;   // 1010 in binary
+    
+    print("a = ");
+    print(a);
+    print(" (binary: 1100)\n");
+    print("b = ");
+    print(b);
+    print(" (binary: 1010)\n\n");
+    
+    // Bitwise AND
+    let result: int = a & b;
+    print("a & b = ");
+    print(result);
+    print(" (binary: 1000, decimal: 8)\n");
+    
+    // Bitwise OR
+    result = a | b;
+    print("a | b = ");
+    print(result);
+    print(" (binary: 1110, decimal: 14)\n");
+    
+    // Bitwise XOR
+    result = a ^ b;
+    print("a ^ b = ");
+    print(result);
+    print(" (binary: 0110, decimal: 6)\n");
+    
+    // Bitwise NOT
+    result = ~a;
+    print("~a = ");
+    print(result);
+    print(" (bitwise complement)\n\n");
+    
+    // Left shift
+    result = a << 2;
+    print("a << 2 = ");
+    print(result);
+    print(" (multiply by 4)\n");
+    
+    // Right shift
+    result = a >> 2;
+    print("a >> 2 = ");
+    print(result);
+    print(" (divide by 4)\n\n");
+    
+    // Practical use: check if power of 2
+    print("Is 16 a power of 2? ");
+    let num: int = 16;
+    if (num > 0 && (num & (num - 1)) == 0) {
+        print("YES\n");
+    } else {
+        print("NO\n");
+    }
+    
+    print("Is 15 a power of 2? ");
+    num = 15;
+    if (num > 0 && (num & (num - 1)) == 0) {
+        print("YES\n");
+    } else {
+        print("NO\n");
+    }
+    
+    print("\n=== Test Complete ===\n");
+}

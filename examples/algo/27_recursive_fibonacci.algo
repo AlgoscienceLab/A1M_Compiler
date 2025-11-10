@@ -1,0 +1,70 @@
+// Fibonacci sequence (iterative)
+// Note: Current compiler doesn't support recursion yet
+func main() -> int {
+    print("Fibonacci Sequence\n");
+    print("==================\n\n");
+    
+    print("First 12 Fibonacci numbers:\n\n");
+    
+    let f0: int = 0;
+    let f1: int = 1;
+    
+    print("F(0) = ");
+    print(f0);
+    print("\n");
+    print("F(1) = ");
+    print(f1);
+    print("\n");
+    
+    let f2: int = f0 + f1;
+    print("F(2) = ");
+    print(f2);
+    print("\n");
+    
+    let f3: int = f1 + f2;
+    print("F(3) = ");
+    print(f3);
+    print("\n");
+    
+    let f4: int = f2 + f3;
+    print("F(4) = ");
+    print(f4);
+    print("\n");
+    
+    let f5: int = f3 + f4;
+    print("F(5) = ");
+    print(f5);
+    print("\n");
+    
+    let f6: int = f4 + f5;
+    print("F(6) = ");
+    print(f6);
+    print("\n");
+    
+    let f7: int = f5 + f6;
+    print("F(7) = ");
+    print(f7);
+    print("\n");
+    
+    let f8: int = f6 + f7;
+    print("F(8) = ");
+    print(f8);
+    print("\n");
+    
+    let f9: int = f7 + f8;
+    print("F(9) = ");
+    print(f9);
+    print("\n");
+    
+    let f10: int = f8 + f9;
+    print("F(10) = ");
+    print(f10);
+    print("\n");
+    
+    let f11: int = f9 + f10;
+    print("F(11) = ");
+    print(f11);
+    print("\n");
+    
+    return 0;
+}

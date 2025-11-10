@@ -1,0 +1,51 @@
+// Sequential sum demonstration (manual unrolling)
+func main() -> int {
+    print("Sum Demo\n");
+    print("========\n\n");
+    
+    print("Sum of numbers 1 to 10:\n");
+    let sum: int = 0;
+    sum = sum + 1;
+    sum = sum + 2;
+    sum = sum + 3;
+    sum = sum + 4;
+    sum = sum + 5;
+    sum = sum + 6;
+    sum = sum + 7;
+    sum = sum + 8;
+    sum = sum + 9;
+    sum = sum + 10;
+    
+    print("Sum = ");
+    print(sum);
+    print("\n\n");
+    
+    print("Powers of 2:\n");
+    let p0: int = 1;
+    let p1: int = p0 * 2;
+    let p2: int = p1 * 2;
+    let p3: int = p2 * 2;
+    let p4: int = p3 * 2;
+    let p5: int = p4 * 2;
+    let p6: int = p5 * 2;
+    let p7: int = p6 * 2;
+    
+    print(p0);
+    print(" ");
+    print(p1);
+    print(" ");
+    print(p2);
+    print(" ");
+    print(p3);
+    print(" ");
+    print(p4);
+    print(" ");
+    print(p5);
+    print(" ");
+    print(p6);
+    print(" ");
+    print(p7);
+    print("\n");
+    
+    return 0;
+}
