@@ -1,0 +1,59 @@
+// Test file for float and double support in Algo
+
+func test_float() -> void {
+    let pi: float = 3.14159f;
+    let e: float = 2.71828f;
+    let sum: float = pi + e;
+    
+    print(42);  // Placeholder
+}
+
+func test_double() -> void {
+    let pi: double = 3.141592653589793;
+    let e: double = 2.718281828459045;
+    let golden: double = 1.618033988749895;
+    
+    print(43);  // Placeholder
+}
+
+func test_float_literals() -> void {
+    let a: float = 1.5f;
+    let b: float = 2.5f;
+    let c: float = 0.75f;
+    
+    // Float with exponent
+    let large: float = 1.23e10f;
+    let small: float = 4.56e-5f;
+    
+    print(44);
+}
+
+func test_double_literals() -> void {
+    let a: double = 1.5;
+    let b: double = 2.5;
+    let c: double = 0.75;
+    
+    // Double with exponent
+    let large: double = 1.23e100;
+    let small: double = 4.56e-50;
+    
+    print(45);
+}
+
+func test_mixed_types() -> void {
+    let f: float = 3.14f;
+    let d: double = 3.14159265358979;
+    let i: int = 42;
+    
+    print(46);
+}
+
+func main() -> void {
+    test_float();
+    test_double();
+    test_float_literals();
+    test_double_literals();
+    test_mixed_types();
+    
+    print(100);  // Success
+}

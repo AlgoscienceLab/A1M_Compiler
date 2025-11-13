@@ -1,0 +1,7 @@
+// Test division
+func main() -> void {
+    let a:float = 6.0;
+    let b:float = 2.0;
+    let c:float = a / b;
+    print(c);
+}

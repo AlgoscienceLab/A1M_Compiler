@@ -71,11 +71,12 @@ The **A1M CPU Project** is a complete computing system from hardware to high-lev
 
 ### Language (Algo)
 - ✅ **Modern Syntax** - Clean, readable C-like syntax
-- ✅ **Static Typing** - int, string, bool types
+- ✅ **Static Typing** - int, float, double, string, bool types
 - ✅ **Functions** - First-class function support
-- ✅ **Control Flow** - if/else, while, for loops
-- ✅ **Operators** - Arithmetic, logical, bitwise
+- ✅ **Control Flow** - if/else, while, for, do-while, switch/case, goto loops
+- ✅ **Operators** - Arithmetic, logical, bitwise, ++/--, compound assignments, ternary
 - ✅ **Standard I/O** - print(), input() functions
+- ✅ **Enums** - Compile-time constants
 
 ---
 

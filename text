@@ -8,3 +8,8 @@
  ./emulator/a1m-emu a.out
 
  pdflatex -interaction=nonstopmode A1M_THESIS.tex 2>&1 | tail -30
+
+ npx @vscode/vsce package
+ cd /home/shahrear/Documents/A1MCPU && chmod +x algo-run.sh && sudo ./algo-run.sh
+ cd /home/shahrear/Documents/A1MCPU && chmod +x install.sh && sudo ./install.sh
+

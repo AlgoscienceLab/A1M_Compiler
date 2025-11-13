@@ -507,6 +507,22 @@ void cpu_execute(CPU *cpu, Instruction inst) {
                         }
                     }
                     break;
+                case 0x05:  // print_float (scaled integer x1000)
+                    {
+                        // Floats are stored as scaled integers (value * 1000)
+                        int64_t scaled_value = (int64_t)cpu->registers[1];
+                        int64_t integer_part = scaled_value / 1000;
+                        int64_t decimal_part = scaled_value % 1000;
+                        
+                        // Handle negative numbers correctly
+                        if (scaled_value < 0 && decimal_part != 0) {
+                            decimal_part = -decimal_part;
+                        }
+                        
+                        printf("%lld.%03lld", (long long)integer_part, (long long)decimal_part);
+                        fflush(stdout);
+                    }
+                    break;
                 default:
                     fprintf(stderr, "Unknown syscall: 0x%x\n", inst.immediate);
                     break;

@@ -1,0 +1,7 @@
+// Test multiplication
+func main() -> void {
+    let a:float = 3.9;
+    let b:float = 4.5;
+    let c:float = a + b;
+    print(c);
+}

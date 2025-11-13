@@ -238,6 +238,22 @@ static ASTNode* primary(Parser* p) {
         return node;
     }
     
+    if (match(p, TOKEN_FLOAT_LITERAL)) {
+        ASTNode* node = ast_create_node(AST_LITERAL_FLOAT, p->previous.line);
+        char* temp = string_copy(p->previous.start, p->previous.length);
+        node->float_literal.value = strtof(temp, NULL);
+        free(temp);
+        return node;
+    }
+    
+    if (match(p, TOKEN_DOUBLE_LITERAL)) {
+        ASTNode* node = ast_create_node(AST_LITERAL_DOUBLE, p->previous.line);
+        char* temp = string_copy(p->previous.start, p->previous.length);
+        node->double_literal.value = strtod(temp, NULL);
+        free(temp);
+        return node;
+    }
+    
     if (match(p, TOKEN_STRING)) {
         ASTNode* node = ast_create_node(AST_LITERAL_STRING, p->previous.line);
         // Remove quotes
@@ -460,7 +476,9 @@ static ASTNode* declaration_stmt(Parser* p) {
         // Allow type keywords or identifiers as types
         if (!match(p, TOKEN_INT) && !match(p, TOKEN_BOOL) && 
             !match(p, TOKEN_STRING_TYPE) && !match(p, TOKEN_VOID) &&
-            !match(p, TOKEN_IDENTIFIER)) {
+            !match(p, TOKEN_FLOAT) && !match(p, TOKEN_DOUBLE) &&
+            !match(p, TOKEN_CHAR) && !match(p, TOKEN_SHORT) &&
+            !match(p, TOKEN_LONG) && !match(p, TOKEN_IDENTIFIER)) {
             parser_error_at(p, &p->current, "Expected type name");
         }
         node->declaration.type = string_copy(p->previous.start, p->previous.length);
@@ -878,7 +896,9 @@ static ASTNode* function_decl(Parser* p) {
             // Allow type keywords or identifiers as types
             if (!match(p, TOKEN_INT) && !match(p, TOKEN_BOOL) && 
                 !match(p, TOKEN_STRING_TYPE) && !match(p, TOKEN_VOID) &&
-                !match(p, TOKEN_IDENTIFIER)) {
+                !match(p, TOKEN_FLOAT) && !match(p, TOKEN_DOUBLE) &&
+                !match(p, TOKEN_CHAR) && !match(p, TOKEN_SHORT) &&
+                !match(p, TOKEN_LONG) && !match(p, TOKEN_IDENTIFIER)) {
                 parser_error_at(p, &p->current, "Expected parameter type");
             }
             node->function.param_types[node->function.param_count] = 
@@ -894,7 +914,9 @@ static ASTNode* function_decl(Parser* p) {
     // Allow type keywords or identifiers as return type
     if (!match(p, TOKEN_INT) && !match(p, TOKEN_BOOL) && 
         !match(p, TOKEN_STRING_TYPE) && !match(p, TOKEN_VOID) &&
-        !match(p, TOKEN_IDENTIFIER)) {
+        !match(p, TOKEN_FLOAT) && !match(p, TOKEN_DOUBLE) &&
+        !match(p, TOKEN_CHAR) && !match(p, TOKEN_SHORT) &&
+        !match(p, TOKEN_LONG) && !match(p, TOKEN_IDENTIFIER)) {
         parser_error_at(p, &p->current, "Expected return type");
     }
     

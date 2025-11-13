@@ -271,9 +271,57 @@ static Token identifier(Lexer* lexer) {
 }
 
 static Token number(Lexer* lexer) {
+    bool is_float = false;
+    bool is_double = false;
+    
+    // Parse integer part
     while (isdigit(peek(lexer))) {
         advance(lexer);
     }
+    
+    // Look for decimal point
+    if (peek(lexer) == '.' && isdigit(peek_next(lexer))) {
+        is_float = true;
+        
+        // Consume the '.'
+        advance(lexer);
+        
+        // Parse fractional part
+        while (isdigit(peek(lexer))) {
+            advance(lexer);
+        }
+    }
+    
+    // Look for exponent (e or E)
+    if (peek(lexer) == 'e' || peek(lexer) == 'E') {
+        is_float = true;
+        advance(lexer);
+        
+        // Optional sign
+        if (peek(lexer) == '+' || peek(lexer) == '-') {
+            advance(lexer);
+        }
+        
+        // Exponent digits
+        while (isdigit(peek(lexer))) {
+            advance(lexer);
+        }
+    }
+    
+    // Check for float/double suffix
+    if (peek(lexer) == 'f' || peek(lexer) == 'F') {
+        advance(lexer);
+        return make_token(lexer, TOKEN_FLOAT_LITERAL);
+    } else if (peek(lexer) == 'd' || peek(lexer) == 'D') {
+        advance(lexer);
+        is_double = true;
+    }
+    
+    // Default to double if decimal point or exponent found, otherwise int
+    if (is_float || is_double) {
+        return make_token(lexer, TOKEN_DOUBLE_LITERAL);
+    }
+    
     return make_token(lexer, TOKEN_INTEGER);
 }
 

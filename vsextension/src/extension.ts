@@ -122,7 +122,7 @@ class AlgoCompletionProvider implements vscode.CompletionItemProvider {
         });
 
         // Types
-        const types = ['void', 'int', 'char', 'bool', 'i64', 'u64'];
+        const types = ['void', 'int', 'char', 'bool', 'float', 'double', 'i64', 'u64', 'short', 'long'];
         types.forEach(type => {
             const item = new vscode.CompletionItem(type, vscode.CompletionItemKind.TypeParameter);
             item.detail = 'Algo type';

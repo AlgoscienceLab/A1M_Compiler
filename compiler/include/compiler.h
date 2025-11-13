@@ -16,6 +16,8 @@ typedef enum {
     
     // Literals
     TOKEN_INTEGER,
+    TOKEN_FLOAT_LITERAL,
+    TOKEN_DOUBLE_LITERAL,
     TOKEN_STRING,
     TOKEN_TRUE,
     TOKEN_FALSE,
@@ -152,6 +154,8 @@ typedef enum {
     AST_TERNARY_OP,
     AST_CALL,
     AST_LITERAL_INT,
+    AST_LITERAL_FLOAT,
+    AST_LITERAL_DOUBLE,
     AST_LITERAL_STRING,
     AST_LITERAL_BOOL,
     AST_LITERAL_CHAR,
@@ -176,6 +180,8 @@ struct ASTNode {
     union {
         // Literals
         struct { int64_t value; } integer;
+        struct { float value; } float_literal;
+        struct { double value; } double_literal;
         struct { char* value; } string;
         struct { bool value; } boolean;
         
@@ -366,6 +372,7 @@ typedef struct {
     int scope_depth;
     bool is_const;           // true if this is a compile-time constant (e.g., enum value)
     int64_t const_value;     // value if is_const is true
+    char* type;              // variable type: "int", "float", "double", "bool", "char", etc.
 } Symbol;
 
 // Symbol table
@@ -411,7 +418,7 @@ void codegen_free(CodeGen* gen);
 
 // Symbol table functions
 void symtab_init(SymbolTable* table);
-void symtab_add(SymbolTable* table, const char* name, int reg);
+void symtab_add(SymbolTable* table, const char* name, int reg, const char* type);
 void symtab_add_const(SymbolTable* table, const char* name, int64_t value);
 int symtab_lookup(SymbolTable* table, const char* name);
 Symbol* symtab_find(SymbolTable* table, const char* name);

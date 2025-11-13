@@ -59,7 +59,7 @@
       "patterns": [
         {
           "name": "storage.type.algo",
-          "match": "\\b(void|int|char|bool|i64|u64)\\b"
+          "match": "\\b(void|int|char|bool|float|double|i64|u64|short|long)\\b"
         }
       ]
     },
@@ -115,6 +115,18 @@
     },
     "numbers": {
       "patterns": [
+        {
+          "name": "constant.numeric.float.algo",
+          "match": "\\b[0-9]*\\.[0-9]+([eE][+-]?[0-9]+)?[fFdD]?\\b"
+        },
+        {
+          "name": "constant.numeric.float.algo",
+          "match": "\\b[0-9]+[eE][+-]?[0-9]+[fFdD]?\\b"
+        },
+        {
+          "name": "constant.numeric.float.algo",
+          "match": "\\b[0-9]+\\.[0-9]*([eE][+-]?[0-9]+)?[fFdD]?\\b"
+        },
         {
           "name": "constant.numeric.hex.algo",
           "match": "\\b0x[0-9A-Fa-f]+\\b"

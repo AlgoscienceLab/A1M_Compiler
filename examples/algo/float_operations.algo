@@ -1,0 +1,26 @@
+// Test all float operations
+func main() -> void {
+    // Addition
+    let a1:float = 10.5;
+    let b1:float = 3.2;
+    let sum:float = a1 + b1;
+    print(sum);
+    
+    // Subtraction
+    let a2:float = 10.5;
+    let b2:float = 3.2;
+    let diff:float = a2 - b2;
+    print(diff);
+    
+    // Multiplication
+    let a3:float = 10.5;
+    let b3:float = 3.2;
+    let prod:float = a3 * b3;
+    print(prod);
+    
+    // Division
+    let a4:float = 10.5;
+    let b4:float = 3.2;
+    let quot:float = a4 / b4;
+    print(quot);
+}

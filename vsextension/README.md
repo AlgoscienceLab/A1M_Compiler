@@ -6,7 +6,8 @@ Full language support for the A1M Algo programming language.
 
 ### 🎨 Syntax Highlighting
 - Keywords: `func`, `let`, `if`, `else`, `while`, `for`, `return`, `enum`, `struct`, etc.
-- Types: `void`, `int`, `char`, `bool`, `i64`, `u64`
+- Types: `void`, `int`, `char`, `bool`, `float`, `double`, `i64`, `u64`
+- Floating-point literals: `3.14f`, `2.718`, `1.23e10f`, `4.56e-5`
 - Operators, strings, numbers, and comments
 - Preprocessor directives (`#include`)
 
@@ -58,18 +59,27 @@ Configure paths in VS Code settings:
 ```algo
 func main() -> void {
     print("Hello, Algo!\n");
-    let x = 42;
-    print("Answer: ");
+    
+    let x: int = 42;
+    let pi: float = 3.14159f;
+    let e: double = 2.718281828459045;
+    
+    print("Integer: ");
     print(x);
     print("\n");
 }
 ```
 
-## Icon
-
-The extension uses a distinctive **gold triangle** icon for `.algo` files.
-
 ## Release Notes
+
+### 1.1.0
+
+**Float and Double Support:**
+- Added `float` and `double` type keywords
+- Support for floating-point literals with suffixes (`f`, `F`, `d`, `D`)
+- Scientific notation support (`1.23e10`, `4.56e-5`)
+- Enhanced number pattern recognition
+- Full compiler integration for IEEE 754 format
 
 ### 1.0.0
 
