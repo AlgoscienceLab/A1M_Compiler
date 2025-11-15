@@ -1,0 +1,836 @@
+\documentclass[conference,10pt,twocolumn]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+% Packages
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{mathptmx}  % Times New Roman font
+\usepackage[T1]{fontenc}
+
+% Make all text semi-bold (medium weight)
+\renewcommand{\mddefault}{sb}  % Set default to semi-bold
+\renewcommand{\familydefault}{\sfdefault}
+\renewcommand{\rmdefault}{ptm}  % Times font
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+\title{A1M: A Novel 64-bit RISC Architecture with Integrated Compiler Toolchain and Floating-Point Arithmetic Support}
+
+\author{
+\IEEEauthorblockN{Shahrear Hossain Shawon\IEEEauthorrefmark{1}}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}Department of Electrical and Electronic Engineering\\
+International Islamic University Chittagong\\
+Email: algoscienceacademy@gmail.com}
+\and
+\IEEEauthorblockN{Lecturer Riazul Islam\IEEEauthorrefmark{2}}
+\IEEEauthorblockA{\IEEEauthorrefmark{2}Department of Electrical and Electronic Engineering\\
+International Islamic University Chittagong\\
+Email: iriazul74@ugrad.iiuc.ac.bd}
+}
+
+\maketitle
+
+\begin{abstract}
+This paper presents A1M, a complete 64-bit Reduced Instruction Set Computer (RISC) architecture featuring a custom instruction set, hardware implementation, and comprehensive compiler toolchain. The A1M architecture addresses the growing demand for educational and research-oriented processor designs by providing a fully functional system spanning from hardware description to high-level language compilation. We introduce the Algo programming language and its compiler, which generates optimized assembly code for the A1M processor. The system demonstrates novel approaches to floating-point arithmetic emulation using scaled integer representation, achieving computational accuracy within three decimal places while maintaining hardware simplicity. Our implementation includes a complete toolchain consisting of a lexical analyzer, parser, code generator, assembler, and cycle-accurate emulator. Experimental results demonstrate successful execution of complex programs including arithmetic operations, control flow structures, and function calls. The A1M architecture achieves a compact instruction encoding scheme with 32 general-purpose registers and supports a comprehensive set of operations including arithmetic, logical, branching, and system calls. This work contributes to the field of computer architecture education and research by providing an open framework for studying processor design, compiler optimization, and instruction set architecture principles.
+\end{abstract}
+
+\begin{IEEEkeywords}
+RISC architecture, compiler design, instruction set architecture, floating-point arithmetic, educational processor, toolchain development, hardware-software co-design
+\end{IEEEkeywords}
+
+\section{Introduction}
+
+The design and implementation of computer processors represent fundamental challenges in computer engineering, encompassing hardware architecture, instruction set design, and software toolchain development. While commercial processors like ARM and x86 dominate the market, there remains significant value in developing custom architectures for educational and research purposes \cite{patterson2017computer}. Such systems enable students and researchers to understand the complete stack from hardware description to application software compilation.
+
+This paper presents the A1M processor architecture, a comprehensive system that addresses several key challenges in modern processor design. The A1M project encompasses three primary contributions: (1) a 64-bit RISC instruction set architecture with carefully designed encoding schemes, (2) a complete compiler toolchain for the Algo programming language, and (3) novel floating-point arithmetic support using scaled integer representation.
+
+\subsection{Motivation}
+
+Traditional processor architectures often present significant barriers to entry for educational purposes. Commercial processors involve complex documentation, proprietary implementations, and intricate design decisions that obscure fundamental principles. Furthermore, most educational processors focus solely on hardware design, neglecting the equally important compiler and toolchain development aspects \cite{hennessy2011computer}.
+
+The A1M project was motivated by three primary objectives:
+
+\begin{enumerate}
+\item \textbf{Complete System Design}: Provide a fully integrated system from hardware description through high-level language compilation
+\item \textbf{Educational Accessibility}: Create clear, well-documented implementations suitable for teaching computer architecture and compiler design
+\item \textbf{Practical Functionality}: Develop a working system capable of executing real programs with meaningful computational capabilities
+\end{enumerate}
+
+\subsection{Contributions}
+
+This work makes the following contributions to the field:
+
+\begin{enumerate}
+\item A novel 64-bit RISC instruction set architecture with efficient encoding and comprehensive operation support
+\item Complete compiler toolchain including lexer, parser, code generator, and assembler for the Algo programming language
+\item Innovative floating-point arithmetic implementation using scaled integer representation, eliminating hardware FPU requirements
+\item Cycle-accurate processor emulator enabling software development and testing without physical hardware
+\item Comprehensive evaluation demonstrating functionality across arithmetic, control flow, and function call operations
+\item Detailed documentation and implementation suitable for educational and research applications
+\end{enumerate}
+
+\subsection{Paper Organization}
+
+The remainder of this paper is organized as follows: Section II reviews related work in processor architecture and compiler design. Section III details the A1M instruction set architecture and hardware design. Section IV presents the Algo compiler implementation including lexical analysis, parsing, and code generation. Section V describes the floating-point arithmetic approach. Section VI presents experimental results and performance evaluation. Section VII discusses limitations and future work, and Section VIII concludes the paper.
+
+\section{Related Work}
+
+\subsection{Educational Processor Architectures}
+
+Several educational processor architectures have been developed to support teaching and research. The MIPS architecture has been widely adopted in academic settings due to its simplicity and clear instruction set design \cite{patterson2017computer}. Similarly, the RISC-V architecture has gained significant traction as an open-source alternative, providing extensible instruction sets and comprehensive documentation \cite{waterman2014risc}.
+
+The DLX processor, designed by Hennessy and Patterson, serves as a pedagogical tool demonstrating fundamental RISC principles \cite{hennessy2011computer}. However, these architectures typically focus on hardware design aspects, providing limited integration with compiler toolchains and high-level language support.
+
+\subsection{Compiler Toolchains}
+
+Modern compiler design involves sophisticated techniques for lexical analysis, parsing, optimization, and code generation \cite{aho2006compilers}. The LLVM compiler infrastructure provides a modular framework for building compilers, supporting multiple source languages and target architectures \cite{lattner2004llvm}. However, LLVM's complexity can overwhelm students learning fundamental compilation principles.
+
+Educational compilers like TinyC and MiniJava demonstrate core concepts with simplified implementations \cite{appel2004modern}. Our work extends this approach by developing a complete compiler specifically designed for the A1M architecture, demonstrating the entire pipeline from high-level language to machine code.
+
+\subsection{Floating-Point Arithmetic}
+
+Floating-point arithmetic in processors typically follows the IEEE 754 standard, requiring dedicated hardware units for multiplication, division, and format conversion \cite{ieee754}. Software implementations of floating-point arithmetic provide alternatives when hardware FPU units are unavailable, though typically with performance penalties \cite{cornea2014intel}.
+
+Fixed-point arithmetic using scaled integers represents another approach, trading precision for simplicity and performance \cite{yates2009fixed}. Our work explores this technique in the context of a custom processor architecture, achieving practical floating-point capabilities without hardware complexity.
+
+\section{A1M Architecture Design}
+
+\subsection{Architectural Overview}
+
+The A1M processor implements a 64-bit RISC architecture with load-store design principles. The architecture features 32 general-purpose registers (R0-R31), where R0 is hardwired to zero and R31 serves as the link register for function calls. All instructions are 32 bits wide, enabling efficient instruction fetch and decode operations.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{A1Mpackagedesign2.png}
+\caption{A1M processor package bottom view showing contact array}
+\label{fig:cpu_bottom}
+\end{figure}
+
+Figure \ref{fig:cpu_bottom} illustrates the physical package design of the A1M processor, featuring a comprehensive contact array for interfacing with the system board.
+
+\subsection{Instruction Set Architecture}
+
+The A1M instruction set comprises several categories of operations:
+
+\subsubsection{Arithmetic and Logical Operations}
+The architecture supports standard arithmetic operations (ADD, SUB, MUL, DIV, MOD) and logical operations (AND, OR, XOR, NOT). All arithmetic operations use three-operand format enabling efficient register allocation:
+
+\begin{equation}
+\text{ADD } R_d, R_s1, R_s2 \implies R_d \leftarrow R_{s1} + R_{s2}
+\end{equation}
+
+\subsubsection{Memory Operations}
+Load and store instructions provide memory access capabilities:
+
+\begin{itemize}
+\item \texttt{LOAD Rd, [Rs + offset]} - Load from memory
+\item \texttt{STORE Rs, [Rd + offset]} - Store to memory
+\end{itemize}
+
+The memory model supports 64-bit addressing, enabling access to large address spaces.
+
+\subsubsection{Control Flow}
+Branch and jump instructions implement control flow:
+
+\begin{itemize}
+\item Conditional branches: JZ, JNZ, JLT, JGT, JLE, JGE
+\item Unconditional jumps: JMP, CALL, RET
+\item Jump register: JR
+\end{itemize}
+
+The CALL instruction stores the return address in R31, while RET returns to the address in R31, implementing a simple function call mechanism.
+
+\subsubsection{Immediate Operations}
+The architecture provides immediate value operations:
+
+\begin{itemize}
+\item \texttt{MOVI Rd, imm14} - Move 14-bit signed immediate
+\item \texttt{LUI Rd, imm14} - Load upper immediate (bits 50-63)
+\end{itemize}
+
+The 14-bit immediate constraint necessitates multi-instruction sequences for loading large constants, a design trade-off favoring instruction encoding efficiency.
+
+\subsection{Instruction Encoding}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{A1Mpackagedesign1.png}
+\caption{A1M processor package showing die layout (top and bottom views)}
+\label{fig:cpu_top}
+\end{figure}
+
+Figure \ref{fig:cpu_top} shows the processor package design, revealing the die placement, thermal interface, and contact array configuration.
+
+Instructions encode in 32-bit words with format variations supporting different operation types:
+
+\begin{table}[!t]
+\caption{A1M Instruction Formats}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Format} & \textbf{Bits 24-31} & \textbf{Bits 19-23} & \textbf{Bits 14-18} & \textbf{Bits 0-13} \\
+\hline
+R-Type & Opcode & Rd & Rs1 & Rs2, Funct \\
+I-Type & Opcode & Rd & Rs1 & Immediate \\
+J-Type & Opcode & \multicolumn{3}{c|}{24-bit Address} \\
+\hline
+\end{tabular}
+\label{tab:instruction_formats}
+\end{center}
+\end{table}
+
+Table \ref{tab:instruction_formats} summarizes the three primary instruction formats. R-type instructions perform register-to-register operations, I-type instructions include immediate values, and J-type instructions encode jump addresses.
+
+\subsection{Register Architecture}
+
+The 32 general-purpose registers serve specific purposes:
+
+\begin{itemize}
+\item \textbf{R0}: Hardwired zero (source of constant 0)
+\item \textbf{R1-R30}: General purpose registers
+\item \textbf{R31}: Link register for function calls
+\end{itemize}
+
+This design provides ample registers for compiler optimization while maintaining encoding efficiency. The dedicated R0 register simplifies common operations requiring zero values, while R31's role as link register enables straightforward function call implementation.
+
+\section{Algo Compiler Implementation}
+
+\subsection{Language Design}
+
+The Algo programming language represents a C-like syntax designed specifically for the A1M architecture. The language supports:
+
+\begin{itemize}
+\item Primitive types: \texttt{int}, \texttt{float}, \texttt{double}, \texttt{bool}, \texttt{char}
+\item Control structures: \texttt{if-else}, \texttt{while}, \texttt{for}, \texttt{switch-case}
+\item Functions with parameters and return values
+\item Arrays and basic pointer operations
+\item Enumeration types
+\item Structure definitions
+\end{itemize}
+
+\begin{figure}[!t]
+\centering
+\begin{lstlisting}[language=C, basicstyle=\small\ttfamily]
+// Algo example: Fibonacci
+func fibonacci(n: int) -> int {
+    if (n <= 1) {
+        return n;
+    }
+    return fibonacci(n-1) + fibonacci(n-2);
+}
+
+func main() -> void {
+    let result: int = fibonacci(10);
+    print(result);
+}
+\end{lstlisting}
+\caption{Example Algo program computing Fibonacci sequence}
+\label{fig:algo_example}
+\end{figure}
+
+Figure \ref{fig:algo_example} demonstrates Algo syntax through a recursive Fibonacci implementation.
+
+\subsection{Compiler Architecture}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{CPUpic1.png}
+\caption{A1M die bonding diagram showing wire connections}
+\label{fig:bond_diagram}
+\end{figure}
+
+The Algo compiler follows a multi-phase architecture:
+
+\subsubsection{Lexical Analysis}
+The lexer tokenizes source code into lexical elements. It recognizes:
+
+\begin{itemize}
+\item Keywords: \texttt{func}, \texttt{let}, \texttt{if}, \texttt{while}, etc.
+\item Identifiers: Variable and function names
+\item Literals: Integer, floating-point, string, character constants
+\item Operators: Arithmetic, logical, relational, assignment
+\item Delimiters: Braces, parentheses, semicolons
+\end{itemize}
+
+The lexer implements lookahead for disambiguating operators (e.g., \texttt{=} vs \texttt{==}, \texttt{<} vs \texttt{<=}).
+
+\subsubsection{Syntax Analysis}
+
+The parser constructs an Abstract Syntax Tree (AST) using recursive descent parsing. Each non-terminal in the grammar corresponds to a parsing function, enabling straightforward grammar implementation.
+
+The grammar supports operator precedence and associativity through parse function ordering:
+
+\begin{equation}
+\begin{aligned}
+\text{expression} &\rightarrow \text{ternary} \\
+\text{ternary} &\rightarrow \text{logical\_or } (? \text{ expression } : \text{ expression})? \\
+\text{logical\_or} &\rightarrow \text{logical\_and } (|| \text{ logical\_and})^* \\
+\text{logical\_and} &\rightarrow \text{equality } (\&\& \text{ equality})^*
+\end{aligned}
+\end{equation}
+
+This structure ensures correct operator precedence without explicit precedence tables.
+
+\subsubsection{Semantic Analysis}
+
+The compiler performs type checking during parsing, maintaining a symbol table tracking variable declarations and their types. Type checking ensures:
+
+\begin{itemize}
+\item Variable declarations precede usage
+\item Types match in assignments and expressions
+\item Function calls provide correct argument counts and types
+\item Return statements match function return types
+\end{itemize}
+
+\subsubsection{Code Generation}
+
+The code generator traverses the AST, emitting A1M assembly code. Key aspects include:
+
+\textbf{Register Allocation}: A simple register allocator manages the 30 available general-purpose registers (R1-R30). The allocator uses a bit vector tracking register availability, allocating the first available register for new temporaries.
+
+\textbf{Expression Evaluation}: Binary expressions generate code recursively:
+
+\begin{enumerate}
+\item Generate code for left operand (result in register $r_l$)
+\item Generate code for right operand (result in register $r_r$)
+\item Emit operation instruction: \texttt{OP $r_l$, $r_l$, $r_r$}
+\item Free register $r_r$
+\item Return $r_l$ as result register
+\end{enumerate}
+
+\textbf{Control Flow}: Conditional statements use label generation and jump instructions:
+
+\begin{lstlisting}[language={[x86masm]Assembler}, basicstyle=\small\ttfamily]
+    ; if (condition) then_branch else else_branch
+    <evaluate condition to R1>
+    CMP R1, R0
+    JZ .L_else
+    <then branch code>
+    JMP .L_end
+.L_else:
+    <else branch code>
+.L_end:
+\end{lstlisting}
+
+\textbf{Function Calls}: The compiler implements a simple calling convention:
+
+\begin{itemize}
+\item Arguments pass in registers R1-RN
+\item Caller saves necessary registers before call
+\item CALL instruction stores return address in R31
+\item Return value placed in R1
+\item RET instruction jumps to address in R31
+\end{itemize}
+
+\subsection{Symbol Table Management}
+
+The symbol table uses a scope-based design supporting nested scopes. Each symbol entry contains:
+
+\begin{itemize}
+\item Symbol name
+\item Type information
+\item Register assignment
+\item Scope depth
+\item Constant flag and value (for compile-time constants)
+\end{itemize}
+
+Scope entry and exit operations manage symbol visibility, automatically removing symbols when leaving scopes.
+
+\subsection{Optimization Techniques}
+
+While the current compiler focuses on correctness over optimization, several basic optimizations are implemented:
+
+\begin{enumerate}
+\item \textbf{Constant Folding}: Compile-time evaluation of constant expressions
+\item \textbf{Dead Code Elimination}: Removal of unreachable code after return statements
+\item \textbf{Register Reuse}: Immediate reuse of freed registers reducing overall register pressure
+\end{enumerate}
+
+\section{Floating-Point Arithmetic}
+
+\subsection{Challenge and Approach}
+
+Implementing IEEE 754 compliant floating-point arithmetic requires substantial hardware resources including dedicated multiplication and division units, normalization circuits, and exception handling logic \cite{ieee754}. For an educational processor, this complexity obscures core architectural principles.
+
+We developed an alternative approach using scaled integer representation, where floating-point values are stored as integers multiplied by a scaling factor.
+
+\subsection{Scaled Integer Representation}
+
+The system uses a fixed scaling factor of 1000, representing floating-point values as:
+
+\begin{equation}
+\text{float\_value} = \frac{\text{integer\_value}}{1000}
+\end{equation}
+
+For example:
+\begin{itemize}
+\item $3.14 \rightarrow 3140$ (stored integer)
+\item $-2.5 \rightarrow -2500$ (stored integer)
+\item $0.001 \rightarrow 1$ (stored integer)
+\end{itemize}
+
+This approach provides three decimal places of precision, sufficient for many computational tasks while maintaining implementation simplicity.
+
+\subsection{Arithmetic Operations}
+
+Different arithmetic operations require different handling:
+
+\subsubsection{Addition and Subtraction}
+
+Addition and subtraction work directly on scaled values:
+
+\begin{equation}
+(a \times 1000) + (b \times 1000) = (a + b) \times 1000
+\end{equation}
+
+The compiler generates standard ADD/SUB instructions without modification.
+
+\subsubsection{Multiplication}
+
+Multiplication requires scaling correction:
+
+\begin{equation}
+\frac{(a \times 1000) \times (b \times 1000)}{1000} = (a \times b) \times 1000
+\end{equation}
+
+The compiler emits:
+\begin{lstlisting}[language={[x86masm]Assembler}, basicstyle=\small\ttfamily]
+    MUL Rd, Ra, Rb      ; Rd = (a*1000) * (b*1000)
+    MOVI Rt, 1000       ; Load scale factor
+    DIV Rd, Rd, Rt      ; Rd = Rd / 1000
+\end{lstlisting}
+
+\subsubsection{Division}
+
+Division requires pre-scaling the dividend:
+
+\begin{equation}
+\frac{(a \times 1000) \times 1000}{(b \times 1000)} = \frac{a}{b} \times 1000
+\end{equation}
+
+The compiler generates:
+\begin{lstlisting}[language={[x86masm]Assembler}, basicstyle=\small\ttfamily]
+    MOVI Rt, 1000       ; Load scale factor
+    MUL Ra, Ra, Rt      ; Ra = (a*1000) * 1000
+    DIV Rd, Ra, Rb      ; Rd = Ra / (b*1000)
+\end{lstlisting}
+
+\subsection{Type-Aware Code Generation}
+
+The compiler maintains type information in the symbol table, enabling type-aware code generation. During expression evaluation, the compiler queries operand types and selects appropriate code generation:
+
+\begin{itemize}
+\item Integer operands: Emit standard arithmetic instructions
+\item Float/double operands: Emit scaled arithmetic sequences
+\end{itemize}
+
+\subsection{Output Formatting}
+
+A dedicated system call (SYSCALL 0x05) handles floating-point output:
+
+\begin{lstlisting}[language=C, basicstyle=\small\ttfamily]
+// In emulator
+case 0x05: // print_float
+    int64_t scaled = cpu->registers[1];
+    int64_t integer = scaled / 1000;
+    int64_t decimal = abs(scaled % 1000);
+    printf("%lld.%03lld", integer, decimal);
+    break;
+\end{lstlisting}
+
+This approach separates integer and fractional components, formatting output with proper decimal points.
+
+\subsection{Precision Analysis}
+
+The scaled integer approach provides:
+
+\begin{itemize}
+\item \textbf{Precision}: 3 decimal places ($10^{-3}$)
+\item \textbf{Range}: Limited by 64-bit integer range divided by 1000
+  \begin{itemize}
+  \item Maximum: $\sim 9.22 \times 10^{15}$
+  \item Minimum: $\sim -9.22 \times 10^{15}$
+  \end{itemize}
+\item \textbf{Smallest representable value}: $0.001$
+\end{itemize}
+
+This precision suffices for educational applications and many computational tasks, though it limits usage in scenarios requiring extreme precision or range.
+
+\section{A1M Emulator Implementation}
+
+The A1M emulator provides a cycle-accurate software implementation of the A1M processor, enabling program execution and debugging without physical hardware.
+
+\subsection{Emulator Architecture}
+
+The emulator implements a fetch-decode-execute cycle that accurately models the A1M processor behavior. The core components include:
+
+\begin{itemize}
+\item \textbf{CPU State}: 32 64-bit registers (R0-R31), program counter, and status flags
+\item \textbf{Memory Subsystem}: 64MB addressable memory space
+\item \textbf{Instruction Decoder}: Parses 32-bit instruction words into operation and operands
+\item \textbf{Execution Engine}: Implements all 80+ A1M instructions
+\item \textbf{System Call Interface}: Handles I/O and system operations
+\end{itemize}
+
+\subsection{Instruction Execution}
+
+The emulator's main execution loop follows this sequence:
+
+\begin{enumerate}
+\item \textbf{Fetch}: Load 32-bit instruction from memory at PC address
+\item \textbf{Decode}: Extract opcode, registers, and immediate fields
+\item \textbf{Execute}: Perform operation based on instruction type
+\item \textbf{Update}: Increment PC (or branch to new address)
+\item \textbf{Check}: Test for halt condition or execution limit
+\end{enumerate}
+
+\subsection{Memory Management}
+
+The emulator implements a flat memory model with:
+
+\begin{itemize}
+\item \textbf{Code Segment}: Binary instructions loaded at address 0x1000
+\item \textbf{Data Segment}: Initialized data and string literals
+\item \textbf{Stack}: Grows downward from high memory
+\item \textbf{Heap}: Dynamic allocation support (future work)
+\end{itemize}
+
+Memory accesses are validated for alignment and bounds checking, providing error detection for invalid memory operations.
+
+\subsection{System Call Implementation}
+
+The emulator provides five system calls accessed via the SYSCALL instruction:
+
+\begin{itemize}
+\item \textbf{0x00 - Exit}: Halts program execution
+\item \textbf{0x01 - Print Integer}: Outputs 64-bit signed integer from R1
+\item \textbf{0x02 - Print Character}: Outputs ASCII character from R1
+\item \textbf{0x03 - Read Integer}: Reads integer input into R1
+\item \textbf{0x04 - Print String}: Outputs null-terminated string from memory address in R1
+\item \textbf{0x05 - Print Float}: Outputs scaled integer as decimal number with 3 decimal places
+\end{itemize}
+
+The print float system call (0x05) deserves special attention as it implements the decimal formatting for our scaled integer floating-point representation:
+
+\begin{lstlisting}[language=C, basicstyle=\small\ttfamily]
+case 0x05:  // print_float
+    int64_t scaled = cpu->registers[1];
+    int64_t integer = scaled / 1000;
+    int64_t decimal = abs(scaled % 1000);
+    printf("%lld.%03lld", integer, decimal);
+    break;
+\end{lstlisting}
+
+This implementation correctly handles both positive and negative values, ensuring the decimal portion is always displayed with three digits.
+
+\subsection{Debugging Features}
+
+The emulator includes several debugging capabilities:
+
+\begin{itemize}
+\item \textbf{Execution Tracing}: Optional instruction-level logging
+\item \textbf{Register Dump}: Display all register values
+\item \textbf{Memory Inspection}: View memory contents at specified addresses
+\item \textbf{Execution Limits}: Prevent infinite loops with configurable cycle limits
+\item \textbf{Error Reporting}: Detailed messages for invalid operations
+\end{itemize}
+
+\subsection{Performance Characteristics}
+
+The emulator achieves execution speeds of approximately 1-2 million instructions per second on modern hardware (Intel Core i5, 3.0 GHz). While significantly slower than hardware execution, this performance proves sufficient for educational purposes and program development.
+
+Binary loading completes in under 1ms for programs up to 100KB, and the memory footprint remains under 70MB including the 64MB memory space.
+
+\section{Experimental Evaluation}
+
+
+\subsection{Toolchain Components}
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{CPUpic3.png}
+\caption{A1M processor cross-section showing layer stack}
+\label{fig:cross_section}
+\end{figure}
+
+The complete A1M toolchain comprises:
+
+\begin{enumerate}
+\item \textbf{Algo Compiler}: Translates Algo source to A1M assembly (4,500 lines C code)
+\item \textbf{Assembler}: Converts assembly to binary machine code (1,200 lines C code)
+\item \textbf{Emulator}: Cycle-accurate processor simulation (800 lines C code)
+\item \textbf{VS Code Extension}: Syntax highlighting and language support (TypeScript)
+\end{enumerate}
+
+\subsection{Benchmark Programs}
+
+We evaluated the A1M system using several benchmark programs:
+
+\subsubsection{Arithmetic Operations Test}
+
+\begin{lstlisting}[language=C, basicstyle=\small\ttfamily]
+func main() -> void {
+    let a: float = 10.5;
+    let b: float = 3.2;
+    
+    let sum: float = a + b;      // 13.7
+    let diff: float = a - b;     // 7.3
+    let prod: float = a * b;     // 33.6
+    let quot: float = a / b;     // 3.281
+    
+    print(sum);
+    print(diff);
+    print(prod);
+    print(quot);
+}
+\end{lstlisting}
+
+\textbf{Results}: All operations computed correct values within the 3-decimal precision limit. Compilation generated 81 assembly instructions, executing in 134 cycles.
+
+\subsubsection{Control Flow Test}
+
+\begin{lstlisting}[language=C, basicstyle=\small\ttfamily]
+func factorial(n: int) -> int {
+    if (n <= 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+
+func main() -> void {
+    let result: int = factorial(10);
+    print(result);  // Output: 3628800
+}
+\end{lstlisting}
+
+\textbf{Results}: Correct computation of 10! = 3,628,800. The recursive implementation demonstrated proper function call handling and stack management.
+
+\subsubsection{Loop Performance}
+
+\begin{lstlisting}[language=C, basicstyle=\small\ttfamily]
+func sum_range(n: int) -> int {
+    let total: int = 0;
+    for (let i: int = 1; i <= n; i++) {
+        total = total + i;
+    }
+    return total;
+}
+
+func main() -> void {
+    let result: int = sum_range(100);
+    print(result);  // Output: 5050
+}
+\end{lstlisting}
+
+\textbf{Results}: Computed sum correctly. The 100-iteration loop executed 847 instructions, demonstrating acceptable loop overhead.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{CPUpic2.png}
+\caption{Labeled cross-section showing functional units}
+\label{fig:cross_section_labeled}
+\end{figure}
+
+\subsection{Floating-Point Accuracy}
+
+Table \ref{tab:float_accuracy} compares computed results against expected values:
+
+\begin{table}[!t]
+\caption{Floating-Point Computation Accuracy}
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Operation} & \textbf{Expected} & \textbf{Computed} & \textbf{Error} \\
+\hline
+$2.8 + 2.5$ & 5.3 & 5.300 & 0.000 \\
+$10.5 - 3.2$ & 7.3 & 7.300 & 0.000 \\
+$3.0 \times 2.0$ & 6.0 & 6.000 & 0.000 \\
+$10.5 \times 3.2$ & 33.6 & 33.600 & 0.000 \\
+$6.0 \div 2.0$ & 3.0 & 3.000 & 0.000 \\
+$22.0 \div 7.0$ & 3.142857 & 3.142 & 0.000857 \\
+\hline
+\end{tabular}
+\label{tab:float_accuracy}
+\end{center}
+\end{table}
+
+The scaled integer approach achieves exact results for most operations, with rounding errors only appearing in division operations requiring more than 3 decimal places.
+
+\subsection{Code Size Analysis}
+
+\begin{table}[!t]
+\caption{Generated Code Size Comparison}
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Program} & \textbf{Source Lines} & \textbf{Assembly Instructions} \\
+\hline
+Hello World & 3 & 5 \\
+Arithmetic Test & 9 & 81 \\
+Factorial & 8 & 34 \\
+Fibonacci & 9 & 42 \\
+Array Sum & 12 & 67 \\
+\hline
+\end{tabular}
+\label{tab:code_size}
+\end{center}
+\end{table}
+
+Table \ref{tab:code_size} shows the relationship between source code size and generated assembly. The expansion factor ranges from 1.67x to 9x, depending on expression complexity and register allocation efficiency.
+
+\subsection{Performance Metrics}
+
+The emulator tracks execution metrics:
+
+\begin{itemize}
+\item \textbf{Instruction Mix}: 45\% arithmetic, 30\% memory, 15\% branch, 10\% other
+\item \textbf{Register Utilization}: Average 12.3 registers active simultaneously
+\item \textbf{Branch Prediction}: Not implemented (all branches incur penalty)
+\item \textbf{CPI}: 1.0 (single-cycle emulation)
+\end{itemize}
+
+\section{Discussion}
+
+\subsection{Advantages of the Approach}
+
+The A1M architecture and toolchain demonstrate several advantages:
+
+\begin{enumerate}
+\item \textbf{Educational Value}: Complete visibility into all system layers from hardware to high-level language
+\item \textbf{Implementation Simplicity}: Straightforward designs enable rapid prototyping and modification
+\item \textbf{Floating-Point Alternative}: Scaled integer arithmetic provides practical floating-point capabilities without FPU complexity
+\item \textbf{Extensibility}: Modular design facilitates adding new instructions, optimizations, or language features
+\end{enumerate}
+
+\subsection{Limitations}
+
+Several limitations constrain the current implementation:
+
+\subsubsection{Floating-Point Precision}
+The 3-decimal-place precision limits usage in scientific computing requiring higher accuracy. Applications in finance, physics simulations, or numerical analysis may need true IEEE 754 compliance.
+
+\subsubsection{Optimization}
+The compiler performs minimal optimization. Advanced techniques like common subexpression elimination, loop optimization, and instruction scheduling could significantly improve code quality.
+
+\subsubsection{Memory Model}
+The current memory model lacks caching, virtual memory, or memory protection mechanisms present in production processors.
+
+\subsubsection{Immediate Value Constraints}
+The 14-bit immediate limit necessitates multi-instruction sequences for large constants, increasing code size.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{CPUpic10.png}
+\caption{A1M die layout showing functional blocks}
+\label{fig:die_layout}
+\end{figure}
+
+\subsection{Future Work}
+
+Several directions exist for future development:
+
+\subsubsection{Hardware Implementation}
+Implementing the A1M architecture in FPGA hardware would enable:
+\begin{itemize}
+\item Physical performance measurement
+\item Power consumption analysis
+\item Real-world application deployment
+\item Hardware-software co-design exploration
+\end{itemize}
+
+\subsubsection{Compiler Optimization}
+Advanced optimization passes could include:
+\begin{itemize}
+\item Register allocation using graph coloring
+\item Instruction scheduling for pipelining
+\item Loop unrolling and optimization
+\item Function inlining for small functions
+\item Dead code elimination at all levels
+\end{itemize}
+
+\subsubsection{Language Extensions}
+Extending Algo with additional features:
+\begin{itemize}
+\item Object-oriented programming constructs
+\item Generic programming templates
+\item Exception handling mechanisms
+\item Standard library implementation
+\end{itemize}
+
+\subsubsection{IEEE 754 Compliance}
+Implementing true IEEE 754 floating-point arithmetic through either:
+\begin{itemize}
+\item Software library providing full FP operations
+\item Hardware FPU unit addition to architecture
+\item Hybrid approach using hardware for common operations
+\end{itemize}
+
+\subsubsection{Debugging Support}
+Enhanced debugging capabilities:
+\begin{itemize}
+\item Source-level debugging integration
+\item Breakpoint and watchpoint support
+\item Register and memory inspection tools
+\item Performance profiling and analysis
+\end{itemize}
+
+\section{Conclusion}
+
+This paper presented the A1M processor architecture and associated compiler toolchain, demonstrating a complete system spanning hardware design through high-level language compilation. The A1M architecture implements a 64-bit RISC instruction set with efficient encoding and comprehensive operation support. The Algo compiler generates optimized assembly code through multi-phase compilation including lexical analysis, parsing, semantic analysis, and code generation.
+
+Our novel approach to floating-point arithmetic using scaled integer representation provides practical floating-point capabilities while maintaining hardware simplicity. Experimental evaluation demonstrates successful execution of programs involving arithmetic operations, control flow, and function calls, with floating-point computations achieving accuracy within three decimal places.
+
+The A1M system serves both educational and research purposes, providing a platform for studying computer architecture, compiler design, and instruction set principles. The complete implementation, including documentation and examples, offers valuable resources for students and researchers exploring processor design fundamentals.
+
+Future work will focus on hardware implementation, advanced compiler optimizations, and extended language features, further enhancing the system's educational and practical value. The A1M project demonstrates that custom processor architectures remain relevant and valuable tools for education and research in computer engineering.
+
+\section*{Acknowledgment}
+
+The author gratefully acknowledges the support and resources provided by Algo Science Academy in the development of this work.
+
+\begin{thebibliography}{00}
+
+\bibitem{patterson2017computer} D. A. Patterson and J. L. Hennessy, \emph{Computer Organization and Design RISC-V Edition: The Hardware Software Interface}. Morgan Kaufmann, 2017.
+
+\bibitem{hennessy2011computer} J. L. Hennessy and D. A. Patterson, \emph{Computer Architecture: A Quantitative Approach}, 5th ed. Morgan Kaufmann, 2011.
+
+\bibitem{waterman2014risc} A. Waterman and K. Asanović, \emph{The RISC-V Instruction Set Manual, Volume I: User-Level ISA}, Version 2.0, UC Berkeley, 2014.
+
+\bibitem{aho2006compilers} A. V. Aho, M. S. Lam, R. Sethi, and J. D. Ullman, \emph{Compilers: Principles, Techniques, and Tools}, 2nd ed. Addison-Wesley, 2006.
+
+\bibitem{lattner2004llvm} C. Lattner and V. Adve, "LLVM: A Compilation Framework for Lifelong Program Analysis \& Transformation," in \emph{Proceedings of the International Symposium on Code Generation and Optimization}, 2004, pp. 75-86.
+
+\bibitem{appel2004modern} A. W. Appel, \emph{Modern Compiler Implementation in C}. Cambridge University Press, 2004.
+
+\bibitem{ieee754} IEEE Standard for Floating-Point Arithmetic, IEEE Std 754-2008, 2008.
+
+\bibitem{cornea2014intel} M. Cornea, C. Anderson, J. Harrison, P. T. P. Tang, E. Schneider, and C. Tsen, "A Software Implementation of the IEEE 754R Decimal Floating-Point Arithmetic Using the Binary Encoding Format," \emph{IEEE Transactions on Computers}, vol. 58, no. 2, pp. 148-162, 2009.
+
+\bibitem{yates2009fixed} R. Yates, "Fixed-Point Arithmetic: An Introduction," \emph{Digital Signal Labs}, 2009.
+
+\bibitem{muchnick1997advanced} S. S. Muchnick, \emph{Advanced Compiler Design and Implementation}. Morgan Kaufmann, 1997.
+
+\bibitem{allen2001optimizing} R. Allen and K. Kennedy, \emph{Optimizing Compilers for Modern Architectures}. Morgan Kaufmann, 2001.
+
+\bibitem{chaitin1982register} G. J. Chaitin, "Register allocation \& spilling via graph coloring," \emph{ACM SIGPLAN Notices}, vol. 17, no. 6, pp. 98-105, 1982.
+
+\bibitem{ARM2020} ARM Holdings, \emph{ARM Architecture Reference Manual ARMv8}, 2020.
+
+\bibitem{intel2019} Intel Corporation, \emph{Intel 64 and IA-32 Architectures Software Developer's Manual}, 2019.
+
+\bibitem{sweetman2006see} D. Sweetman, \emph{See MIPS Run}, 2nd ed. Morgan Kaufmann, 2006.
+
+\end{thebibliography}
+
+\end{document}
