@@ -824,7 +824,7 @@ Kumira, Chittagong-4318
 Bangladesh
 
 🌐 **Website**: [www.iiuc.ac.bd](https://www.iiuc.ac.bd)  
-📧 **Contact**: algosciencelab@iiuc.ac.bd  
+📧 **Contact**: sshahrearhossain@gmail.com 
 📍 **Location**: Kumira, Chittagong, Bangladesh
 
 ### Research Publications
