@@ -874,8 +874,8 @@ SOFTWARE.
   - GitHub: [@algoscienceacademy](https://github.com/algoscienceacademy)
 
 **Technical Advisor:**
-- **Lecturer Riazul Islam** - Computer Architecture, Project Guidance
-  - Department of CSE, IIUC
+- **Lecturer Riazul Islam** - VLSI Supervisor , Project Guidance
+  - Department of EEE, IIUC
 
 **Research Group:**
 - **Algo Science Lab** - Research & Development
@@ -884,7 +884,7 @@ SOFTWARE.
 ### Special Thanks
 
 - **IIUC Faculty** - For providing research facilities and guidance
-- **CSE Students** - For testing and valuable feedback
+- **EEE Students** - For testing and valuable feedback
 - **Open Source Community** - For tools and libraries used in this project
 
 ### Acknowledgments
