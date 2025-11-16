@@ -9,16 +9,21 @@ set -e  # Exit on error
 # Detect platform
 if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "mingw"* ]]; then
     PLATFORM="Windows"
-    INSTALL_DIR="/usr/local/bin"
+    # Use user's home bin directory which doesn't need admin rights
+    # Create it if it doesn't exist and add to PATH if needed
+    INSTALL_DIR="$HOME/.local/bin"
     REQUIRES_SUDO=false
+    MAKE_CMD="mingw32-make"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     PLATFORM="macOS"
     INSTALL_DIR="/usr/local/bin"
     REQUIRES_SUDO=true
+    MAKE_CMD="make"
 else
     PLATFORM="Linux"
     INSTALL_DIR="/usr/local/bin"
     REQUIRES_SUDO=true
+    MAKE_CMD="make"
 fi
 
 COLOR_GREEN='\033[0;32m'
@@ -56,30 +61,46 @@ mkdir -p "${INSTALL_DIR}"
 # Build and install each component
 echo -e "${COLOR_GREEN}[1/4] Building and Installing Compiler...${COLOR_RESET}"
 cd "${SCRIPT_DIR}/compiler"
-make clean > /dev/null 2>&1 || true
-make
-make install PREFIX=/usr/local
+$MAKE_CMD clean > /dev/null 2>&1 || true
+$MAKE_CMD
+if [ "$PLATFORM" = "Windows" ]; then
+    $MAKE_CMD install PREFIX="$HOME/.local"
+else
+    $MAKE_CMD install PREFIX=/usr/local
+fi
 echo
 
 echo -e "${COLOR_GREEN}[2/4] Building and Installing Assembler...${COLOR_RESET}"
 cd "${SCRIPT_DIR}/assembler"
-make clean > /dev/null 2>&1 || true
-make
-make install PREFIX=/usr/local
+$MAKE_CMD clean > /dev/null 2>&1 || true
+$MAKE_CMD
+if [ "$PLATFORM" = "Windows" ]; then
+    $MAKE_CMD install PREFIX="$HOME/.local"
+else
+    $MAKE_CMD install PREFIX=/usr/local
+fi
 echo
 
 echo -e "${COLOR_GREEN}[3/4] Building and Installing Emulator...${COLOR_RESET}"
 cd "${SCRIPT_DIR}/emulator"
-make clean > /dev/null 2>&1 || true
-make
-make install PREFIX=/usr/local
+$MAKE_CMD clean > /dev/null 2>&1 || true
+$MAKE_CMD
+if [ "$PLATFORM" = "Windows" ]; then
+    $MAKE_CMD install PREFIX="$HOME/.local"
+else
+    $MAKE_CMD install PREFIX=/usr/local
+fi
 echo
 
 echo -e "${COLOR_GREEN}[4/4] Building and Installing Console...${COLOR_RESET}"
 cd "${SCRIPT_DIR}/gui-console"
-make clean > /dev/null 2>&1 || true
-make
-make install PREFIX=/usr/local
+$MAKE_CMD clean > /dev/null 2>&1 || true
+$MAKE_CMD
+if [ "$PLATFORM" = "Windows" ]; then
+    $MAKE_CMD install PREFIX="$HOME/.local"
+else
+    $MAKE_CMD install PREFIX=/usr/local
+fi
 echo
 
 cd "${SCRIPT_DIR}"
@@ -114,7 +135,16 @@ else
 fi
 echo
 if [ "$PLATFORM" = "Windows" ]; then
-    echo -e "${COLOR_YELLOW}Note: Make sure /usr/local/bin is in your MSYS2 PATH${COLOR_RESET}"
-    echo -e "${COLOR_YELLOW}Current PATH includes: $(echo $PATH | tr ':' '\n' | grep local || echo 'Not found')${COLOR_RESET}"
+    echo -e "${COLOR_YELLOW}Note: Installed to $INSTALL_DIR${COLOR_RESET}"
+    # Check if directory is in PATH
+    if [[ ":$PATH:" != *":$INSTALL_DIR:"* ]]; then
+        echo -e "${COLOR_YELLOW}Warning: $INSTALL_DIR is not in your PATH${COLOR_RESET}"
+        echo -e "${COLOR_YELLOW}Add the following to your ~/.bashrc or ~/.bash_profile:${COLOR_RESET}"
+        echo -e "${COLOR_BLUE}export PATH=\"\$HOME/.local/bin:\$PATH\"${COLOR_RESET}"
+        echo
+        echo -e "${COLOR_YELLOW}Then reload your shell with: source ~/.bashrc${COLOR_RESET}"
+    else
+        echo -e "${COLOR_GREEN}$INSTALL_DIR is already in your PATH${COLOR_RESET}"
+    fi
 fi
 echo
