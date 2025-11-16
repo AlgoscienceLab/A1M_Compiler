@@ -1,85 +1,155 @@
 # A1M 64-bit Custom CPU Project
 
+<div align="center">
+
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 [![Language](https://img.shields.io/badge/language-Algo-orange.svg)]()
 [![CPU](https://img.shields.io/badge/CPU-64--bit%20RISC-red.svg)]()
 [![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey.svg)]()
+[![Version](https://img.shields.io/badge/version-1.5.0-green.svg)]()
 
-A complete custom 64-bit RISC CPU architecture with **Verilog hardware implementation**, **software emulator**, **assembler**, **Algo programming language**, **compiler**, and **interactive console IDE**.
+**A complete custom 64-bit RISC CPU architecture with Verilog hardware implementation, software emulator, assembler, Algo programming language, compiler, and interactive console IDE.**
+
+*Developed by **Algo Science Lab***  
+*International Islamic University Chittagong (IIUC)*  
+*Kumira, Chittagong, Bangladesh*
 
 **Cross-Platform Support**: Linux • macOS • Windows (MSYS2/MinGW64)
 
+[🚀 Quick Start](#-quick-start) • [📚 Documentation](#-documentation) • [💡 Examples](#-examples) • [🔨 Building](#-building) • [🎓 About](#-about-algo-science-lab)
+
+</div>
+
 ---
 
-## � Table of Contents
+## 📑 Table of Contents
 
-- [Overview](#overview)
-- [Features](#features)
-- [Architecture](#architecture)
-- [Quick Start](#quick-start)
-- [Documentation](#documentation)
-- [Examples](#examples)
-- [Building](#building)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+- [Overview](#-overview)
+- [Features](#-features)
+- [Architecture](#️-architecture)
+- [Quick Start](#-quick-start)
+- [Documentation](#-documentation)
+- [Examples](#-examples)
+- [Building](#-building)
+- [Usage](#-usage)
+- [VS Code Extension](#-vs-code-extension)
+- [Contributing](#-contributing)
+- [About Algo Science Lab](#-about-algo-science-lab)
+- [License](#-license)
+- [Authors & Acknowledgments](#-authors--acknowledgments)
 
 ---
 
 ## 🎯 Overview
 
-The **A1M CPU Project** is a complete computing system from hardware to high-level programming:
+The **A1M CPU Project** is a comprehensive educational and research platform that demonstrates the complete stack of modern computing systems—from transistor-level hardware design to high-level programming languages. Developed at **Algo Science Lab, International Islamic University Chittagong (IIUC)**, this project serves as both a teaching tool and a research platform for computer architecture and compiler design.
+
+### What is A1M?
+
+**A1M (Algo Machine)** is a fully functional 64-bit RISC processor with:
+- Complete **Verilog HDL implementation** for FPGA deployment
+- Cycle-accurate **software emulator** for development and testing
+- Full **toolchain** (compiler, assembler, emulator)
+- High-level **Algo programming language** with C-like syntax
+- Interactive **console IDE** with colorful output and animations
+- **VS Code extension** with syntax highlighting and IntelliSense
+
+### Toolchain Flow
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                     A1M TOOLCHAIN FLOW                       │
 ├─────────────────────────────────────────────────────────────┤
 │                                                              │
-│  Algo Source (.algo)                                        │
+│  Algo Source Code (.algo)                                   │
 │         ↓                                                    │
-│  Compiler (algo-compiler)                                   │
+│  Algo Compiler (algo-compiler)                              │
+│    • Lexical Analysis                                       │
+│    • Syntax Parsing                                         │
+│    • Semantic Analysis                                      │
+│    • Code Generation                                        │
 │         ↓                                                    │
-│  Assembly (.asm)                                            │
+│  A1M Assembly (.asm)                                        │
 │         ↓                                                    │
-│  Assembler (a1m-asm)                                        │
+│  A1M Assembler (a1m-asm)                                    │
+│    • Instruction Encoding                                   │
+│    • Label Resolution                                       │
+│    • Binary Generation                                      │
 │         ↓                                                    │
 │  Machine Code (.bin)                                        │
 │         ↓                                                    │
-│  Emulator (a1m-emu) or Verilog CPU                         │
-│         ↓                                                    │
-│  Execution & Output                                         │
+│  ┌────────────────────┬────────────────────┐               │
+│  │   Software Path    │   Hardware Path    │               │
+│  ├────────────────────┼────────────────────┤               │
+│  │  A1M Emulator      │  Verilog CPU       │               │
+│  │  (a1m-emu)         │  (FPGA/Simulation) │               │
+│  └────────────────────┴────────────────────┘               │
+│         ↓                       ↓                            │
+│  Program Execution & Output                                 │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
 ```
+
+### Educational Value
+
+This project is designed to teach:
+- **Computer Architecture**: RISC principles, pipelining, instruction encoding
+- **Digital Logic**: Verilog HDL, FPGA design, hardware synthesis
+- **Compiler Design**: Lexical analysis, parsing, code generation, optimization
+- **Assembly Language**: Low-level programming, instruction sets
+- **System Programming**: Emulators, virtual machines, binary formats
+- **Software Engineering**: Cross-platform development, build systems, toolchains
 
 ---
 
 ## ✨ Features
 
-### Hardware
-- ✅ **64-bit RISC Architecture** - Custom instruction set
-- ✅ **32 General Purpose Registers** (R0-R31)
-- ✅ **16MB Address Space** - Expandable memory
-- ✅ **Verilog Implementation** - FPGA-ready HDL code
-- ✅ **Pipeline Design** - 5-stage pipeline (Fetch, Decode, Execute, Memory, Writeback)
+### 🔧 Hardware Components
 
-### Software
-- ✅ **C-Based Emulator** - Fast, accurate CPU simulation
-- ✅ **Assembler** - Full A1M assembly language support
-- ✅ **Algo Compiler** - High-level language with C-like syntax
-- ✅ **Interactive Console** - Colorful IDE with animations
-- ✅ **Standard Library** - I/O, math, string functions
-- ✅ **Debugger** - Step-through execution, register inspection
+- ✅ **64-bit RISC Architecture** - Clean, modern instruction set design
+- ✅ **32 General Purpose Registers** (R0-R31) - Extensive register file for optimization
+- ✅ **64-bit Address Space** - Support for large memory configurations
+- ✅ **Verilog HDL Implementation** - Complete, synthesizable FPGA-ready code
+- ✅ **5-Stage Pipeline** - Fetch → Decode → Execute → Memory → Writeback
+- ✅ **32-bit Fixed Instruction Format** - Simplified decoding and pipelining
+- ✅ **Harvard Architecture** - Separate instruction and data memory
+- ✅ **Configurable Clock** - Flexible timing for different FPGA platforms
 
-### Language (Algo)
-- ✅ **Modern Syntax** - Clean, readable C-like syntax
-- ✅ **Static Typing** - int, float, double, string, bool types
-- ✅ **Functions** - First-class function support
-- ✅ **Control Flow** - if/else, while, for, do-while, switch/case, goto loops
-- ✅ **Operators** - Arithmetic, logical, bitwise, ++/--, compound assignments, ternary
-- ✅ **Standard I/O** - print(), input() functions
-- ✅ **Enums** - Compile-time constants
+### 💻 Software Toolchain
+
+- ✅ **High-Performance Emulator** - Fast, cycle-accurate CPU simulation in C
+- ✅ **Full-Featured Assembler** - Complete A1M assembly language support with macros
+- ✅ **Optimizing Compiler** - Multi-pass Algo compiler with constant folding
+- ✅ **Interactive Console IDE** - Beautiful colorful terminal interface with animations
+- ✅ **Standard Library** - I/O functions, math operations, string handling
+- ✅ **Debugger Support** - Step-through execution, breakpoints, register inspection
+- ✅ **Cross-Platform** - Runs on Linux, macOS, and Windows (MSYS2)
+- ✅ **VS Code Extension** - Professional IDE integration with IntelliSense
+
+### 🎨 Algo Programming Language
+
+- ✅ **Modern C-like Syntax** - Clean, readable, familiar to C/C++ developers
+- ✅ **Strong Static Typing** - `int`, `float`, `double`, `string`, `bool`, `char`
+- ✅ **First-Class Functions** - Function declarations with return types and parameters
+- ✅ **Advanced Control Flow** - `if`/`else`, `while`, `for`, `do-while`, `switch`/`case`, `goto`
+- ✅ **Rich Operator Set** - Arithmetic, logical, bitwise, `++`/`--`, compound assignments, ternary
+- ✅ **Floating-Point Arithmetic** - Scaled integer representation with 3 decimal precision
+- ✅ **Standard I/O Functions** - `print()`, `printInt()`, `printFloat()`, `input()`
+- ✅ **Enumerations** - Compile-time constant definitions
+- ✅ **Structures** - Composite data types
+- ✅ **Arrays** - Fixed-size array support
+- ✅ **Type Inference** - Automatic type deduction in variable declarations
+
+### 🛠️ Development Tools
+
+- ✅ **Syntax Highlighting** - Color-coded source code in console and VS Code
+- ✅ **Real-time Error Detection** - Immediate feedback on syntax and semantic errors
+- ✅ **Code Completion** - IntelliSense in VS Code extension
+- ✅ **Build Automation** - Makefile-based build system for all components
+- ✅ **Installation Scripts** - One-command global installation (`./install.sh`)
+- ✅ **Quick Run Script** - Instant compile-assemble-run with `./algo-run.sh`
+- ✅ **Documentation** - Comprehensive guides and API references
 
 ---
 
@@ -87,83 +157,334 @@ The **A1M CPU Project** is a complete computing system from hardware to high-lev
 
 ### CPU Specifications
 
-| Component | Specification |
-|-----------|---------------|
-| **Architecture** | 64-bit RISC |
-| **Word Size** | 64 bits |
-| **Registers** | 32 × 64-bit GPRs |
-| **Instruction Size** | 32 bits (fixed) |
-| **Memory** | 16MB (expandable) |
-| **Addressing** | 64-bit address space |
-| **Pipeline** | 5 stages |
-| **Clock** | Configurable (FPGA) |
+| Component | Specification | Details |
+|-----------|---------------|---------|
+| **Architecture** | 64-bit RISC | Reduced Instruction Set Computing |
+| **Data Width** | 64 bits | Full 64-bit data path |
+| **Word Size** | 64 bits | Native 64-bit operations |
+| **Registers** | 32 × 64-bit GPRs | R0-R31 general purpose registers |
+| **Special Registers** | PC, SP, FLAGS, R31 (LR) | Program Counter, Stack Pointer, Flags, Link Register |
+| **Instruction Size** | 32 bits (fixed) | Simplified fetch and decode |
+| **Memory** | 64-bit addressing | Byte-addressable memory |
+| **Address Space** | 64-bit (16 exabytes) | Theoretical maximum |
+| **Emulator Memory** | 64MB (configurable) | Default emulation size |
+| **Pipeline Stages** | 5 stages | Fetch, Decode, Execute, Memory, Writeback |
+| **Clock** | Configurable | FPGA-dependent timing |
+| **Endianness** | Little-endian | Standard byte ordering |
 
-### Instruction Set
+### Register File
 
-- **Arithmetic**: ADD, SUB, MUL, DIV, MOD
-- **Logical**: AND, OR, XOR, NOT
-- **Shift**: SHL, SHR, SAR
-- **Memory**: LOAD, STORE, PUSH, POP
-- **Control**: JMP, JZ, JNZ, CALL, RET
-- **System**: SYSCALL, HALT
-- **Immediate**: MOVI, ADDI, LUI
+| Register | Purpose | Usage |
+|----------|---------|-------|
+| **R0** | Zero register | Always reads as 0, writes ignored |
+| **R1-R30** | General purpose | Free for programmer use |
+| **R31** | Link register (LR) | Stores return address for function calls |
+| **PC** | Program counter | Current instruction address |
+| **SP** | Stack pointer | Top of stack address |
+| **FLAGS** | Status flags | Zero, Carry, Overflow, Negative flags |
 
-**📖 See [docs/ISA.md](docs/ISA.md) for complete instruction set**
+### Instruction Set Architecture (ISA)
+
+#### Arithmetic Instructions
+- **ADD** - Addition (Rd = Rs1 + Rs2)
+- **SUB** - Subtraction (Rd = Rs1 - Rs2)
+- **MUL** - Multiplication (Rd = Rs1 × Rs2)
+- **DIV** - Division (Rd = Rs1 ÷ Rs2)
+- **MOD** - Modulo (Rd = Rs1 % Rs2)
+- **ADDI** - Add immediate (Rd = Rs + imm)
+
+#### Logical Instructions
+- **AND** - Bitwise AND
+- **OR** - Bitwise OR
+- **XOR** - Bitwise XOR
+- **NOT** - Bitwise NOT (one's complement)
+
+#### Shift Instructions
+- **SHL** - Shift left logical
+- **SHR** - Shift right logical
+- **SAR** - Shift arithmetic right (sign-extend)
+
+#### Memory Instructions
+- **LOAD** - Load from memory (Rd = [Rs + offset])
+- **STORE** - Store to memory ([Rd + offset] = Rs)
+- **PUSH** - Push to stack
+- **POP** - Pop from stack
+
+#### Control Flow Instructions
+- **JMP** - Unconditional jump
+- **JZ** - Jump if zero
+- **JNZ** - Jump if not zero
+- **JLT** - Jump if less than
+- **JGT** - Jump if greater than
+- **JLE** - Jump if less than or equal
+- **JGE** - Jump if greater than or equal
+- **CALL** - Function call (saves PC to R31)
+- **RET** - Return from function (jumps to R31)
+- **JR** - Jump to register
+
+#### System Instructions
+- **SYSCALL** - System call interface
+- **HALT** - Stop execution
+- **NOP** - No operation
+
+#### Immediate Instructions
+- **MOVI** - Move immediate (14-bit signed)
+- **LUI** - Load upper immediate (bits 50-63)
+
+### Instruction Encoding Format
+
+```
+┌────────────────────────────────────────────────┐
+│           32-bit Instruction Word              │
+├───────────┬──────────┬──────────┬──────────────┤
+│  Opcode   │   Rd     │   Rs1    │  Rs2/Imm14   │
+│  8 bits   │  5 bits  │  5 bits  │   14 bits    │
+└───────────┴──────────┴──────────┴──────────────┘
+     31-24      23-19      18-14       13-0
+
+R-Format: Register operations
+I-Format: Immediate operations  
+J-Format: Jump operations (24-bit address)
+```
+
+**📖 Complete ISA documentation**: See [docs/ISA.md](docs/ISA.md)
+
+### Memory Architecture
+
+```
+┌─────────────────────────────────────┐
+│     64-bit Address Space            │
+├─────────────────────────────────────┤
+│  0x0000000000000000                 │
+│  ┌─────────────────────────────┐   │
+│  │   Code Segment (.text)      │   │ ← Program instructions
+│  │   Start: 0x1000             │   │
+│  └─────────────────────────────┘   │
+│  ┌─────────────────────────────┐   │
+│  │   Data Segment (.data)      │   │ ← Initialized data
+│  └─────────────────────────────┘   │
+│  ┌─────────────────────────────┐   │
+│  │   BSS Segment (.bss)        │   │ ← Uninitialized data
+│  └─────────────────────────────┘   │
+│  ┌─────────────────────────────┐   │
+│  │   Heap (↓ grows down)       │   │ ← Dynamic allocation
+│  └─────────────────────────────┘   │
+│           ...                       │
+│  ┌─────────────────────────────┐   │
+│  │   Stack (↑ grows up)        │   │ ← Function calls, locals
+│  │   Top: 0xFFFFFFFF           │   │
+│  └─────────────────────────────┘   │
+│  0xFFFFFFFFFFFFFFFF                 │
+└─────────────────────────────────────┘
+```
+
+### Pipeline Stages
+
+1. **Fetch (IF)** - Fetch instruction from memory at PC address
+2. **Decode (ID)** - Decode instruction, read registers
+3. **Execute (EX)** - Perform ALU operation or address calculation
+4. **Memory (MEM)** - Access data memory for loads/stores
+5. **Writeback (WB)** - Write result back to register file
+
+### Floating-Point Implementation
+
+The A1M uses **scaled integer arithmetic** for floating-point operations:
+
+- **Representation**: Integer × 1000 (scale factor)
+- **Precision**: 3 decimal places (0.001 or 10⁻³)
+- **Range**: ±9.22 × 10¹⁵
+- **Operations**: 
+  - Addition/Subtraction: Direct integer operations
+  - Multiplication: Result ÷ 1000
+  - Division: Dividend × 1000 before division
+
+Example: `3.14` → stored as `3140`
 
 ---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-```bash
-# Required
-gcc (C compiler)
-make
-bash
 
-# Optional (for Verilog)
+#### Required Tools
+```bash
+# C Compiler
+gcc (version 7.0+)
+
+# Build System
+make
+
+# Shell
+bash (Linux/macOS) or MSYS2/MinGW64 (Windows)
+```
+
+#### Optional Tools (for Hardware)
+```bash
+# Verilog Simulation
 iverilog (Icarus Verilog)
 gtkwave (waveform viewer)
+
+# FPGA Synthesis
+Xilinx Vivado / Intel Quartus / Lattice Diamond
 ```
 
 ### Installation
 
+#### Option 1: Global Installation (Recommended)
+
+Install all tools system-wide to `/usr/local/bin`:
+
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/A1MCPU.git
+git clone https://github.com/algoscienceacademy/A1MCPU.git
 cd A1MCPU
 
-# Build everything
-./build.sh
+# Global installation (requires sudo on Linux/macOS)
+sudo ./install.sh
 
-# Or build individually
-cd emulator && make
-cd ../assembler && make
-cd ../compiler && make
-cd ../gui-console && make
+# Verify installation
+algo-compiler --version
+a1m-asm --version
+a1m-emu --version
+a1m-console --version
 ```
 
-### Your First Program
+#### Option 2: Local Build
 
-1. **Create a file** `hello.algo`:
+Build tools locally without system installation:
+
+```bash
+# Clone repository
+git clone https://github.com/algoscienceacademy/A1MCPU.git
+cd A1MCPU
+
+# Build all components
+./build.sh
+
+# Tools will be in their respective directories:
+# - compiler/algo-compiler
+# - assembler/a1m-asm
+# - emulator/a1m-emu
+# - gui-console/a1m-console
+```
+
+#### Option 3: Build Individual Components
+
+```bash
+# Compiler
+cd compiler && make && cd ..
+
+# Assembler
+cd assembler && make && cd ..
+
+# Emulator
+cd emulator && make && cd ..
+
+# Console IDE
+cd gui-console && make && cd ..
+```
+
+### Your First Algo Program
+
+#### Step 1: Create a Program
+
+Create a file named `hello.algo`:
+
 ```algo
-func main() -> int {
-    print("Hello, A1M CPU!");
-    return 0;
+// My first Algo program
+func main() -> void {
+    print("Hello from A1M CPU!\n");
+    print("Developed by Algo Science Lab, IIUC\n");
 }
 ```
 
-2. **Run it**:
+#### Step 2: Run It
+
+**Using the Quick Run Script** (easiest):
+```bash
+./algo-run.sh hello.algo
+```
+
+**Using the Interactive Console**:
 ```bash
 ./console.sh hello.algo
 ```
 
-Output:
-```
-Hello, A1M CPU!
+**Manual Compilation** (step-by-step):
+```bash
+# Compile to assembly
+algo-compiler hello.algo -o hello.asm
+
+# Assemble to binary
+a1m-asm hello.asm -o hello.bin
+
+# Run in emulator
+a1m-emu hello.bin
 ```
 
-That's it! The console automatically compiles, assembles, and runs your code.
+#### Step 3: See the Output
+
+```
+Hello from A1M CPU!
+Developed by Algo Science Lab, IIUC
+```
+
+### More Examples
+
+#### Variables and Arithmetic
+```algo
+func main() -> void {
+    let a: int = 15;
+    let b: int = 7;
+    
+    let sum: int = a + b;
+    let diff: int = a - b;
+    let prod: int = a * b;
+    let quot: int = a / b;
+    
+    print("Sum: ");
+    printInt(sum);
+    print("\n");
+}
+```
+
+#### Floating-Point Numbers
+```algo
+func main() -> void {
+    let pi: float = 3.14159f;
+    let radius: float = 5.0f;
+    let area: float = pi * radius * radius;
+    
+    print("Circle area: ");
+    printFloat(area);
+    print("\n");
+}
+```
+
+#### Functions and Recursion
+```algo
+func fibonacci(n: int) -> int {
+    if (n <= 1) {
+        return n;
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+func main() -> void {
+    let result: int = fibonacci(10);
+    print("Fibonacci(10) = ");
+    printInt(result);
+    print("\n");
+}
+```
+
+### Uninstallation
+
+To remove globally installed tools:
+
+```bash
+sudo ./uninstall.sh
+```
 
 ---
 
@@ -323,95 +644,279 @@ make clean    # In each component directory
 
 ## 📖 Usage
 
-### Console IDE (Recommended)
-├── assembler/             # A1M assembler
-│   ├── src/               # Assembler source
-│   └── Makefile
-├── compiler/              # Algo language compiler
-│   ├── src/               # Compiler source
-│   ├── include/           # Headers
-│   └── Makefile
-├── gui/                   # GUI emulator
-│   ├── src/               # GUI source
-│   └── Makefile
-├── examples/              # Example programs
-│   ├── asm/               # Assembly examples
-│   └── algo/              # Algo examples
-└── tests/                 # Test suite
-```
+### Using the Interactive Console IDE
 
-## Quick Start
+The colorful console IDE provides the easiest way to develop Algo programs:
 
-### Build the Emulator
 ```bash
-cd emulator
-make
-./a1m-emu
+# Launch console with a file
+./console.sh myprogram.algo
+
+# Or launch without a file (enter code interactively)
+./console.sh
 ```
 
-### Build the Assembler
+**Features:**
+- 🎨 Colorful syntax highlighting
+- ⚡ Auto-compilation on save
+- 📊 Real-time error messages
+- 🔍 Step-by-step execution view
+- 📝 Built-in code editor
+
+### Using Individual Tools
+
+#### Compiler Only
 ```bash
-cd assembler
-make
-./a1m-asm input.asm -o output.bin
+algo-compiler program.algo -o program.asm
 ```
 
-### Build the Compiler
+#### Assembler Only
 ```bash
-cd compiler
-make
-./algo-compiler program.algo -o program.asm
+a1m-asm program.asm -o program.bin
 ```
 
-### Build the GUI
+#### Emulator Only
 ```bash
-cd gui
-make
-./a1m-gui
+a1m-emu program.bin
 ```
 
-## A1M CPU Architecture
+### Command-Line Options
 
-- **Data Width**: 64-bit
-- **Registers**: 32 general-purpose registers (R0-R31)
-- **Special Registers**: PC, SP, FLAGS, LR
-- **Memory**: 64-bit addressing, byte-addressable
-- **Instruction Format**: Fixed 32-bit instructions
-- **Pipeline**: 5-stage (Fetch, Decode, Execute, Memory, Writeback)
+```bash
+# Compiler options
+algo-compiler input.algo -o output.asm    # Specify output file
+algo-compiler input.algo --verbose        # Verbose output
+algo-compiler input.algo --debug          # Debug symbols
 
-## Instruction Set
+# Assembler options
+a1m-asm input.asm -o output.bin          # Specify output file
+a1m-asm input.asm --list listing.lst     # Generate listing file
 
-The A1M ISA includes:
-- Arithmetic: ADD, SUB, MUL, DIV, MOD
-- Logical: AND, OR, XOR, NOT, SHL, SHR
-- Memory: LOAD, STORE, PUSH, POP
-- Control: JMP, JZ, JNZ, CALL, RET
-- Comparison: CMP, TEST
-- Special: NOP, HALT, SYSCALL
+# Emulator options
+a1m-emu input.bin                        # Run program
+a1m-emu input.bin --debug                # Debug mode
+a1m-emu input.bin --trace                # Instruction trace
+a1m-emu input.bin --limit 10000          # Execution limit
+```
 
-## Algo Language
+---
 
-Algo is a high-level, C-like language that compiles to A1M assembly:
+## 🎨 VS Code Extension
 
-```algo
-func fibonacci(n: int) -> int {
-    if (n <= 1) {
-        return n;
-    }
-    return fibonacci(n - 1) + fibonacci(n - 2);
+### Installation
+
+The Algo Language extension provides professional IDE support in Visual Studio Code:
+
+```bash
+# Navigate to extension directory
+cd vsextension
+
+# Build and install
+./install-extension.sh
+
+# Or install manually
+npm install
+npm run compile
+code --install-extension algo-language-1.5.0.vsix
+```
+
+### Features
+
+- ✨ **Syntax Highlighting** - Color-coded keywords, types, operators
+- 🔍 **Real-time Diagnostics** - Instant error detection as you type
+- 💡 **IntelliSense** - Smart code completion and suggestions
+- ▶️ **Run Button** - One-click program execution from `func main()`
+- 📚 **Hover Documentation** - Type information and function signatures
+- 🎯 **Go to Definition** - Navigate to function declarations
+- 🔧 **Build Tasks** - Integrated compile, assemble, and run commands
+
+### Usage in VS Code
+
+1. Open any `.algo` file
+2. Enjoy syntax highlighting automatically
+3. Save to see real-time error diagnostics
+4. Click the **▶ Run** button above `func main()` to execute
+5. View output in the **Algo** output channel
+
+**Configuration** (File > Preferences > Settings):
+```json
+{
+  "algo.compilerPath": "algo-compiler",
+  "algo.assemblerPath": "a1m-asm",
+  "algo.emulatorPath": "a1m-emu",
+  "algo.enableDiagnostics": true
 }
-
-func main() -> int {
-    let result = fibonacci(10);
-    print(result);
-    return 0;
-}
 ```
 
-## License
+---
 
-MIT License - See LICENSE file for details
+## 🤝 Contributing
 
-## Author
+We welcome contributions from the community! Whether you're fixing bugs, adding features, improving documentation, or suggesting new ideas:
 
-Created as a comprehensive CPU design and implementation project.
+### How to Contribute
+
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Make** your changes
+4. **Test** thoroughly on multiple platforms
+5. **Commit** with clear messages (`git commit -m 'Add amazing feature'`)
+6. **Push** to your branch (`git push origin feature/amazing-feature`)
+7. **Open** a Pull Request with detailed description
+
+### Development Guidelines
+
+- Follow existing code style and conventions
+- Add comments for complex logic
+- Update documentation for new features
+- Test on Linux, macOS, and Windows when possible
+- Include example programs for new language features
+
+### Areas for Contribution
+
+- 🐛 **Bug Fixes** - Fix issues reported on GitHub
+- ✨ **New Features** - Implement new Algo language features
+- 📚 **Documentation** - Improve guides and tutorials
+- 🎨 **VS Code Extension** - Enhance IDE integration
+- 🔧 **Optimization** - Improve compiler and emulator performance
+- 🧪 **Testing** - Add test cases and examples
+- 🌍 **Platform Support** - Test and fix platform-specific issues
+
+---
+
+## 🎓 About Algo Science Lab
+
+### Our Mission
+
+**Algo Science Lab** is a research and educational initiative at the **International Islamic University Chittagong (IIUC)**, dedicated to advancing computer science education through hands-on learning and innovative research projects.
+
+### What We Do
+
+- 🔬 **Research & Development** - Cutting-edge computer architecture and compiler design
+- 📚 **Education** - Creating accessible tools for learning system programming
+- 🛠️ **Open Source** - Building free, high-quality educational software
+- 🌟 **Innovation** - Exploring new approaches to processor design and language implementation
+
+### The A1M Project
+
+The A1M CPU is our flagship educational project, designed to provide students with:
+
+1. **Complete System Understanding** - From transistors to applications
+2. **Hands-on Learning** - Build, modify, and experiment with real hardware
+3. **Modern Tools** - Professional development environment and IDE
+4. **Research Platform** - Base for architecture and compiler research
+5. **Career Preparation** - Skills directly applicable to industry
+
+### Academic Context
+
+This project supports courses in:
+- Computer Architecture (CSE-3xx)
+- Compiler Design (CSE-4xx)
+- Digital Logic Design (CSE-2xx)
+- System Programming (CSE-3xx)
+- FPGA Design and HDL (CSE-4xx)
+
+### Institution
+
+**International Islamic University Chittagong (IIUC)**  
+Department of Computer Science & Engineering  
+Kumira, Chittagong-4318  
+Bangladesh
+
+🌐 **Website**: [www.iiuc.ac.bd](https://www.iiuc.ac.bd)  
+📧 **Contact**: algosciencelab@iiuc.ac.bd  
+📍 **Location**: Kumira, Chittagong, Bangladesh
+
+### Research Publications
+
+The A1M architecture has been featured in academic publications:
+
+- **"A1M: A 64-bit Educational RISC Processor with Scaled Integer Floating-Point Arithmetic"**  
+  *Conference Paper* - IEEE Format, 2025
+
+- **"Simplified Floating-Point Implementation for Educational Processors"**  
+  *Technical Report* - Algo Science Lab, IIUC, 2025
+
+---
+
+## 📄 License
+
+**MIT License**
+
+Copyright (c) 2025 Algo Science Lab, International Islamic University Chittagong
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## 👥 Authors & Acknowledgments
+
+### Development Team
+
+**Lead Developer & Architect:**
+- **Shahrear Hossain Shawon** - System Design, Compiler, Emulator, Verilog Implementation
+  - GitHub: [@algoscienceacademy](https://github.com/algoscienceacademy)
+
+**Technical Advisor:**
+- **Lecturer Riazul Islam** - Computer Architecture, Project Guidance
+  - Department of CSE, IIUC
+
+**Research Group:**
+- **Algo Science Lab** - Research & Development
+- **IIUC CSE Department** - Academic Support
+
+### Special Thanks
+
+- **IIUC Faculty** - For providing research facilities and guidance
+- **CSE Students** - For testing and valuable feedback
+- **Open Source Community** - For tools and libraries used in this project
+
+### Acknowledgments
+
+This project uses and builds upon:
+- **GCC** - GNU Compiler Collection
+- **Make** - GNU Build System
+- **Icarus Verilog** - Verilog simulation
+- **VS Code API** - Extension development framework
+
+### Contact & Support
+
+- 📧 **Email**: sshahrearhossain@gmail.com
+- 🐛 **Issues**: [GitHub Issues](https://github.com/algoscienceacademy/A1MCPU/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/algoscienceacademy/A1MCPU/discussions)
+- 📚 **Documentation**: [Project Wiki](https://github.com/algoscienceacademy/A1MCPU/wiki)
+
+---
+
+<div align="center">
+
+### 🌟 Support the Project
+
+If you find this project useful, please ⭐ star the repository!
+
+**Made with ❤️ by Algo Science Lab**  
+*International Islamic University Chittagong*
+
+[🏠 Home](https://github.com/algoscienceacademy/A1MCPU) • [📖 Docs](docs/) • [💡 Examples](examples/) • [🐛 Issues](https://github.com/algoscienceacademy/A1MCPU/issues) • [🤝 Contribute](#-contributing)
+
+---
+
+*Empowering the next generation of computer scientists through innovative education*
+
+</div>
