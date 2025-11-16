@@ -812,14 +812,14 @@ The A1M CPU is our flagship educational project, designed to provide students wi
 This project supports courses in:
 - Computer Architecture (CSE-3xx)
 - Compiler Design (CSE-4xx)
-- Digital Logic Design (CSE-2xx)
+- Digital Logic Design (EEE-2xx)
 - System Programming (CSE-3xx)
-- FPGA Design and HDL (CSE-4xx)
+- FPGA Design and HDL (EEE-4xx)
 
 ### Institution
 
 **International Islamic University Chittagong (IIUC)**  
-Department of Computer Science & Engineering  
+Department of Electrical & Electronics Engineering  
 Kumira, Chittagong-4318  
 Bangladesh
 
@@ -879,7 +879,7 @@ SOFTWARE.
 
 **Research Group:**
 - **Algo Science Lab** - Research & Development
-- **IIUC CSE Department** - Academic Support
+- **IIUC EEE Department** - Academic Support
 
 ### Special Thanks
 
