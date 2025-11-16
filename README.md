@@ -827,15 +827,7 @@ Bangladesh
 📧 **Contact**: sshahrearhossain@gmail.com 
 📍 **Location**: Kumira, Chittagong, Bangladesh
 
-### Research Publications
-
-The A1M architecture has been featured in academic publications:
-
-- **"A1M: A 64-bit Educational RISC Processor with Scaled Integer Floating-Point Arithmetic"**  
-  *Conference Paper* - IEEE Format, 2025
-
-- **"Simplified Floating-Point Implementation for Educational Processors"**  
-  *Technical Report* - Algo Science Lab, IIUC, 2025
+ 
 
 ---
 
