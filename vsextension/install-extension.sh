@@ -59,7 +59,7 @@ echo
 
 # Navigate to extension directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "${SCRIPT_DIR}/vsextension"
+cd "${SCRIPT_DIR}"
 
 # Install dependencies
 echo -e "${COLOR_BLUE}[1/3] Installing dependencies...${COLOR_RESET}"
@@ -72,15 +72,22 @@ npm run compile
 echo
 
 # Check if vsce is installed
-if ! command -v vsce &> /dev/null; then
-    echo -e "${COLOR_YELLOW}vsce not found. Installing @vscode/vsce...${COLOR_RESET}"
-    npm install -g @vscode/vsce
+if ! command -v vsce &> /dev/null && ! [ -f "node_modules/.bin/vsce" ]; then
+    echo -e "${COLOR_YELLOW}vsce not found. Installing @vscode/vsce locally...${COLOR_RESET}"
+    npm install --save-dev @vscode/vsce
     echo
+fi
+
+# Use local vsce if available, otherwise use global
+if [ -f "node_modules/.bin/vsce" ]; then
+    VSCE_CMD="node_modules/.bin/vsce"
+else
+    VSCE_CMD="vsce"
 fi
 
 # Package extension
 echo -e "${COLOR_BLUE}[3/3] Packaging extension...${COLOR_RESET}"
-vsce package
+$VSCE_CMD package
 echo
 
 # Find the generated .vsix file

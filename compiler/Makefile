@@ -55,30 +55,18 @@ endif
 	@echo "Cleaned build files"
 
 # Installation paths
-ifeq ($(OS),Windows_NT)
-	PREFIX ?= /usr/local
-	INSTALL_DIR = $(PREFIX)/bin
-	INSTALL = install -m 755
-else ifeq ($(DETECTED_OS),Darwin)
-	PREFIX ?= /usr/local
-	INSTALL_DIR = $(PREFIX)/bin
-	INSTALL = install -m 755
-else
-	PREFIX ?= /usr/local
-	INSTALL_DIR = $(PREFIX)/bin
-	INSTALL = install -m 755
-endif
+PREFIX ?= /usr/local
+INSTALL_DIR ?= $(PREFIX)/bin
 
 install: $(TARGET)
 	@echo "Installing $(TARGET) to $(INSTALL_DIR)..."
+	@mkdir -p "$(INSTALL_DIR)"
 ifeq ($(OS),Windows_NT)
-	@mkdir -p $(INSTALL_DIR)
-	@cp $(TARGET) $(INSTALL_DIR)/
+	@cp $(TARGET) "$(INSTALL_DIR)/"
 	@echo "Installed $(TARGET) to $(INSTALL_DIR)"
 	@echo "Make sure $(INSTALL_DIR) is in your PATH"
 else
-	@mkdir -p $(INSTALL_DIR)
-	@$(INSTALL) $(TARGET) $(INSTALL_DIR)/
+	@install -m 755 $(TARGET) "$(INSTALL_DIR)/"
 	@echo "Installed $(TARGET) to $(INSTALL_DIR)"
 endif
 
