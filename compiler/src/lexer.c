@@ -365,6 +365,22 @@ Token lexer_scan_token(Lexer* lexer) {
             advance(lexer);
         }
         
+        // Check for attribute directives like #[nomain]
+        if (peek(lexer) == '[') {
+            // Skip the entire attribute directive
+            advance(lexer); // skip '['
+            while (peek(lexer) != ']' && !is_at_end(lexer)) {
+                if (peek(lexer) == '\n') lexer->line++;
+                advance(lexer);
+            }
+            if (peek(lexer) == ']') {
+                advance(lexer); // skip ']'
+            }
+            // Skip to next token
+            skip_whitespace(lexer);
+            return lexer_scan_token(lexer);
+        }
+        
         // Check for 'include'
         if (peek(lexer) == 'i') {
             const char* start = lexer->current;
@@ -376,7 +392,7 @@ Token lexer_scan_token(Lexer* lexer) {
                 return make_token(lexer, TOKEN_INCLUDE);
             }
         }
-        // If not include, treat as error
+        // If not include or attribute, treat as error
         return error_token(lexer, "Unknown preprocessor directive");
     }
     

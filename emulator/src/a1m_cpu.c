@@ -37,7 +37,7 @@ void cpu_destroy(CPU *cpu) {
 void cpu_reset(CPU *cpu) {
     memset(cpu->registers, 0, sizeof(cpu->registers));
     cpu->pc = RESET_VECTOR;
-    cpu->sp = 0x7FFFFFFFFFFFFFF0ULL;  // Stack starts at top
+    cpu->sp = 0x100000;  // Stack starts at 1MB (grows downward)
     cpu->flags = 0;
     cpu->halted = false;
     cpu->instruction_count = 0;
@@ -408,7 +408,7 @@ void cpu_execute(CPU *cpu, Instruction inst) {
             
         case OP_PUSH:
             cpu->sp -= 8;
-            cpu_write_memory_64(cpu, cpu->sp, cpu->registers[inst.rs1]);
+            cpu_write_memory_64(cpu, cpu->sp, cpu->registers[inst.rd]);
             break;
             
         case OP_POP:
@@ -561,11 +561,12 @@ void cpu_run(CPU *cpu) {
     while (!cpu->halted) {
         cpu_step(cpu);
         
-        // Safety limit
-        if (cpu->instruction_count > 1000000) {
-            fprintf(stderr, "Warning: Execution limit reached\n");
-            break;
-        }
+        // Safety limit disabled for full 64-bit program support
+        // Uncomment to enable a safety limit:
+        // if (cpu->instruction_count > 10000000000ULL) {
+        //     fprintf(stderr, "Warning: Execution limit reached (10 billion instructions)\n");
+        //     break;
+        // }
     }
     
     if (cpu->debug_mode) {

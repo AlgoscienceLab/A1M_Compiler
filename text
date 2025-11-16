@@ -13,3 +13,15 @@
  cd /home/shahrear/Documents/A1MCPU && chmod +x algo-run.sh && sudo ./algo-run.sh
  cd /home/shahrear/Documents/A1MCPU && chmod +x install.sh && sudo ./install.sh
 
+
+
+# Test the complete toolchain
+algo-run C:/Users/shahrear/Downloads/A1M_Compiler/examples/algo/01_hello_world.algo
+
+# Or use individual tools
+algo-compiler myprogram.algo -o myprogram.asm
+a1m-asm myprogram.asm -o myprogram.bin
+a1m-emu myprogram.bin
+
+# Or use the interactive console
+a1m-console

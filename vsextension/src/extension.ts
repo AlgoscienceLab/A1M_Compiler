@@ -159,43 +159,110 @@ class AlgoCompletionProvider implements vscode.CompletionItemProvider {
     }
 }
 
+// Helper function to get executable extension based on platform
+function getExeExtension(): string {
+    return os.platform() === 'win32' ? '.exe' : '';
+}
+
 // Helper function to find compiler path (global or local)
 function getCompilerPath(workspacePath?: string): string {
-    // First, try global installation
-    const globalPath = 'algo'; // Will use PATH to find it
+    const exeExt = getExeExtension();
+    const baseName = 'algo-compiler';
     
     // If workspace path provided, check for local build
     if (workspacePath) {
-        const localPath = path.join(workspacePath, 'compiler', 'algo-compiler');
+        const localPath = path.join(workspacePath, 'compiler', baseName + exeExt);
         if (fs.existsSync(localPath)) {
             return localPath;
+        }
+        // Try without extension (for backward compatibility)
+        const localPathNoExt = path.join(workspacePath, 'compiler', baseName);
+        if (fs.existsSync(localPathNoExt)) {
+            return localPathNoExt;
+        }
+    }
+    
+    // Check MSYS2 installation on Windows
+    if (os.platform() === 'win32') {
+        const msys2Path = 'C:\\msys64\\usr\\local\\bin\\' + baseName + exeExt;
+        if (fs.existsSync(msys2Path)) {
+            return msys2Path;
         }
     }
     
     // Default to global (assumes it's in PATH)
-    return globalPath;
+    // On Windows, shell will find .exe automatically
+    return baseName + exeExt;
 }
 
 function getAssemblerPath(workspacePath?: string): string {
-    const globalPath = 'a1m-asm';
+    const exeExt = getExeExtension();
+    const baseName = 'a1m-asm';
+    
     if (workspacePath) {
-        const localPath = path.join(workspacePath, 'assembler', 'a1m-asm');
+        const localPath = path.join(workspacePath, 'assembler', baseName + exeExt);
         if (fs.existsSync(localPath)) {
             return localPath;
         }
+        // Try without extension (for backward compatibility)
+        const localPathNoExt = path.join(workspacePath, 'assembler', baseName);
+        if (fs.existsSync(localPathNoExt)) {
+            return localPathNoExt;
+        }
     }
-    return globalPath;
+    
+    // Check MSYS2 installation on Windows
+    if (os.platform() === 'win32') {
+        const msys2Path = 'C:\\msys64\\usr\\local\\bin\\' + baseName + exeExt;
+        if (fs.existsSync(msys2Path)) {
+            return msys2Path;
+        }
+    }
+    
+    return baseName + exeExt;
 }
 
 function getEmulatorPath(workspacePath?: string): string {
-    const globalPath = 'a1m-emu';
+    const exeExt = getExeExtension();
+    const baseName = 'a1m-emu';
+    
     if (workspacePath) {
-        const localPath = path.join(workspacePath, 'emulator', 'a1m-emu');
+        const localPath = path.join(workspacePath, 'emulator', baseName + exeExt);
         if (fs.existsSync(localPath)) {
             return localPath;
         }
+        // Try without extension (for backward compatibility)
+        const localPathNoExt = path.join(workspacePath, 'emulator', baseName);
+        if (fs.existsSync(localPathNoExt)) {
+            return localPathNoExt;
+        }
     }
-    return globalPath;
+    
+    // Check MSYS2 installation on Windows
+    if (os.platform() === 'win32') {
+        const msys2Path = 'C:\\msys64\\usr\\local\\bin\\' + baseName + exeExt;
+        if (fs.existsSync(msys2Path)) {
+            return msys2Path;
+        }
+    }
+    
+    return baseName + exeExt;
+}
+
+// Check if document has #[nomain] directive
+function hasNoMainDirective(document: vscode.TextDocument): boolean {
+    const text = document.getText();
+    const lines = text.split('\n');
+    
+    // Check first 10 lines for #[nomain] directive
+    for (let i = 0; i < Math.min(10, lines.length); i++) {
+        const line = lines[i].trim();
+        if (line === '#[nomain]') {
+            return true;
+        }
+    }
+    
+    return false;
 }
 
 // Validate document and show diagnostics
@@ -207,6 +274,9 @@ async function validateDocument(document: vscode.TextDocument) {
 
     const filePath = document.uri.fsPath;
     const diagnostics: vscode.Diagnostic[] = [];
+    
+    // Check for #[nomain] directive
+    const hasNomain = hasNoMainDirective(document);
     
     // Use temp directory in user's home or system temp
     const tempDir = workspacePath ? path.join(workspacePath, '.vscode') : path.join(os.tmpdir(), 'algo-vscode');
@@ -232,6 +302,15 @@ async function validateDocument(document: vscode.TextDocument) {
             for (const errorLine of lines) {
                 // Skip empty lines and compilation status messages
                 if (!errorLine.trim() || errorLine.includes('Compiling')) {
+                    continue;
+                }
+                
+                // Skip "no main found" warning if #[nomain] directive is present
+                if (hasNomain && (
+                    errorLine.toLowerCase().includes('no main') || 
+                    errorLine.toLowerCase().includes('main not found') ||
+                    errorLine.toLowerCase().includes('missing main')
+                )) {
                     continue;
                 }
 
@@ -341,27 +420,67 @@ async function runAlgoProgram() {
     outputChannel.clear();
     outputChannel.show(true);
 
-    // Create and show terminal
+    // Detect the default shell (Git Bash vs PowerShell on Windows)
+    const defaultShell = vscode.workspace.getConfiguration('terminal.integrated.defaultProfile').get<string>('windows') || '';
+    const isGitBash = defaultShell.toLowerCase().includes('bash') || defaultShell.toLowerCase().includes('git');
+    const isBashTerminal = os.platform() !== 'win32' || isGitBash;
+
+    // Create and show terminal with appropriate shell
     const terminal = vscode.window.createTerminal({
         name: 'Algo Run',
         cwd: workspacePath || path.dirname(filePath)
     });
     terminal.show();
 
-    // Build the command with clear output separators
-    const command = `echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" && ` +
-                   `echo "▶ Running: ${fileName}.algo" && ` +
-                   `echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" && ` +
-                   `${compilerPath} "${filePath}" -o "${asmFile}" && ` +
-                   `${assemblerPath} "${asmFile}" -o "${binFile}" && ` +
-                   `echo "" && ` +
-                   `echo "📤 Program Output:" && ` +
-                   `echo "────────────────────────────────────────────────────────────────────" && ` +
-                   `${emulatorPath} "${binFile}" && ` +
-                   `echo "────────────────────────────────────────────────────────────────────" && ` +
-                   `echo "✓ Execution completed"`;
+    // Convert paths for Git Bash on Windows (C:\path -> /c/path)
+    const convertPath = (p: string): string => {
+        if (isBashTerminal && os.platform() === 'win32') {
+            // Convert Windows path to Git Bash path: C:\path -> /c/path
+            return p.replace(/^([A-Z]):\\/i, '/$1/').replace(/\\/g, '/').toLowerCase();
+        }
+        return p;
+    };
+
+    // Build the command based on shell type
+    let command: string;
+    
+    if (isBashTerminal) {
+        // Bash command (Git Bash, Linux, macOS)
+        const bashCompiler = convertPath(compilerPath);
+        const bashAssembler = convertPath(assemblerPath);
+        const bashEmulator = convertPath(emulatorPath);
+        const bashFilePath = convertPath(filePath);
+        const bashAsmFile = convertPath(asmFile);
+        const bashBinFile = convertPath(binFile);
+        
+        command = `echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" && ` +
+                 `echo "▶ Running: ${fileName}.algo" && ` +
+                 `echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" && ` +
+                 `"${bashCompiler}" "${bashFilePath}" -o "${bashAsmFile}" && ` +
+                 `"${bashAssembler}" "${bashAsmFile}" -o "${bashBinFile}" && ` +
+                 `echo "" && ` +
+                 `echo "📤 Program Output:" && ` +
+                 `echo "────────────────────────────────────────────────────────────────────" && ` +
+                 `"${bashEmulator}" "${bashBinFile}" && ` +
+                 `echo "────────────────────────────────────────────────────────────────────" && ` +
+                 `echo "✓ Execution completed"`;
+    } else {
+        // PowerShell command (Windows)
+        command = `Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" ; ` +
+                 `Write-Host "▶ Running: ${fileName}.algo" ; ` +
+                 `Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" ; ` +
+                 `& "${compilerPath}" "${filePath}" -o "${asmFile}" ; ` +
+                 `if ($?) { & "${assemblerPath}" "${asmFile}" -o "${binFile}" } ; ` +
+                 `if ($?) { Write-Host "" ; Write-Host "📤 Program Output:" ; ` +
+                 `Write-Host "────────────────────────────────────────────────────────────────────" ; ` +
+                 `& "${emulatorPath}" "${binFile}" ; ` +
+                 `Write-Host "────────────────────────────────────────────────────────────────────" ; ` +
+                 `Write-Host "✓ Execution completed" }`;
+    }
     
     outputChannel.appendLine(`Running: ${fileName}.algo`);
+    outputChannel.appendLine(`Platform: ${os.platform()}`);
+    outputChannel.appendLine(`Shell: ${isBashTerminal ? 'Bash' : 'PowerShell'}`);
     outputChannel.appendLine(`Working directory: ${workspacePath || path.dirname(filePath)}`);
     outputChannel.appendLine('');
     

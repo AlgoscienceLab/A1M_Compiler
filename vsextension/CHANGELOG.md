@@ -1,6 +1,61 @@
 # Change Log
 
-All notable changes to the Algo Language extension will be documented in this file.
+All notable changes to the "Algo Language Support" extension will be documented in this file.
+
+## [1.5.0] - 2025-11-16
+
+### Added
+- **#[nomain] directive support**: Add `#[nomain]` at the top of your file to suppress "no main found" warnings
+- Syntax highlighting for `#[nomain]` directive
+- Directive validation in first 10 lines of file
+
+### Features
+- Files with `#[nomain]` can be used for libraries or modules without a main() function
+- Diagnostic validation now respects the directive and won't show main-related warnings
+
+## [1.4.0] - 2025-11-16
+
+### Fixed
+- **Git Bash Detection**: Extension now properly detects Git Bash terminals on Windows and generates Bash commands instead of PowerShell commands
+- **Path Conversion**: Automatically converts Windows paths (C:\path) to Git Bash format (/c/path) when needed
+- **MSYS2 Integration**: Uses full paths to MSYS2-installed executables for better compatibility
+
+### Changed
+- Shell detection based on VS Code terminal profile settings
+- Enhanced terminal output with shell type information
+
+## [1.3.0] - 2025-11-16
+
+### Added
+- **Cross-Platform Support**
+  - Full Windows support via MSYS2/MinGW64
+  - Full macOS support (Intel & Apple Silicon)
+  - Enhanced Linux support
+  - Auto-detection of platform and executable extensions (.exe on Windows)
+  - Platform-specific terminal commands (PowerShell for Windows, bash/zsh for Unix)
+  - Smart executable path resolution (workspace-local or global)
+  
+### Improved
+- **Executable Detection**
+  - Auto-detects `.exe` extension on Windows
+  - Searches workspace-local builds first, then global PATH
+  - Falls back gracefully if tools not found
+  - Configuration settings now optional (auto-detection preferred)
+  
+- **Terminal Integration**
+  - Windows: PowerShell-compatible commands with proper error handling
+  - macOS/Linux: Unix shell commands with proper quoting
+  - Cross-platform output formatting
+  - Platform information in output channel
+
+### Changed
+- Default configuration paths now empty (uses auto-detection)
+- Extension description mentions cross-platform support
+- Terminal commands use platform-appropriate syntax
+
+### Documentation
+- Added README-CROSSPLATFORM.md with platform-specific instructions
+- Updated package.json with clearer configuration descriptions
 
 ## [1.2.0] - 2025-11-13
 

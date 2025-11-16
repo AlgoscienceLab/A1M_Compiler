@@ -1,8 +1,8 @@
 {
   "name": "algo-language",
   "displayName": "Algo Language Support",
-  "description": "Language support for A1M Algo programming language with syntax highlighting, diagnostics, and run support",
-  "version": "1.2.0",
+  "description": "Language support for A1M Algo programming language with syntax highlighting, diagnostics, and run support. Cross-platform: Linux, macOS, Windows.",
+  "version": "1.5.0",
   "publisher": "a1m",
   "icon": "images/icon.png",
   "engines": {
@@ -72,18 +72,18 @@
       "properties": {
         "algo.compilerPath": {
           "type": "string",
-          "default": "compiler/algo-compiler",
-          "description": "Path to the Algo compiler"
+          "default": "",
+          "description": "Path to the Algo compiler (auto-detected if empty)"
         },
         "algo.assemblerPath": {
           "type": "string",
-          "default": "assembler/a1m-asm",
-          "description": "Path to the A1M assembler"
+          "default": "",
+          "description": "Path to the A1M assembler (auto-detected if empty)"
         },
         "algo.emulatorPath": {
           "type": "string",
-          "default": "emulator/a1m-emu",
-          "description": "Path to the A1M emulator"
+          "default": "",
+          "description": "Path to the A1M emulator (auto-detected if empty)"
         }
       }
     }

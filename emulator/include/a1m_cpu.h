@@ -4,8 +4,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-// Memory size (16MB for emulator)
-#define MEMORY_SIZE (16 * 1024 * 1024)
+// Memory size (1GB for emulator)
+#define MEMORY_SIZE (1024ULL * 1024ULL * 1024ULL)
 
 // Reset vector
 #define RESET_VECTOR 0x0000000000001000ULL

@@ -1039,7 +1039,17 @@ static int gen_expression(CodeGen* gen, ASTNode* node) {
                 return reg;
             } else {
                 // User-defined function call
-                // Save registers and prepare arguments
+                
+                // Save caller-saved registers (R16-R30) before call
+                // These might be clobbered by the callee
+                emit(gen, "    ; Save caller-saved registers\n");
+                for (int i = 16; i <= 30; i++) {
+                    if (gen->reg_in_use[i]) {
+                        emit(gen, "    PUSH R%d\n", i);
+                    }
+                }
+                
+                // Prepare arguments in R1, R2, etc.
                 for (int i = 0; i < node->call.arg_count; i++) {
                     int arg_reg = gen_expression(gen, node->call.args[i]);
                     emit_move(gen, i + 1, arg_reg);
@@ -1047,6 +1057,14 @@ static int gen_expression(CodeGen* gen, ASTNode* node) {
                 }
                 
                 emit(gen, "    CALL %s\n", node->call.name);
+                
+                // Restore caller-saved registers in reverse order
+                emit(gen, "    ; Restore caller-saved registers\n");
+                for (int i = 30; i >= 16; i--) {
+                    if (gen->reg_in_use[i]) {
+                        emit(gen, "    POP R%d\n", i);
+                    }
+                }
                 
                 reg = allocate_register(gen);
                 emit_move(gen, reg, 2);  // R2 = return value register
@@ -1063,6 +1081,19 @@ static int gen_expression(CodeGen* gen, ASTNode* node) {
 static void gen_function(CodeGen* gen, ASTNode* func) {
     emit(gen, "%s:\n", func->function.name);
     
+    bool is_main = (strcmp(func->function.name, "main") == 0);
+    
+    if (!is_main) {
+        // Function prologue: save return address (R31) on stack
+        emit(gen, "    PUSH R31\n");
+        
+        // Save callee-saved registers R4-R15 if they might be used
+        // For simplicity, we'll save all of them
+        for (int i = 4; i <= 15; i++) {
+            emit(gen, "    PUSH R%d\n", i);
+        }
+    }
+    
     // Map parameters to registers (they come in R1-RN)
     for (int i = 0; i < func->function.param_count; i++) {
         int reg = allocate_register(gen);
@@ -1073,10 +1104,17 @@ static void gen_function(CodeGen* gen, ASTNode* func) {
     // Generate function body
     gen_statement(gen, func->function.body);
     
-    // If main function, add exit syscall
-    if (strcmp(func->function.name, "main") == 0) {
+    // Function epilogue
+    if (is_main) {
         emit(gen, "    SYSCALL 0x00\n");  // exit
     } else {
+        // Restore callee-saved registers in reverse order
+        for (int i = 15; i >= 4; i--) {
+            emit(gen, "    POP R%d\n", i);
+        }
+        
+        // Restore return address and return
+        emit(gen, "    POP R31\n");
         emit(gen, "    RET\n");
     }
     
@@ -1143,11 +1181,17 @@ void generate(CodeGen* gen, ASTNode* program) {
         exit(1);
     }
     
-    // Generate all functions (main will be first)
-    gen_function(gen, program->program.functions[main_idx]);
+    // Add entry point: jump to main
+    emit(gen, "    JMP main\n");
+    emit(gen, "\n");
+    
+    // Generate all non-main functions first
     for (int i = 0; i < program->program.function_count; i++) {
         if (i != main_idx) {
             gen_function(gen, program->program.functions[i]);
         }
     }
+    
+    // Generate main function last
+    gen_function(gen, program->program.functions[main_idx]);
 }

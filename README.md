@@ -4,8 +4,11 @@
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
 [![Language](https://img.shields.io/badge/language-Algo-orange.svg)]()
 [![CPU](https://img.shields.io/badge/CPU-64--bit%20RISC-red.svg)]()
+[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey.svg)]()
 
 A complete custom 64-bit RISC CPU architecture with **Verilog hardware implementation**, **software emulator**, **assembler**, **Algo programming language**, **compiler**, and **interactive console IDE**.
+
+**Cross-Platform Support**: Linux • macOS • Windows (MSYS2/MinGW64)
 
 ---
 
@@ -249,33 +252,64 @@ func main() -> int {
 
 ## 🔨 Building
 
-### Build All Components
+### Supported Platforms
+
+- **Linux** (Ubuntu, Debian, Arch, Fedora, etc.)
+- **macOS** (10.15+, Intel & Apple Silicon)
+- **Windows** (via MSYS2/MinGW64)
+
+📚 **Detailed Build Guide**: See [BUILD_GUIDE.md](BUILD_GUIDE.md)
+
+### Quick Build
+
+#### Linux
 ```bash
 ./build.sh
 ```
 
+#### macOS
+```bash
+chmod +x build-macos.sh
+./build-macos.sh
+```
+
+#### Windows (MSYS2 MinGW64 Terminal)
+```bash
+./build-windows.bat
+# Or use: ./build.sh
+```
+
 ### Build Individual Components
 
+All platforms can use these commands:
+
 ```bash
-# Emulator
-cd emulator
+# Compiler
+cd compiler
 make
-./a1m-emu program.bin
+cd ..
 
 # Assembler
 cd assembler
 make
-./a1m-asm source.asm output.bin
+cd ..
 
-# Compiler
-cd compiler
+# Emulator
+cd emulator
 make
-./algo-compiler source.algo output.asm
+cd ..
 
 # Console IDE
 cd gui-console
 make
-./a1m-console
+cd ..
+```
+
+### Platform Detection
+```bash
+# See what platform was detected
+cd compiler
+make info
 ```
 
 ### Clean Build

@@ -30,6 +30,13 @@
     "preprocessor": {
       "patterns": [
         {
+          "name": "meta.preprocessor.directive.algo",
+          "match": "^\\s*(#\\[nomain\\])",
+          "captures": {
+            "1": { "name": "keyword.control.directive.pragma.algo" }
+          }
+        },
+        {
           "name": "meta.preprocessor.include.algo",
           "match": "^\\s*(#include)\\s+(\"[^\"]+\")",
           "captures": {

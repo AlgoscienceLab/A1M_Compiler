@@ -103,7 +103,13 @@ void print_menu() {
 
 int run_command_silent(const char *cmd) {
     int ret = system(cmd);
+#ifdef _WIN32
+    // On Windows, system() returns the exit code directly
+    return ret;
+#else
+    // On Unix, use WEXITSTATUS macro
     return WEXITSTATUS(ret);
+#endif
 }
 
 void run_algo_program() {
@@ -181,7 +187,11 @@ void run_algo_program() {
     if (ret == 0) {
         printf(COLOR_GREEN "✓ Execution complete\n" COLOR_RESET);
     } else {
+#ifdef _WIN32
+        printf(COLOR_YELLOW "⚠ Execution finished with exit code %d\n" COLOR_RESET, ret);
+#else
         printf(COLOR_YELLOW "⚠ Execution finished with exit code %d\n" COLOR_RESET, WEXITSTATUS(ret));
+#endif
     }
     
     printf(COLOR_YELLOW "\nPress Enter to continue..." COLOR_RESET);
@@ -244,7 +254,11 @@ void run_assembly_program() {
     if (ret == 0) {
         printf(COLOR_GREEN "✓ Execution complete\n" COLOR_RESET);
     } else {
+#ifdef _WIN32
+        printf(COLOR_YELLOW "⚠ Execution finished with exit code %d\n" COLOR_RESET, ret);
+#else
         printf(COLOR_YELLOW "⚠ Execution finished with exit code %d\n" COLOR_RESET, WEXITSTATUS(ret));
+#endif
     }
     
     printf(COLOR_YELLOW "\nPress Enter to continue..." COLOR_RESET);
@@ -285,7 +299,11 @@ void run_binary_program() {
     if (ret == 0) {
         printf("✓ Execution complete\n");
     } else {
+#ifdef _WIN32
+        printf("⚠ Execution finished with exit code %d\n", ret);
+#else
         printf("⚠ Execution finished with exit code %d\n", WEXITSTATUS(ret));
+#endif
     }
     
     printf("\nPress Enter to continue...");

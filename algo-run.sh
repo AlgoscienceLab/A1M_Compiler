@@ -77,7 +77,7 @@ BIN_FILE="${BASENAME}.bin"
 
 # Compile to assembly
 echo -e "${COLOR_BLUE}[1/3] Compiling...${COLOR_RESET}"
-algo "$INPUT_FILE" -o "$ASM_FILE"
+algo-compiler "$INPUT_FILE" -o "$ASM_FILE"
 
 if [ "$ASM_ONLY" = true ]; then
     echo -e "${COLOR_GREEN}✓ Assembly file generated: $ASM_FILE${COLOR_RESET}"
