@@ -91,6 +91,9 @@ void symtab_exit_scope(SymbolTable* table) {
 // Code generator helper functions
 // Forward declarations
 static void emit(CodeGen* gen, const char* format, ...);
+// Forward declare register helpers used by emitter
+static int allocate_register(CodeGen* gen);
+static void free_register(CodeGen* gen, int reg);
 
 // Helper to emit move operation (MOV doesn't work, use ADD instead)
 static void emit_move(CodeGen* gen, int rd, int rs) {
@@ -140,9 +143,29 @@ static void emit_load_immediate(CodeGen* gen, int rd, uint64_t value, const char
         // This is getting complicated - let's use a simpler approach
     }
     
-    // Simpler approach: just zero the register for now and document the issue
+    // For larger values, build the constant using multiple small MOVI + ADD
+    // This uses signed 14-bit immediates (range -8192..8191) and keeps
+    // the implementation simple and portable without relying on LUI.
+    emit(gen, "    ; Build large immediate %llu (0x%llX)\n", value, value);
     emit(gen, "    MOVI R%d, 0\n", rd);
-    emit(gen, "    ; TODO: Large immediate value %llu not fully loaded\n", value);
+
+    // Use chunk size 8191 (max positive MOVI immediate). For negative
+    // numbers, we use -8192 as minimal chunk.
+    int64_t remaining = signed_val;
+    while (remaining != 0) {
+        int64_t chunk;
+        if (remaining > 0) {
+            chunk = remaining > 8191 ? 8191 : remaining;
+        } else {
+            chunk = remaining < -8192 ? -8192 : remaining;
+        }
+
+        int tmp = allocate_register(gen);
+        emit(gen, "    MOVI R%d, %lld\n", tmp, chunk);
+        emit(gen, "    ADD R%d, R%d, R%d\n", rd, rd, tmp);
+        free_register(gen, tmp);
+        remaining -= chunk;
+    }
 }
 
 static void emit(CodeGen* gen, const char* format, ...) {
@@ -531,7 +554,7 @@ static int gen_expression(CodeGen* gen, ASTNode* node) {
         
         case AST_LITERAL_INT: {
             reg = allocate_register(gen);
-            emit(gen, "    MOVI R%d, %lld\n", reg, node->integer.value);
+            emit_load_immediate(gen, reg, (uint64_t)node->integer.value, "int literal");
             return reg;
         }
         
@@ -540,18 +563,18 @@ static int gen_expression(CodeGen* gen, ASTNode* node) {
             // Since A1M doesn't have FPU and MOVI is limited to 14-bit immediates,
             // we use fixed-point arithmetic: 2.5 becomes 2500
             reg = allocate_register(gen);
-            int64_t scaled = (int64_t)(node->float_literal.value * 1000.0f);
-            emit(gen, "    MOVI R%d, %lld    ; float %f (stored as scaled int x1000)\n", 
-                 reg, scaled, node->float_literal.value);
+                int64_t scaled = (int64_t)(node->float_literal.value * 1000.0f);
+                // Use robust immediate loader for large scaled values
+                emit_load_immediate(gen, reg, (uint64_t)scaled, "float scaled x1000");
             return reg;
         }
         
         case AST_LITERAL_DOUBLE: {
             // PRAGMATIC APPROACH: Store double as scaled integer (x1000)
             reg = allocate_register(gen);
-            int64_t scaled = (int64_t)(node->double_literal.value * 1000.0);
-            emit(gen, "    MOVI R%d, %lld    ; double %f (stored as scaled int x1000)\n", 
-                 reg, scaled, node->double_literal.value);
+              int64_t scaled = (int64_t)(node->double_literal.value * 1000.0);
+              // Use robust immediate loader for large scaled values
+              emit_load_immediate(gen, reg, (uint64_t)scaled, "double scaled x1000");
             return reg;
         }
         
@@ -571,7 +594,7 @@ static int gen_expression(CodeGen* gen, ASTNode* node) {
             reg = allocate_register(gen);
             if (sym->is_const) {
                 // For constants, emit the value directly
-                emit(gen, "    MOVI R%d, %lld\n", reg, sym->const_value);
+                emit_load_immediate(gen, reg, (uint64_t)sym->const_value, "enum/const");
             } else {
                 // For variables, copy from the variable's register
                 emit_move(gen, reg, sym->reg);

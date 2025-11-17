@@ -1,7 +1,7 @@
 // Test division
 func main() -> void {
-    let a:float = 6.0;
-    let b:float = 2.0;
+    let a:float = 500.5;
+    let b:float = 10.2;
     let c:float = a / b;
     print(c);
 }
