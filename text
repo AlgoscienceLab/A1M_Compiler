@@ -25,3 +25,15 @@ a1m-emu myprogram.bin
 
 # Or use the interactive console
 a1m-console
+
+
+
+./windows_install.sh
+
+./windows_install.sh --update
+
+./windows_install.sh --global
+
+./windows_install.sh --global --update
+
+sudo ./windows_install.sh --global --update

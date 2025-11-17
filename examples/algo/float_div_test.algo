@@ -1,7 +1,12 @@
-// Test division
+ func div(x:double,y:double) -> double {
+    return (x / y);
+} 
+
 func main() -> void {
-    let a:float = 500.5;
-    let b:float = 10.2;
-    let c:float = a / b;
+    let a:double = 1251.5;
+    let b:double= 21.3;
+    let c:double= div(a, b);
     print(c);
+    print("\n");
+    
 }

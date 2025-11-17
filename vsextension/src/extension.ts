@@ -182,11 +182,34 @@ function getCompilerPath(workspacePath?: string): string {
         }
     }
     
+    // If the user has specified a path in settings, use it
+    const config = vscode.workspace.getConfiguration('algo');
+    const configured = config.get<string>('compilerPath');
+    if (configured && configured.trim().length > 0) {
+        return configured.trim();
+    }
+
     // Check MSYS2 installation on Windows
     if (os.platform() === 'win32') {
         const msys2Path = 'C:\\msys64\\usr\\local\\bin\\' + baseName + exeExt;
         if (fs.existsSync(msys2Path)) {
             return msys2Path;
+        }
+        // Check Program Files installation
+        const programFiles = process.env['ProgramFiles'] || 'C:\\Program Files';
+        const programPath = path.join(programFiles, 'A1M_Compiler', 'bin', baseName + exeExt);
+        if (fs.existsSync(programPath)) {
+            return programPath;
+        }
+        // Check user-local bin (WSL/Git Bash style or custom path)
+        const userLocal = path.join(os.homedir(), '.local', 'bin', baseName + exeExt);
+        if (fs.existsSync(userLocal)) {
+            return userLocal;
+        }
+        // Also check APPDATA/.local/bin which some install scripts may use
+        const appdataLocal = process.env['APPDATA'] ? path.join(process.env['APPDATA'] || '', '.local', 'bin', baseName + exeExt) : '';
+        if (appdataLocal && fs.existsSync(appdataLocal)) {
+            return appdataLocal;
         }
     }
     
@@ -211,11 +234,28 @@ function getAssemblerPath(workspacePath?: string): string {
         }
     }
     
+    const config = vscode.workspace.getConfiguration('algo');
+    const configured = config.get<string>('assemblerPath');
+    if (configured && configured.trim().length > 0) {
+        return configured.trim();
+    }
+
     // Check MSYS2 installation on Windows
     if (os.platform() === 'win32') {
         const msys2Path = 'C:\\msys64\\usr\\local\\bin\\' + baseName + exeExt;
         if (fs.existsSync(msys2Path)) {
             return msys2Path;
+        }
+        // Program Files
+        const programFiles = process.env['ProgramFiles'] || 'C:\\Program Files';
+        const programPath = path.join(programFiles, 'A1M_Compiler', 'bin', baseName + exeExt);
+        if (fs.existsSync(programPath)) {
+            return programPath;
+        }
+        // user-local
+        const userLocal = path.join(os.homedir(), '.local', 'bin', baseName + exeExt);
+        if (fs.existsSync(userLocal)) {
+            return userLocal;
         }
     }
     
@@ -238,11 +278,26 @@ function getEmulatorPath(workspacePath?: string): string {
         }
     }
     
+    const config = vscode.workspace.getConfiguration('algo');
+    const configured = config.get<string>('emulatorPath');
+    if (configured && configured.trim().length > 0) {
+        return configured.trim();
+    }
+
     // Check MSYS2 installation on Windows
     if (os.platform() === 'win32') {
         const msys2Path = 'C:\\msys64\\usr\\local\\bin\\' + baseName + exeExt;
         if (fs.existsSync(msys2Path)) {
             return msys2Path;
+        }
+        const programFiles = process.env['ProgramFiles'] || 'C:\\Program Files';
+        const programPath = path.join(programFiles, 'A1M_Compiler', 'bin', baseName + exeExt);
+        if (fs.existsSync(programPath)) {
+            return programPath;
+        }
+        const userLocal = path.join(os.homedir(), '.local', 'bin', baseName + exeExt);
+        if (fs.existsSync(userLocal)) {
+            return userLocal;
         }
     }
     

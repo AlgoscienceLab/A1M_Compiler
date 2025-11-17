@@ -6,7 +6,6 @@
 static char* read_file(const char* path) {
     FILE* file = fopen(path, "rb");
     if (!file) {
-        fprintf(stderr, "Error: Could not open file '%s'\n", path);
         return NULL;
     }
     
@@ -26,6 +25,13 @@ static char* read_file(const char* path) {
     
     fclose(file);
     return buffer;
+}
+
+// Check file exists
+static int file_exists(const char* path) {
+    FILE* f = fopen(path, "rb");
+    if (f) { fclose(f); return 1; }
+    return 0;
 }
 
 // Simple preprocessor to handle #include directives
@@ -215,10 +221,42 @@ int main(int argc, char** argv) {
         output_file = default_output;
     }
     
-    // Read source file
-    char* source = read_file(input_file);
+    // Read source file, attempt fallback paths if needed
+    char* source = NULL;
+    if (file_exists(input_file)) {
+        source = read_file(input_file);
+    }
     if (!source) {
-        return 1;
+        // Try common example locations when the file is not found
+        char alt_path[512];
+        const char* candidates[] = {
+            "examples/algo/%s",
+            "examples/%s",
+            "../examples/algo/%s",
+            "../examples/%s",
+            "./%s",
+            NULL
+        };
+
+        bool found = false;
+        for (int i = 0; candidates[i]; i++) {
+            snprintf(alt_path, sizeof(alt_path), candidates[i], input_file);
+            fprintf(stderr, "Trying alternative path: %s\n", alt_path);
+            char* alt_source = read_file(alt_path);
+            if (alt_source) {
+                fprintf(stderr, "Found alternative source: %s\n", alt_path);
+                source = alt_source;
+                input_file = strdup(alt_path);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            fprintf(stderr, "Error: Could not open file '%s'\n", input_file);
+            // No alternative found
+            return 1;
+        }
     }
     
     // Get directory for relative includes
