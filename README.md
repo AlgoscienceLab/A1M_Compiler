@@ -59,35 +59,35 @@ The **A1M CPU Project** is a comprehensive educational and research platform tha
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     A1M TOOLCHAIN FLOW                       │
+│                     A1M TOOLCHAIN FLOW                      │
 ├─────────────────────────────────────────────────────────────┤
-│                                                              │
+│                                                             │
 │  Algo Source Code (.algo)                                   │
-│         ↓                                                    │
+│         ↓                                                   │
 │  Algo Compiler (algo-compiler)                              │
 │    • Lexical Analysis                                       │
 │    • Syntax Parsing                                         │
 │    • Semantic Analysis                                      │
 │    • Code Generation                                        │
-│         ↓                                                    │
+│         ↓                                                   │
 │  A1M Assembly (.asm)                                        │
-│         ↓                                                    │
+│         ↓                                                   │
 │  A1M Assembler (a1m-asm)                                    │
 │    • Instruction Encoding                                   │
 │    • Label Resolution                                       │
 │    • Binary Generation                                      │
-│         ↓                                                    │
+│         ↓                                                   │
 │  Machine Code (.bin)                                        │
-│         ↓                                                    │
-│  ┌────────────────────┬────────────────────┐               │
-│  │   Software Path    │   Hardware Path    │               │
-│  ├────────────────────┼────────────────────┤               │
-│  │  A1M Emulator      │  Verilog CPU       │               │
-│  │  (a1m-emu)         │  (FPGA/Simulation) │               │
-│  └────────────────────┴────────────────────┘               │
-│         ↓                       ↓                            │
+│         ↓                                                   │
+│  ┌────────────────────┬────────────────────┐                │
+│  │   Software Path    │   Hardware Path    │                │
+│  ├────────────────────┼────────────────────┤                │
+│  │  A1M Emulator      │  Verilog CPU       │                │
+│  │  (a1m-emu)         │  (FPGA/Simulation) │                │ 
+│  └────────────────────┴────────────────────┘                │
+│         ↓                       ↓                           │
 │  Program Execution & Output                                 │
-│                                                              │
+│                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -252,10 +252,10 @@ J-Format: Jump operations (24-bit address)
 ### Memory Architecture
 
 ```
-┌─────────────────────────────────────┐
-│     64-bit Address Space            │
-├─────────────────────────────────────┤
-│  0x0000000000000000                 │
+┌────────────────────────────────────┐
+│     64-bit Address Space           │
+├────────────────────────────────────┤
+│  0x0000000000000000                │
 │  ┌─────────────────────────────┐   │
 │  │   Code Segment (.text)      │   │ ← Program instructions
 │  │   Start: 0x1000             │   │
@@ -269,13 +269,13 @@ J-Format: Jump operations (24-bit address)
 │  ┌─────────────────────────────┐   │
 │  │   Heap (↓ grows down)       │   │ ← Dynamic allocation
 │  └─────────────────────────────┘   │
-│           ...                       │
+│           ...                      │
 │  ┌─────────────────────────────┐   │
 │  │   Stack (↑ grows up)        │   │ ← Function calls, locals
 │  │   Top: 0xFFFFFFFF           │   │
 │  └─────────────────────────────┘   │
-│  0xFFFFFFFFFFFFFFFF                 │
-└─────────────────────────────────────┘
+│  0xFFFFFFFFFFFFFFFF                │
+└────────────────────────────────────┘
 ```
 
 ### Pipeline Stages
@@ -864,10 +864,7 @@ SOFTWARE.
 **Lead Developer & Architect:**
 - **Shahrear Hossain Shawon** - System Design, Compiler, Emulator, Verilog Implementation
   - GitHub: [@algoscienceacademy](https://github.com/algoscienceacademy)
-
-**Technical Advisor:**
-- **Lecturer Riazul Islam** - VLSI Supervisor , Project Guidance
-  - Department of EEE, IIUC
+ 
 
 **Research Group:**
 - **Algo Science Lab** - Research & Development
