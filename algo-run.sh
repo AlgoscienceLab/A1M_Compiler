@@ -75,9 +75,24 @@ BASENAME="${INPUT_FILE%.algo}"
 ASM_FILE="${BASENAME}.asm"
 BIN_FILE="${BASENAME}.bin"
 
+# Prefer local toolchain binaries inside the repo; fall back to PATH
+COMPILER_BIN="$(pwd)/compiler/algo-compiler"
+ASSEMBLER_BIN="$(pwd)/assembler/a1m-asm"
+EMU_BIN="$(pwd)/emulator/a1m-emu"
+
+if [ ! -x "$COMPILER_BIN" ]; then
+    COMPILER_BIN="algo-compiler"
+fi
+if [ ! -x "$ASSEMBLER_BIN" ]; then
+    ASSEMBLER_BIN="a1m-asm"
+fi
+if [ ! -x "$EMU_BIN" ]; then
+    EMU_BIN="a1m-emu"
+fi
+
 # Compile to assembly
 echo -e "${COLOR_BLUE}[1/3] Compiling...${COLOR_RESET}"
-algo-compiler "$INPUT_FILE" -o "$ASM_FILE"
+"$COMPILER_BIN" "$INPUT_FILE" -o "$ASM_FILE"
 
 if [ "$ASM_ONLY" = true ]; then
     echo -e "${COLOR_GREEN}✓ Assembly file generated: $ASM_FILE${COLOR_RESET}"
@@ -86,7 +101,7 @@ fi
 
 # Assemble to binary
 echo -e "${COLOR_BLUE}[2/3] Assembling...${COLOR_RESET}"
-a1m-asm "$ASM_FILE" -o "$BIN_FILE"
+"$ASSEMBLER_BIN" "$ASM_FILE" -o "$BIN_FILE"
 
 if [ "$BIN_ONLY" = true ]; then
     echo -e "${COLOR_GREEN}✓ Binary file generated: $BIN_FILE${COLOR_RESET}"
@@ -96,7 +111,7 @@ fi
 # Run emulator
 echo -e "${COLOR_BLUE}[3/3] Running...${COLOR_RESET}"
 echo -e "${COLOR_BLUE}────────────────────────────────${COLOR_RESET}"
-a1m-emu "$BIN_FILE"
+"$EMU_BIN" "$BIN_FILE"
 echo -e "${COLOR_BLUE}────────────────────────────────${COLOR_RESET}"
 
 # Clean up intermediate files if requested

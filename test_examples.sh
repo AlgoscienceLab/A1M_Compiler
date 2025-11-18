@@ -8,6 +8,7 @@ echo ""
 examples=(
     "countdown"
     "sum_range"
+    "main"
 )
 
 for example in "${examples[@]}"; do
@@ -23,3 +24,15 @@ for example in "${examples[@]}"; do
     fi
     echo ""
 done
+
+# Also run top-level example (main.algo) for integration testing
+echo "--- main ---"
+./compiler/algo-compiler main.algo -o main.asm
+if [ $? -eq 0 ]; then
+    ./assembler/a1m-asm main.asm -o main.bin
+    if [ $? -eq 0 ]; then
+        echo "Output:"
+        ./emulator/a1m-emu main.bin
+        echo ""
+    fi
+fi

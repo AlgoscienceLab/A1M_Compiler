@@ -83,8 +83,8 @@ typedef struct {
     uint8_t rd;
     uint8_t rs1;
     uint8_t rs2;
-    int16_t immediate;
-    int32_t jump_addr;
+    int32_t immediate;  // now 24-bit immediate (stored in 32-bit)
+    int64_t jump_addr;  // J-type may contain wide offsets
 } Instruction;
 
 // CPU state
@@ -108,7 +108,7 @@ void cpu_step(CPU *cpu);
 void cpu_run(CPU *cpu);
 void cpu_dump_registers(CPU *cpu);
 void cpu_dump_memory(CPU *cpu, uint64_t start, uint64_t length);
-Instruction cpu_decode(uint32_t instruction);
+Instruction cpu_decode(uint64_t instruction);
 void cpu_execute(CPU *cpu, Instruction inst);
 
 // Helper functions

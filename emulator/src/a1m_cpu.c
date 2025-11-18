@@ -156,14 +156,15 @@ void cpu_write_memory_8(CPU *cpu, uint64_t addr, uint8_t value) {
 }
 
 // Decode instruction
-Instruction cpu_decode(uint32_t instruction) {
+Instruction cpu_decode(uint64_t instruction) {
     Instruction inst;
-    inst.opcode = (instruction >> 24) & 0xFF;
-    inst.rd = (instruction >> 19) & 0x1F;
-    inst.rs1 = (instruction >> 14) & 0x1F;
-    inst.rs2 = (instruction >> 9) & 0x1F;
-    inst.immediate = instruction & 0x3FFF;  // 14-bit immediate
-    inst.jump_addr = instruction & 0xFFFFFF; // 24-bit jump address
+    // Instruction layout (64-bit): [opcode:8][rd:8][rs1:8][rs2:8][imm:24]
+    inst.opcode = (instruction >> 56) & 0xFF;
+    inst.rd = (instruction >> 40) & 0xFF;
+    inst.rs1 = (instruction >> 24) & 0xFF;
+    inst.rs2 = (instruction >> 8) & 0xFF;
+    inst.immediate = (int32_t)(instruction & 0xFFFFFF);  // 24-bit immediate
+    inst.jump_addr = (int64_t)(instruction & 0xFFFFFF);  // use low 24 bits for jump offsets
     return inst;
 }
 
@@ -233,7 +234,7 @@ void cpu_execute(CPU *cpu, Instruction inst) {
             break;
             
         case OP_ADDI:
-            result = cpu->registers[inst.rs1] + sign_extend_14(inst.immediate);
+            result = cpu->registers[inst.rs1] + sign_extend_24(inst.immediate);
             cpu->registers[inst.rd] = result;
             cpu_update_flags(cpu, result, false, false);
             break;
@@ -245,7 +246,7 @@ void cpu_execute(CPU *cpu, Instruction inst) {
             break;
             
         case OP_SUBI:
-            result = cpu->registers[inst.rs1] - sign_extend_14(inst.immediate);
+            result = cpu->registers[inst.rs1] - sign_extend_24(inst.immediate);
             cpu->registers[inst.rd] = result;
             cpu_update_flags(cpu, result, false, false);
             break;
@@ -257,7 +258,7 @@ void cpu_execute(CPU *cpu, Instruction inst) {
             break;
             
         case OP_MULI:
-            result = cpu->registers[inst.rs1] * sign_extend_14(inst.immediate);
+            result = cpu->registers[inst.rs1] * sign_extend_24(inst.immediate);
             cpu->registers[inst.rd] = result;
             cpu_update_flags(cpu, result, false, false);
             break;
@@ -269,21 +270,29 @@ void cpu_execute(CPU *cpu, Instruction inst) {
                 result = signed_a / signed_b;
                 cpu->registers[inst.rd] = result;
             } else {
-                fprintf(stderr, "Error: Division by zero at PC=0x%016llx\n", 
-                       (unsigned long long)cpu->pc);
-                cpu->registers[inst.rd] = 0;
+        fprintf(stderr, "Error: Division by zero at PC=0x%016llx\n",
+            (unsigned long long)cpu->pc);
+        // Print diagnostic registers to help debug why denominator is zero
+        fprintf(stderr, "[DEBUG] R%u=%llu  R%u=%llu\n",
+            (unsigned int)inst.rs1, (unsigned long long)cpu->registers[inst.rs1],
+            (unsigned int)inst.rs2, (unsigned long long)cpu->registers[inst.rs2]);
+        // Halt the CPU to prevent repeated error messages and infinite loops
+        cpu->halted = true;
+        cpu->registers[inst.rd] = 0;
             }
             break;
             
         case OP_DIVI:
             if (inst.immediate != 0) {
                 signed_a = (int64_t)cpu->registers[inst.rs1];
-                signed_b = sign_extend_14(inst.immediate);
+                signed_b = sign_extend_24(inst.immediate);
                 result = signed_a / signed_b;
                 cpu->registers[inst.rd] = result;
             } else {
-                fprintf(stderr, "Error: Division by zero at PC=0x%016llx\n", 
-                       (unsigned long long)cpu->pc);
+                fprintf(stderr, "Error: Division by zero at PC=0x%016llx\n",
+                        (unsigned long long)cpu->pc);
+                fprintf(stderr, "[DEBUG] Divisor immediate was 0 (MOVI value?). Halting.\n");
+                cpu->halted = true;
                 cpu->registers[inst.rd] = 0;
             }
             break;
@@ -306,7 +315,7 @@ void cpu_execute(CPU *cpu, Instruction inst) {
             break;
             
         case OP_ANDI:
-            result = cpu->registers[inst.rs1] & sign_extend_14(inst.immediate);
+            result = cpu->registers[inst.rs1] & sign_extend_24(inst.immediate);
             cpu->registers[inst.rd] = result;
             cpu_update_flags(cpu, result, false, false);
             break;
@@ -318,7 +327,7 @@ void cpu_execute(CPU *cpu, Instruction inst) {
             break;
             
         case OP_ORI:
-            result = cpu->registers[inst.rs1] | sign_extend_14(inst.immediate);
+            result = cpu->registers[inst.rs1] | sign_extend_24(inst.immediate);
             cpu->registers[inst.rd] = result;
             cpu_update_flags(cpu, result, false, false);
             break;
@@ -330,7 +339,7 @@ void cpu_execute(CPU *cpu, Instruction inst) {
             break;
             
         case OP_XORI:
-            result = cpu->registers[inst.rs1] ^ sign_extend_14(inst.immediate);
+            result = cpu->registers[inst.rs1] ^ sign_extend_24(inst.immediate);
             cpu->registers[inst.rd] = result;
             cpu_update_flags(cpu, result, false, false);
             break;
@@ -378,31 +387,31 @@ void cpu_execute(CPU *cpu, Instruction inst) {
             break;
             
         case OP_CMPI:
-            result = cpu->registers[inst.rs1] - sign_extend_14(inst.immediate);
+            result = cpu->registers[inst.rs1] - sign_extend_24(inst.immediate);
             cpu_update_flags(cpu, result, false, false);
             break;
             
         case OP_LOAD:
             result = cpu_read_memory_64(cpu, cpu->registers[inst.rs1] + 
-                                       sign_extend_14(inst.immediate));
+                                       sign_extend_24(inst.immediate));
             cpu->registers[inst.rd] = result;
             break;
             
         case OP_STORE:
             cpu_write_memory_64(cpu, cpu->registers[inst.rs1] + 
-                               sign_extend_14(inst.immediate),
+                               sign_extend_24(inst.immediate),
                                cpu->registers[inst.rd]);
             break;
             
         case OP_LOADB:
             result = cpu_read_memory_8(cpu, cpu->registers[inst.rs1] + 
-                                      sign_extend_14(inst.immediate));
+                                      sign_extend_24(inst.immediate));
             cpu->registers[inst.rd] = result;
             break;
             
         case OP_STOREB:
             cpu_write_memory_8(cpu, cpu->registers[inst.rs1] + 
-                              sign_extend_14(inst.immediate),
+                              sign_extend_24(inst.immediate),
                               cpu->registers[inst.rd] & 0xFF);
             break;
             
@@ -417,40 +426,43 @@ void cpu_execute(CPU *cpu, Instruction inst) {
             break;
             
         case OP_JMP:
-            cpu->pc += (sign_extend_24(inst.jump_addr) << 2);
+            cpu->pc += (sign_extend_24((int32_t)inst.jump_addr) << 3);
             return;  // Don't increment PC
             
         case OP_JZ:
             if (cpu->flags & FLAG_ZERO) {
-                cpu->pc += (sign_extend_24(inst.jump_addr) << 2);
+                cpu->pc += (sign_extend_24((int32_t)inst.jump_addr) << 3);
                 return;
             }
             break;
             
         case OP_JNZ:
             if (!(cpu->flags & FLAG_ZERO)) {
-                cpu->pc += (sign_extend_24(inst.jump_addr) << 2);
+                cpu->pc += (sign_extend_24((int32_t)inst.jump_addr) << 3);
                 return;
             }
             break;
             
         case OP_JC:
             if (cpu->flags & FLAG_CARRY) {
-                cpu->pc += (sign_extend_24(inst.jump_addr) << 2);
+                cpu->pc += (sign_extend_24((int32_t)inst.jump_addr) << 3);
                 return;
             }
             break;
             
         case OP_JN:
             if (cpu->flags & FLAG_NEGATIVE) {
-                cpu->pc += (sign_extend_24(inst.jump_addr) << 2);
+                cpu->pc += (sign_extend_24((int32_t)inst.jump_addr) << 3);
                 return;
             }
             break;
             
         case OP_CALL:
-            cpu->registers[31] = cpu->pc + 4;
-            cpu->pc += (sign_extend_24(inst.jump_addr) << 2);
+            // Return address should be the next instruction after CALL.
+            // Instruction width is 8 bytes (64-bit instructions), so set return
+            // address to pc + 8 (not pc + 4 which was a leftover from 32-bit implementation).
+            cpu->registers[31] = cpu->pc + 8;
+            cpu->pc += (sign_extend_24((int32_t)inst.jump_addr) << 3);
             return;
             
         case OP_RET:
@@ -466,7 +478,8 @@ void cpu_execute(CPU *cpu, Instruction inst) {
             break;
             
         case OP_MOVI:
-            cpu->registers[inst.rd] = sign_extend_14(inst.immediate);
+            // MOVI uses 14-bit signed immediate
+            cpu->registers[inst.rd] = sign_extend_14((int16_t)(inst.immediate & 0x3FFF));
             break;
             
         case OP_LUI:
@@ -481,10 +494,16 @@ void cpu_execute(CPU *cpu, Instruction inst) {
                     break;
                 case 0x01:  // print_int
                     printf("%lld", (long long)cpu->registers[1]);
+                    if (cpu->debug_mode) {
+                        fprintf(stderr, "[DEBUG] Syscall print_int: %lld\n", (long long)cpu->registers[1]);
+                    }
                     fflush(stdout);
                     break;
                 case 0x02:  // print_char
                     printf("%c", (char)cpu->registers[1]);
+                    if (cpu->debug_mode) {
+                        fprintf(stderr, "[DEBUG] Syscall print_char: %d ('%c')\n", (int)cpu->registers[1], (char)cpu->registers[1]);
+                    }
                     fflush(stdout);
                     break;
                 case 0x03:  // read_int
@@ -504,6 +523,9 @@ void cpu_execute(CPU *cpu, Instruction inst) {
                                 str_addr++;
                             }
                             fflush(stdout);
+                            if (cpu->debug_mode) {
+                                fprintf(stderr, "[DEBUG] Syscall print_string at addr=0x%llx\n", (unsigned long long)cpu->registers[1]);
+                            }
                         }
                     }
                     break;
@@ -520,6 +542,10 @@ void cpu_execute(CPU *cpu, Instruction inst) {
                         }
                         
                         printf("%lld.%03lld", (long long)integer_part, (long long)decimal_part);
+                        if (cpu->debug_mode) {
+                            fprintf(stderr, "[DEBUG] Syscall print_float: scaled=%lld, int=%lld, frac=%lld\n",
+                                    (long long)scaled_value, (long long)integer_part, (long long)decimal_part);
+                        }
                         fflush(stdout);
                     }
                     break;
@@ -535,7 +561,7 @@ void cpu_execute(CPU *cpu, Instruction inst) {
             break;
     }
     
-    cpu->pc += 4;  // Move to next instruction
+    cpu->pc += 8;  // Move to next 64-bit instruction
 }
 
 // Execute one instruction
@@ -544,12 +570,12 @@ void cpu_step(CPU *cpu) {
         return;
     }
     
-    uint32_t instruction = cpu_read_memory_32(cpu, cpu->pc);
+    uint64_t instruction = cpu_read_memory_64(cpu, cpu->pc);
     Instruction inst = cpu_decode(instruction);
     
     if (cpu->debug_mode) {
-        printf("PC=0x%016llx  Inst=0x%08x  OP=0x%02x\n", 
-               (unsigned long long)cpu->pc, instruction, inst.opcode);
+        printf("PC=0x%016llx  Inst=0x%016llx  OP=0x%02x\n", 
+               (unsigned long long)cpu->pc, (unsigned long long)instruction, inst.opcode);
     }
     
     cpu_execute(cpu, inst);
@@ -558,15 +584,24 @@ void cpu_step(CPU *cpu) {
 
 // Run CPU until halt
 void cpu_run(CPU *cpu) {
+    uint64_t instr_limit = 0;
+    // Optional instruction execution limit to detect infinite loops.
+    // Set env var CPU_INSTR_LIMIT to a positive integer to enable.
+    const char *env_limit = getenv("CPU_INSTR_LIMIT");
+    if (env_limit) {
+        instr_limit = strtoull(env_limit, NULL, 10);
+    }
+
     while (!cpu->halted) {
         cpu_step(cpu);
         
-        // Safety limit disabled for full 64-bit program support
+    // Safety limit: stop if CPU_INSTR_LIMIT specified and exceeded.
         // Uncomment to enable a safety limit:
-        // if (cpu->instruction_count > 10000000000ULL) {
-        //     fprintf(stderr, "Warning: Execution limit reached (10 billion instructions)\n");
-        //     break;
-        // }
+    if (instr_limit > 0 && cpu->instruction_count > instr_limit) {
+        fprintf(stderr, "Error: CPU instruction limit reached (%llu) — possible infinite loop.\n",
+            (unsigned long long)instr_limit);
+        break;
+    }
     }
     
     if (cpu->debug_mode) {

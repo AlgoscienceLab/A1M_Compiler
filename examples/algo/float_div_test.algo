@@ -3,8 +3,8 @@
 } 
 
 func main() -> void {
-    let a:double = 1251.5;
-    let b:double= 21.3;
+    let a:double = 105.5;
+    let b:double= 2.3;
     let c:double= div(a, b);
     print(c);
     print("\n");

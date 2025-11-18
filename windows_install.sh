@@ -144,6 +144,35 @@ fi
 # Ensure installation directory exists
 mkdir -p "${INSTALL_DIR}"
 
+# Select a temporary directory with free space to avoid /tmp overflow errors
+choose_tmpdir() {
+    local candidates=("/var/tmp" "/tmp" "$SCRIPT_DIR/tmp" "$HOME/tmp" "/home/$ACTUAL_USER/tmp")
+    for d in "${candidates[@]}"; do
+        if mkdir -p "$d" 2>/dev/null; then
+            # Obtain available kilobytes (portable across most Linux distros)
+            avail_kb=$(df -k --output=avail "$d" 2>/dev/null | tail -n1 || df -k "$d" | awk 'NR==2{print $4}')
+            avail_kb=${avail_kb:-0}
+            # Require at least 100MB free for safe compilation
+            if [ "$avail_kb" -ge 102400 ]; then
+                echo "$d"
+                return 0
+            fi
+        fi
+    done
+    # If none have 100MB, fallback to /var/tmp (still likely usable)
+    if mkdir -p "/var/tmp" 2>/dev/null; then
+        echo "/var/tmp"
+        return 0
+    fi
+    # Last resort: use /tmp
+    echo "/tmp"
+    return 0
+}
+
+TMPDIR_SELECTED=$(choose_tmpdir)
+export TMPDIR="$TMPDIR_SELECTED"
+echo -e "${COLOR_YELLOW}Using temporary build directory: ${TMPDIR}${COLOR_RESET}"
+
 # Build and install each component
 echo -e "${COLOR_GREEN}[1/4] Building and Installing Compiler...${COLOR_RESET}"
 cd "${SCRIPT_DIR}/compiler"

@@ -63,6 +63,11 @@ int main(int argc, char *argv[]) {
     }
     
     cpu->debug_mode = debug_mode;
+
+    // Disable stdout buffering so emulator prints appear immediately in terminals
+    // This helps avoid missing output on some Linux terminals when the program
+    // exits immediately after printing.
+    setbuf(stdout, NULL);
     
     // Only show startup info in debug mode
     if (debug_mode) {
